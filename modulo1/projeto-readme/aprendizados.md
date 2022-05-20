@@ -6,3 +6,5 @@ Além disso, aprendi de forma bem didática sobre o git e sua importância para 
 Na oficina de empregabilidade, refletimos sobre o trabalho em equipe e a necessidade de saber ouvir para conseguir bons resultados em projetos coletivos.
 <br>
 Essa semana foi de muitas descobertas e práticas para implementar esses novos conhecimentos. Amei cada segundo vivenciado com a turma e instrutores.
+
+Excelente semana!
