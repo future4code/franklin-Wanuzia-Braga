@@ -1,22 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import NomeRemetenteInput from './NomeRemetenteInput';
 import MensagemInput from './MensagemInput'
-import EnviarButton from './EnviarButton';
 
-const InputDiv= styled.div`
+const InputDiv = styled.div`
 display: flex;
 flex-direction: row;
 `;
+const NomeRemetenteInput = styled.input`
+width: 100px;
+`;
 
-function InputArea() {
+const ButtonEnviar = styled.button`
+color: green;
+font-weight: bold;
+border-radius: 2xp;
+`;
+
+export default function InputArea() {
+  const [nameValue, setNameValue] = useState('');
+  const onChangeName = (event) => {
+    setNameValue(event.target.value)
+  }
+
+  const onClickButtonEnviar = () => {
+    alert(nameValue)
+  }
   return (
-      <InputDiv>
-        <NomeRemetenteInput />
-        <MensagemInput />
-        <EnviarButton />
-      </InputDiv>
-  );
-}
-
-export default InputArea;
+    <InputDiv>
+      <NomeRemetenteInput
+        placeholder="Usuário"
+        type="text"
+        value={nameValue}
+        onChange={onChangeName}
+      />
+      <MensagemInput />
+      <ButtonEnviar onClick={onClickButtonEnviar}>Enviar</ButtonEnviar>
+    </InputDiv>
+  )
+};
