@@ -21,10 +21,12 @@ export default function InputArea() {
   const onChangeName = (event) => {
     setNameValue(event.target.value)
   }
-
-  const onClickButtonEnviar = () => {
-    alert(nameValue)
-  }
+  const ImprimeNome = (onChangeName) =>{
+    onChangeName.preventDefault();
+    alert('nome de usuário:', nameValue);
+    setNameValue("");
+    }
+ 
   return (
     <InputDiv>
       <NomeRemetenteInput
@@ -34,7 +36,7 @@ export default function InputArea() {
         onChange={onChangeName}
       />
       <MensagemInput />
-      <ButtonEnviar onClick={onClickButtonEnviar}>Enviar</ButtonEnviar>
+      <ButtonEnviar onClick={ImprimeNome}>Enviar</ButtonEnviar>
     </InputDiv>
   )
 };

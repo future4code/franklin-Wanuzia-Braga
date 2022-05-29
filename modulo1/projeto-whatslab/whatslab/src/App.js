@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import InputArea from './components/InputArea';
 
 const ChatArea = styled.div`
-margin-top: 30px;
-width: 600px;
+margin-top: 0.5em;
+margin-bottom: 1em;
 background: lightgray;
 border: solid 2px black;
 `;
@@ -19,7 +19,7 @@ function App() {
   return (
     <div className="chat-area-container" >
       <ChatArea >
-        <MessagesChatArea />
+        <MessagesChatArea/>
         <InputArea />
       </ChatArea>
     </div>
