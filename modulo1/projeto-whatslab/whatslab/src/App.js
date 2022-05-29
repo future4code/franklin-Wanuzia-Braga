@@ -3,15 +3,15 @@ import styled from 'styled-components';
 import InputArea from './components/InputArea';
 
 const ChatArea = styled.div`
+margin-top: 30px;
 width: 600px;
-height: 600px;
 background: lightgray;
 border: solid 2px black;
 `;
 
 const MessagesChatArea = styled.div`
 box-sizing: border-box;
-padding: 48%;
+padding: 50%;
 justify-content: flex-end;
 `;
 
