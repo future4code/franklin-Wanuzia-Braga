@@ -41,6 +41,12 @@ const UserPhoto = styled.img`
 const PostPhoto = styled.img`
   width: 100%;
 `
+const NovaDiv = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+
+`
 //o que o state está fazendo aqui? Quando ele é atualizado e quem chama seu valor atualizado?
 function Post(props){
   const [state, setState] = useState({
@@ -124,7 +130,7 @@ function Post(props){
           onClickIcone={onClickCurtida}
           valorContador={numeroCurtidas}
         />
-
+      <NovaDiv>
         <IconeComContador
           icone={iconeComentario}
           onClickIcone={onClickComentario}
@@ -135,6 +141,7 @@ function Post(props){
           icone={iconeMarcacao}
           onClickIcone={onClickSalvo}
         />
+        </NovaDiv>
       </PostFooter>
       {componenteComentario}
     </PostContainer>
