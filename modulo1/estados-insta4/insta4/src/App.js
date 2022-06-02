@@ -48,7 +48,7 @@ function App() {
     {
       nomeUsuario: 'biel',
       fotoUsuario: 'https://picsum.photos/200/300',
-      fotoPost: 'https://picsum.photos/200/170'
+      fotoPost: 'https://picsum.photos/200/190'
     },
     {
       nomeUsuario: 'carlota',
