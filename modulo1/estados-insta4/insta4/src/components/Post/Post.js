@@ -91,7 +91,6 @@ function Post(props){
     setNumeroComentarios(numeroComentarios + 1)
     setInputAtualizado(input)
     setInput('')
-    
   }
   console.log(input)
 
@@ -106,7 +105,7 @@ function Post(props){
     let componenteComentario
 
     if(comentando) {
-      componenteComentario = <SecaoComentario value = {input} onChangeComentario= {handleInput} aoEnviar={aoEnviarComentario}/>
+      componenteComentario = <SecaoComentario value = {input} texto={inputAtualizado} onChangeComentario= {handleInput} aoEnviar={aoEnviarComentario}/>
     }
     let iconeMarcacao
     if(salvo) {

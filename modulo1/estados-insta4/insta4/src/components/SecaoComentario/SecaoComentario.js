@@ -14,6 +14,7 @@ const InputComentario = styled.input`
 export function SecaoComentario(props) {
 	return (
 		<CommentContainer>
+			<p>{props.texto}</p>
 			<InputComentario
 				placeholder={'Comentário'}
 				value={props.value}
