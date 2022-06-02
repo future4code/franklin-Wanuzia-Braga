@@ -61,8 +61,9 @@ function Post(props){
   const [comentando, setComentando] = useState(false)
   const [numeroComentarios, setNumeroComentarios] = useState(0)
   const [input, setInput] = useState('')
-  const [inputAtualizado, setInputAtualizado] = useState('')
   const [salvo, setSalvo] = useState(false)
+  const [comentário, setComentário] = useState([])
+  
 
   const onClickCurtida = () => {
     setCurtido(!curtido)
@@ -78,6 +79,19 @@ function Post(props){
   const handleInput = (event) => {
     setInput(event.target.value)
   }
+  const inserirComentário = () => {
+    const novoComentário = [input];
+       const novaListaDeComentários = [novoComentário,...comentário]
+    setComentário(novaListaDeComentários);
+   setInput('');
+  }
+
+  const listaComentários = comentário.map((comment) =>{
+    return(
+     <p>{comment}</p>
+    );  
+  });
+
   const onClickComentario = () => {
     setComentando(!comentando)
     if(comentando) {
@@ -89,10 +103,9 @@ function Post(props){
   const aoEnviarComentario = () => {
     setComentando(false)
     setNumeroComentarios(numeroComentarios + 1)
-    setInputAtualizado(input)
     setInput('')
+    inserirComentário(listaComentários)
   }
-  console.log(input)
 
   let iconeCurtida
 
@@ -105,7 +118,7 @@ function Post(props){
     let componenteComentario
 
     if(comentando) {
-      componenteComentario = <SecaoComentario value = {input} texto={inputAtualizado} onChangeComentario= {handleInput} aoEnviar={aoEnviarComentario}/>
+      componenteComentario = <SecaoComentario value = {input} texto={listaComentários}onChangeComentario= {handleInput} aoEnviar={aoEnviarComentario}/>
     }
     let iconeMarcacao
     if(salvo) {
@@ -115,13 +128,13 @@ function Post(props){
     } 
 
   return(
-    <PostContainer>
-      <PostHeader>
-        <UserPhoto src={props.fotoUsuario} alt={'Imagem do usuario'}/>
-        <p>{props.nomeUsuario}</p>
-      </PostHeader>
+      <PostContainer>
+        <PostHeader>
+          <UserPhoto src={props.fotoUsuario} alt={'Imagem do usuario'}/>
+          <p>{props.nomeUsuario}</p>
+        </PostHeader>
 
-      <PostPhoto src={props.fotoPost} alt={'Imagem do post'}/>
+        <PostPhoto src={props.fotoPost} alt={'Imagem do post'}/>
 
       <PostFooter>
         <IconeComContador
@@ -143,6 +156,7 @@ function Post(props){
         </NovaDiv>
       </PostFooter>
       {componenteComentario}
+      
     </PostContainer>
   )
 }
