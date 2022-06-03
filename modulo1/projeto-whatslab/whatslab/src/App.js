@@ -1,29 +1,31 @@
-import './App.css';
 import styled from 'styled-components';
 import InputArea from './components/InputArea';
 
+const ChatAreaContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  `;
+
 const ChatArea = styled.div`
+display: flex;
 margin-top: 0.5em;
 margin-bottom: 1em;
-background: lightgray;
 border: solid 2px black;
+min-height: 90vh;
+border-radius: 10px;
+width: 40%;
+
 `;
 
-const MessagesChatArea = styled.div`
-box-sizing: border-box;
-padding: 50%;
-justify-content: flex-end;
-`;
 
 function App() {
   return (
-    <div className="chat-area-container" >
+    <ChatAreaContainer >
       <ChatArea >
-        <MessagesChatArea/>
-        <InputArea />
+      <InputArea />
       </ChatArea>
-    </div>
-  );
+    </ChatAreaContainer>
+  )
 }
 
 export default App;
