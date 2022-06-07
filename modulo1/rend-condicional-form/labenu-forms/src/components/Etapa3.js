@@ -19,14 +19,27 @@ width: 250px;
 align-self: center;
 padding: 10px;
 `
-
+const Select = styled.select`
+align-self: center;
+padding: 10px;
+width: 250px;
+`
+const Opções = styled.option`
+font-size: 30px;
+padding: 10px;
+`
 function Etapa3() {
 
     return (
         <EtapaContainer>
          <SectionTitle> ETAPA 3 - INFORMAÇÕES GERAIS DE ENSINO </SectionTitle>
         <Label>5. Por que você não terminou um curso de graduação?</Label><InputSpace/>
-        <Label>6. Você fez algum curso complementar?</Label><InputSpace/>
+        <Label>6. Você fez algum curso complementar?</Label>
+        <Select>
+                <Opções> Nenhum </Opções>
+                <Opções>  Curso técnico  </Opções>
+                <Opções>  Curso de inglês  </Opções>
+        </Select>
        
         </EtapaContainer>
      )
