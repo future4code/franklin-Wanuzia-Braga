@@ -1,7 +1,9 @@
 import React from "react";
 import styled from 'styled-components';
+import PerguntaFechada from "./perguntas/PerguntasFechadas";
+import PerguntaAberta from "./perguntas/PerguntasAbertas";
 
-const EtapaContainer = styled.div`
+const SectionContainer = styled.div`
 display: flex;
 flex-direction: column;
 justify-content: center;
@@ -10,39 +12,24 @@ padding: 50px;
 const SectionTitle = styled.h2`
 font-size:30px;
 `
-const Label = styled.p`
-font-weight: 500;
-font-size: 25px;
-`
-const InputSpace = styled.input`
-width: 250px;
-align-self: center;
-padding: 10px;
-`
-const Select = styled.select`
-align-self: center;
-padding: 10px;
-width: 250px;
-`
-const Opções = styled.option`
-font-size: 30px;
-padding: 10px;
-`
+
 function Etapa3() {
 
     return (
-        <EtapaContainer>
+        <SectionContainer>
          <SectionTitle> ETAPA 3 - INFORMAÇÕES GERAIS DE ENSINO </SectionTitle>
-        <Label>5. Por que você não terminou um curso de graduação?</Label><InputSpace/>
-        <Label>6. Você fez algum curso complementar?</Label>
-        <Select>
-                <Opções> Nenhum </Opções>
-                <Opções>  Curso técnico  </Opções>
-                <Opções>  Curso de inglês  </Opções>
-        </Select>
+         <PerguntaAberta pergunta={'5. Por que você não terminou um curso de graduação?'} />
+         <PerguntaAberta pergunta={'6. Você fez algum curso complementar?'}/>
+        <PerguntaFechada
+        opções={[
+               'Nenhum',               
+               'Curso técnico',
+               'Curso de inglês'
+        ]}
+        />
        
-        </EtapaContainer>
-     )
+        </SectionContainer>
+     );
   }
   
   export default Etapa3;

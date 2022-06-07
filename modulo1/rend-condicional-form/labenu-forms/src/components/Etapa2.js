@@ -1,7 +1,8 @@
 import React from "react";
 import styled from 'styled-components';
+import PerguntaAberta from "./perguntas/PerguntasAbertas";
 
-const EtapaContainer = styled.div`
+const SectionContainer = styled.div`
 display: flex;
 flex-direction: column;
 justify-content: center;
@@ -10,26 +11,16 @@ padding: 50px;
 const SectionTitle = styled.h2`
 font-size:30px;
 `
-const Label = styled.p`
-font-weight: 500;
-font-size: 25px;
-`
-const InputSpace = styled.input`
-width: 250px;
-align-self: center;
-padding: 10px;
-`
 
 function Etapa2() {
 
     return (
-        <EtapaContainer>
+        <SectionContainer>
          <SectionTitle> ETAPA 2 - INFORMAÇÕES DO ENSINO SUPERIOR </SectionTitle>
-        <Label>5. Qual curso?</Label><InputSpace/>
-        <Label>6. Qual a unidade de ensino?</Label><InputSpace/>
-       
-        </EtapaContainer>
-     )
+         <PerguntaAberta pergunta={'5. Qual curso?'} />
+         <PerguntaAberta pergunta={'6. Qual a unidade de ensino'}/>
+        </SectionContainer>
+     );
   }
   
   export default Etapa2;
