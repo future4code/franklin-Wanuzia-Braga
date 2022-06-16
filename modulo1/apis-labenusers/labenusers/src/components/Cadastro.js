@@ -21,8 +21,8 @@ const Cadastro = () => {
                 setInputName('')
                 setInputEmail('');
             })
-            .catch((error) => {
-                alert(error.message);
+            .catch(() => {
+                alert('Erro ao criar usuário');
             });
     };
 
@@ -36,8 +36,8 @@ const Cadastro = () => {
     return (
         <div>
             <h1>Cadastro</h1>
-            <input value={inputName} onChange={onChangeInputName} />
-            <input value={inputEmail} onChange={onChangeInputEmail} />
+            <input value={inputName} onChange={onChangeInputName} placeholder='nome'/>
+            <input value={inputEmail} onChange={onChangeInputEmail} placeholder='email'/>
             <button onClick={criaUsuario} value='cadastro'>Criar Usuário</button> 
         </div>
     )
