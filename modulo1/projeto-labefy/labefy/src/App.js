@@ -1,53 +1,32 @@
-import './App.css';
-import axios from 'axios';
-import React, {useState, useEffect} from 'react'
+import { useState } from "react";
+import styled from "styled-components";
+import Playlists from "./components/ListaPlaylists";
+import Músicas from './components/Musicas'
+
+const PlaylistContainer = styled.div`
+background-color: blueviolet;
+display: flex ;
+justify-content: center;
+`
 
 const App = () => {
-  const [playlists, setPlaylists] = useState([])
-  const [inputPlaylist, setInputPlaylist] = useState('')
-
-    const pegaPlaylist = () => {
-      axios.get('https://us-central1-labenu-apis.cloudfunctions.net/labefy/playlists', {
-        headers: {
-          Authorization: 'wanuzia-braga-franklin'
-        }
-      }).then((response) => {
-        console.log(response.data.result.list)
-        setPlaylists(response.data.result.list)
-      }).catch((error) => {
-        console.log(error.code)
-      })}
-const body = {
-  name: inputPlaylist
+  // const [pagina, setPagina] = useState(true)
+  // const trocaPagina = () => {
+  //   setPagina(!pagina)
+  // }
+  //  const renderPagina = () => {
+  //   // eslint-disable-next-line default-case
+  //   switch(pagina) {
+  //      case true:
+  //       return <Playlists />
+  //      case false:
+  //         return <Músicas />
+  //       }
+  //   }
+return(
+  <PlaylistContainer>
+    <Playlists />
+  </PlaylistContainer>
+)  
 }
-      const criaPlaylist = () =>{
-        axios.post('https://us-central1-labenu-apis.cloudfunctions.net/labefy/playlists', body, {
-          headers: {
-            Authorization: 'wanuzia-braga-franklin'  
-          }
-        }).then((response) =>{
-          console.log(response)
-          pegaPlaylist()
-        }).catch((error) =>{console.log(error)})
-      }
-      const handleInputNome = (e) =>{
-        setInputPlaylist(e.target.value)
-      }
-
-useEffect(pegaPlaylist, []);
-
-  return (
-    <div className="App">
-      <input value={inputPlaylist} onChange={handleInputNome}></input>
-      <button onClick={criaPlaylist}>Criar Playlist</button>
-       {playlists.map((playlist) => {
-         return (
-           <p key={playlist.id}>{playlist.name}</p>
-         )
-       })}
-       
-    </div>
-  );
-}
-
 export default App;
