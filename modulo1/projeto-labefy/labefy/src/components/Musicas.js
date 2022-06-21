@@ -6,7 +6,7 @@ display: flex;
 flex-direction: column;
 width: 200px;
 `
-const MúsicasdaPlaylist = () => {
+const MúsicasdaPlaylist = (props) => {
 
 
     return(
@@ -16,7 +16,7 @@ const MúsicasdaPlaylist = () => {
             <label>Artista</label><input />
             <label>URL</label><input />
             <button>Adicionar</button>
-            <button>Voltar para a lista</button>
+            <button onClick={props.aoClicar}>Voltar para a lista</button>
             
         </CardAdiconarMúsica>
     )
