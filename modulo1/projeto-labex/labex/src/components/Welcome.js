@@ -2,28 +2,31 @@ import React from "react";
 import styled from 'styled-components';
 
 const WelcomeDiv = styled.div`
+display: flex;
+flex-direction: column;
+align-items: center;
 background-color: #000000;
 width: 50%;
-padding: 30px;
 text-align: center;
 `
-const TítuloWelcome = styled.h1`
+const WelcomeTitle = styled.h1`
+display: flex;
 color: #5062f0;
-font-size: 8rem;
+font-size: 7rem;
 `
-const ParagrafoWelcome = styled.p`
+const WelcomeParagraph = styled.p`
 color: #e5ddd5;
-font-size: 2rem;
+font-size: 200%;
 `
 const HomeButton = styled.button`
 background-color: black;
 color: #5062f0;
-font-size: 3em;
+font-size: 300%;
 font-weight: bold;
 width: 30rem;
 height: 10rem;
 border-radius: 20%;
-margin-top: 4rem;
+margin-top: 5%;
 border: 5px solid #5062f0;
 &:hover{
     background-color: #5062f0;
@@ -37,29 +40,30 @@ padding: 2px;
 border-radius: 30%;
 font-size: 1.5rem;
 font-weight: bold;
-margin-left: 35rem;
 color: #f98882;
 border: 5px solid #f98882;
 background-color: black;
+align-self: flex-end;
+margin-top: 2%;
 &:hover{
     background-color: #f98882;
     color: #ffffff;
 }
 `
 
-export function Welcome() {
+export function Welcome(props) {
     
     return(
         
         <WelcomeDiv>
-            <LoginButton>Login</LoginButton>
-            <TítuloWelcome>
-                Welcome to LabeX
-            </TítuloWelcome>
-            <ParagrafoWelcome>
+            <LoginButton onClick={props.botaoLogin}>Login</LoginButton>
+            <WelcomeTitle>
+                Welcome <br/>to <br/>LabeX
+            </WelcomeTitle>
+            <WelcomeParagraph>
             Encontre as melhores viagens espaciais!
-            </ParagrafoWelcome>  
-            <HomeButton>
+            </WelcomeParagraph>  
+            <HomeButton onClick={props.aoClicar}>
                 Comece sua Jornada
             </HomeButton>          
         </WelcomeDiv>
