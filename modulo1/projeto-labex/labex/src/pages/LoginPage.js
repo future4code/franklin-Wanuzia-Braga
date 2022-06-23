@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { BackgroundHome } from '../components/BackgroundHome';
 import { LoginForm } from "../components/LoginForm";
-import { goToLastPage } from "../routes/coordinator";
+import { goToAdminTripsList } from "../routes/coordinator";
 
 const LoginContainer = styled.div`
 display: flex;
@@ -17,7 +17,7 @@ export const LoginPage = () =>{
             <LoginContainer>
                 <BackgroundHome />
                 <LoginForm 
-                botaoVoltar ={() => goToLastPage(navigate)}
+                botaoLogar={() => goToAdminTripsList(navigate)}
                 />
             </LoginContainer>
         )

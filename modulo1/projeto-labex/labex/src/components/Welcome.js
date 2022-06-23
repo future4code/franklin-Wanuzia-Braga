@@ -8,11 +8,12 @@ align-items: center;
 background-color: #000000;
 width: 50%;
 text-align: center;
+padding: 2rem;
 `
 const WelcomeTitle = styled.h1`
 display: flex;
 color: #5062f0;
-font-size: 7rem;
+font-size: 600%;
 `
 const WelcomeParagraph = styled.p`
 color: #e5ddd5;
@@ -20,17 +21,17 @@ font-size: 200%;
 `
 const HomeButton = styled.button`
 background-color: black;
-color: #5062f0;
+color: #ffffff;
 font-size: 300%;
 font-weight: bold;
 width: 30rem;
-height: 10rem;
 border-radius: 20%;
-margin-top: 5%;
+margin-top: 4%;
 border: 5px solid #5062f0;
 &:hover{
     background-color: #5062f0;
     color: #ffffff;
+    cursor: pointer;
 }
 `
 const LoginButton= styled.button`
@@ -48,6 +49,7 @@ margin-top: 2%;
 &:hover{
     background-color: #f98882;
     color: #ffffff;
+    cursor: pointer;
 }
 `
 

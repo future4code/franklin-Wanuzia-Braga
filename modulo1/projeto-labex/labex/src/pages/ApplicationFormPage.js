@@ -1,7 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { goToLastPage } from "../routes/coordinator";
 
-export const ApplicationFormPage = () =>{
+
+export const ApplicationFormPage = () => {
+    const navigate = useNavigate()
     return (
-        <h1>Formulario de inscrição</h1>
+        <div>
+            <button onClick={() => goToLastPage(navigate)}>Voltar</button>
+
+            <h1>Formulario de inscrição</h1>
+        </div>
     )
-    }
+}
