@@ -30,7 +30,6 @@ margin-top: 4%;
 border: 5px solid #5062f0;
 &:hover{
     background-color: #5062f0;
-    color: #ffffff;
     cursor: pointer;
 }
 `

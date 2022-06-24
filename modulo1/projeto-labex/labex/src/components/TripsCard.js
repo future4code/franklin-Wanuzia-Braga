@@ -3,24 +3,28 @@ import styled from "styled-components";
 
 const CardContainer = styled.div`
 `
-
 const Card = styled.div`
-display: flex;
-flex-direction: column;
-width: 400px;
-height: 300px;
+width: 500px;
 background-color: black;
 border: 2px solid pink;
-line-height: 12px;
-padding: 3px;
+line-height: 10px;
+padding: 8px;
+margin: 5px;
+:hover{
+    transform: translateY(-5px);
+    border-left: 5px solid #5062f0;
+}
 `
 const Span = styled.span`
 color: orange;
 font-weight: bold;
+font-size: 18px;
 `
 const Prop = styled.p`
 color: white;
-line-height: 15px;
+line-height: 25px;
+font-size: 18px;
+font-weight: bold;
 
 `
 
@@ -31,7 +35,7 @@ export const TripsCard = (props) => {
                 <Span>Nome:</Span><Prop>{props.name}</Prop>
                 <Span>Descrição:</Span><Prop>{props.description}</Prop>
                 <Span>Planeta:</Span><Prop>{props.planet}</Prop>
-                <Span>Duração:</Span><Prop>{props.duration}</Prop>
+                <Span>Duração:</Span><Prop>{props.duration} dias.</Prop>
                 <Span>Data:</Span><Prop>{props.date}</Prop>
             </Card>
         </CardContainer>
