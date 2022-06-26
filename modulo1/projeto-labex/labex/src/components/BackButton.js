@@ -12,7 +12,7 @@ font-size: 1.5rem;
 font-weight: bold;
 color: #f98882;
 border: 5px solid #f98882;
-background-color: black;
+
 align-self: flex-start;
 margin-top: 2%;
 &:hover{        

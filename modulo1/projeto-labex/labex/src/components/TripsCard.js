@@ -5,7 +5,7 @@ const CardContainer = styled.div`
 `
 const Card = styled.div`
 width: 500px;
-background-color: black;
+background-color: #231e3e;
 border: 2px solid pink;
 line-height: 10px;
 padding: 8px;

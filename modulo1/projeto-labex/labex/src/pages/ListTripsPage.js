@@ -11,14 +11,12 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
-background-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/fs/77782a80407805.5f58d09681607.jpg');
-background-attachment: fixed;
+background-color: #f1b891;
 text-align: center;
 `
 const Cabecalho = styled.div`
 display: flex;
 flex-direction: row;
-background-color: black;
 width: 100rem;
 align-items: center;
 justify-content: space-between;
@@ -30,24 +28,24 @@ margin: 1%;
 width: 300px;
 height: 50px;
 border: none;
-background-color: black;
 font-size: 400%;
 font-weight: bold;
+background-color: #f1b891;
 `
 const Inscrever = styled.button`
 align-self: center;
-color: white;
+color: black;
 margin-left: 20px;
 width: 50%;
 height: 50px;
-border: 5px solid #5062f0;
 font-size: 200%;
 font-weight: bold;
 margin-left: 5%;
-background-color: black;
+background-color: #f1b891;
 &:hover{
-    background-color: #5062f0;
-    color: #ffffff;
+    background-color: #231e3e;
+    color: orange;
+    ;
     cursor: pointer;
 }
 `
@@ -65,7 +63,7 @@ background-color: #231e3e;
 border-radius: 30%;
 `
 const P = styled.p`
-color: white;
+color: black;
 font-weight: bold;
 font-size: 20px;
 `
