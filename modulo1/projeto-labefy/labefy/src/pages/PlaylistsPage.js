@@ -3,20 +3,14 @@ import axios from 'axios';
 import { useEffect } from "react";
 import styled from "styled-components";
 import { goToPlaylistTracks } from "../routes/coordinator";
-import {useNavigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom';
 
-const PlaylistHeader = styled.div`
- background-color: blueviolet; 
- display: flex ;
- justify-content: center;
- flex-direction: column;
-`
 const PlaylistContainer = styled.div`
  display: flex ;
  flex-direction: column;
  align-items: center;
+ border: 10px solid #f98882;
  `
-
 const ListaPlaylists = styled.div`
 display: flex;
 justify-content: center;
@@ -30,7 +24,9 @@ color: black;
 margin-right: 10px;
 `
 const NewPlaylist = styled.div`
-
+display: flex;
+flex-direction: column;
+align-items: center;
 `
 const Container = styled.div`
 display: flex;
@@ -100,10 +96,7 @@ const PlaylistsPage = () => {
         useEffect(pegaPlaylist, []);
         return (
             <div>
-                 <PlaylistHeader>
-                  <h1>Labefy</h1>  
-               </PlaylistHeader> 
-               <Container>
+                <Container>
                <PlaylistContainer>
                <h2>Playlists</h2>   
                {listaDePlaylists}

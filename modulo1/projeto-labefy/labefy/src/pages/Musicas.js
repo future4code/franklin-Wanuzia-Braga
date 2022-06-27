@@ -3,7 +3,8 @@ import { goToPlaylists } from "../routes/coordinator";
 import { useNavigate } from 'react-router-dom'
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom';
+
 
 const TracksContainer = styled.div`
 display: flex;
@@ -21,6 +22,9 @@ const Tracks = styled.div`
 const MúsicasdaPlaylist = () => {
     const navigate = useNavigate()
     const [tracks, setTracks] = useState([]);
+    const [inputTitle, setInputTitle] = useState('')
+    const [inputArtist, setInputArtist] = useState('')
+    const [inputUrl, setInputUrl] = useState('')
     const params = useParams()
     const exibeMusicasDaPlaylist = () => {
         axios.get(`https://us-central1-labenu-apis.cloudfunctions.net/labefy/playlists/${params.id}/tracks`,
@@ -35,17 +39,66 @@ const MúsicasdaPlaylist = () => {
                 console.log(err)
             })
     }
+    const body = {
+        name: inputTitle, 
+        artist: inputArtist,
+        url: inputUrl
+    }
+    const insereMusica = () => {
+        axios.post(`https://us-central1-labenu-apis.cloudfunctions.net/labefy/playlists/${params.id}/tracks`, body, {
+            headers: {
+                Authorization: 'wanuzia-braga-franklin'
+            }
+        }).then(() => {
+            exibeMusicasDaPlaylist()
+            alert(`Música adicionada com sucesso`)
+            setInputTitle('')
+            setInputArtist('')
+            setInputUrl('')
+            
+        }).catch((e) => {
+            alert('Não foi possível inserir a música na playlist')
+            console.log(e)
+        })
+    }
+    const handleInputTitle = (e) => {
+        setInputTitle(e.target.value)
+    }
+    const handleInputArtist = (e) => {
+        setInputArtist(e.target.value)
+    }
+    const handleInputUrl = (e) => {
+        setInputUrl(e.target.value)
+    }
+    const deletaMusica = (id) => {
+        axios.delete(`https://us-central1-labenu-apis.cloudfunctions.net/labefy/playlists/${params.id}/tracks/${id}`, {
+            headers: {
+                Authorization: 'wanuzia-braga-franklin'
+            }
+        }).then((response) => {
+            alert('Música deletada com sucesso!')
+            exibeMusicasDaPlaylist()
+  
+        }).catch((err) => {
+            alert(err)
+        })
+    }
+
     useEffect(exibeMusicasDaPlaylist, [params.id]);
     const tracksList = tracks.map((track) => {
         return (
             <div>
+                <div>
                 <p key={track.id}>{track.name} - {track.artist}</p>
-                <button>Play</button>
-                <button>Pause</button>
-                <button>deletar música</button>
+                <audio controls autoplay >
+                    <source src={track.url} type="audio/mp3" />
+                    </audio>
+                    </div>
+             <button onClick={() => {deletaMusica(track.id)}}>deletar música</button>
             </div>
         )
     })
+
     return (
         <div>
          <button onClick={() => goToPlaylists(navigate)}>Voltar para Playlists</button>
@@ -57,10 +110,10 @@ const MúsicasdaPlaylist = () => {
             </Tracks>
                 <CardAdiconarMúsica>
                 <h2>Adicionar Música</h2>
-                <label>Título</label><input />
-                <label>Artista</label><input />
-                <label>URL</label><input />
-                <button>Adicionar música</button>
+                <label>Título</label><input value={inputTitle} onChange={handleInputTitle}/>
+                <label>Artista</label><input value={inputArtist} onChange={handleInputArtist}/>
+                <label>URL</label><input value={inputUrl} onChange={handleInputUrl} placeholder='Insira a url do arquivo mp3'/>
+                <button onClick={insereMusica}>Adicionar música</button>
             </CardAdiconarMúsica>
         </TracksContainer>
         </div>
