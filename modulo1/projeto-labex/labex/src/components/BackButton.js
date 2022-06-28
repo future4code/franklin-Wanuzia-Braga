@@ -1,7 +1,6 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { goToLastPage } from "../routes/coordinator";
+
 
 const BackButtonStyled = styled.button`
 width: 8rem;
@@ -23,9 +22,8 @@ margin-top: 2%;
 `
 
 
-export const BackButton = () => {
-    const navigate = useNavigate()
+export const BackButton = (props) => {
     return(
-        <BackButtonStyled onClick={() => goToLastPage(navigate)}>Voltar</BackButtonStyled>
+        <BackButtonStyled onClick={props.onClick}>{props.name}</BackButtonStyled>
     )
 }

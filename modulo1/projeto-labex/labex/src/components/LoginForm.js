@@ -1,6 +1,7 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from 'styled-components';
-import { BackButton } from "./BackButton";
+import { goToHome } from "../routes/coordinator";
 
 const LoginDiv = styled.div`
 display: flex;
@@ -50,21 +51,45 @@ border: 5px solid #5062f0;
     cursor: pointer;
 }
 `
+const GoHome = styled.button`
+width: 8rem;
+height: 3rem;
+padding: 2px;
+border-radius: 30%;
+font-size: 1.5rem;
+font-weight: bold;
+color: #f98882;
+border: 5px solid #f98882;
 
+align-self: flex-start;
+margin-top: 2%;
+&:hover{        
+    background-color: #f98882;
+    color: #ffffff;
+    cursor: pointer;
+}
+`
 export function LoginForm(props) {
+    const navigate = useNavigate()
     
     return(
         
         <LoginDiv>
-            <BackButton />
+            <GoHome onClick={() => goToHome(navigate)}> Home</GoHome>
             <WelcomeTitle>
                 Bem-vindo de volta!
             </WelcomeTitle>
             <LoginParagraph>
             Acesse sua conta de administrador
             </LoginParagraph>  
-              <Label>Email</Label><MailLogin placeholder="Digite seu email"/>
-               <Label>Senha</Label><PasswordLogin placeholder="Infome sua senhas"/>           
+              <Label>Email</Label><MailLogin 
+              placeholder="Digite seu email" 
+              value={props.valueEmail} 
+              onChange={props.onChangeEmail}/>
+               <Label>Senha</Label><PasswordLogin 
+               placeholder="Infome sua senha" 
+               value={props.valuePassword} 
+               onChange={props.onChangePassword}/>           
             <LoginButton onClick={props.botaoLogar}>
              Entrar
             </LoginButton>          

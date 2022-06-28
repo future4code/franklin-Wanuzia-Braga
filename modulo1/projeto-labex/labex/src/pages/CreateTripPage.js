@@ -2,12 +2,17 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { goToLastPage } from "../routes/coordinator";
 import axios from "axios";
-
+import { useProtectedPage } from "../hooks/useProtectedPage";
+import Planets from "../constants/Planets";
+// import DateInput from "../constants/DateInput";
 
 export const CreateTripPage = () => {
+    useProtectedPage();
     const navigate = useNavigate()
     const [inputName, setInputName] = useState('');
-    const [inputDate, setInputDate] = useState()
+    const [inputDate, setInputDate] = useState({
+        tripDate: new Date()
+    })
     const [inputDescription, setInputDescription] = useState('');
     const [inputDuration, setInputDuration] = useState('');
     const [inputPlanet, setInputPlanet] = useState('');
@@ -17,18 +22,16 @@ export const CreateTripPage = () => {
         planet: inputPlanet,
         date: inputDate,
         description: inputDescription,
-        duration: inputDuration
+        durationInDays: inputDuration
 
     };
+    const token = localStorage.getItem('token')
     const createTrip = () => {
-        axios.post("https://us-central1-labenu-apis.cloudfunctions.net/labeX/:aluno/trips", body, {
+        axios.post("https://us-central1-labenu-apis.cloudfunctions.net/labeX/wanuzia-braga-franklin/trips", body, {
             headers: {
-               auth: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImdlSlFyaldwQ2lMSFJDSUhmZlh5IiwiZW1haWwiOiJ3YW51emlhQGdtYWlsLmNvbS5iciIsImlhdCI6MTY1NjE3MTcxMX0.bkgQQljAnyHglAAuDmY0EmPX7Y0hFuYmQy-xy2sKXYk'
+               ContentType: 'application/json; charset=utf-8',
+               auth: token
                
-            }
-        }, {
-            params: {
-                aluno: 'wanuzia-braga-franklin'
             }
         }
         )
@@ -39,6 +42,7 @@ export const CreateTripPage = () => {
                 setInputDescription('');
                 setInputDuration('')
                 setInputPlanet('')
+                console.log(response.data)
             })
             .catch((erro) => {
                 alert('Erro ao cadastrar');
@@ -49,7 +53,8 @@ export const CreateTripPage = () => {
         setInputName(event.target.value);
     };
     const onChangeInputDate = (event) => {
-        setInputDate(event.target.value);
+        setInputDate(event);
+        console.log(event)
     };
     const onChangeInputDescription = (event) => {
         setInputDescription(event.target.value);
@@ -60,10 +65,7 @@ export const CreateTripPage = () => {
     const onChangeInputPlanet = (event) => {
         setInputPlanet(event.target.value);
         };
-        const planetas = ['Mercúrio', 'Vênus', 'Terra', 'Marte', 'Júpiter', 'Saturno', 'Urano', 'Netuno', 'Plutão']
-        const listaPlanetas = planetas.map((planeta) => {
-            return <option value={inputPlanet.value} onChange={onChangeInputPlanet}>{planeta}</option>
-        })
+        
         
     return (
         <div>
@@ -72,11 +74,17 @@ export const CreateTripPage = () => {
                 <label> Nome:
                     <input value={inputName} onChange={onChangeInputName} />
                 </label>
-                <select >Planeta:
-                <option value disabled selected>Escolha um Planeta</option>
-                {listaPlanetas}              
-                </select>
+                <Planets value={inputPlanet} onChange={onChangeInputPlanet}/>              
                 <label>Data
+                {/* <DateInput 
+                value={inputDate} 
+                startdate={inputDate}
+               onChange={onChangeInputDate} 
+                id="tripDate" 
+                name="tripDate" 
+                type="date"
+                placeholder = 'dd/mm/aaaa'
+            />             */}
                     <input value={inputDate} onChange={onChangeInputDate} />
                 </label>
                 <label>Descrição:

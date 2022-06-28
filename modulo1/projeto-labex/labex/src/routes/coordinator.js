@@ -7,7 +7,7 @@ export const goToListTrips = (navigate) =>{
 }
 
 export const goToLogin = (navigate) =>{
-    navigate("login/")
+    navigate("/login")
 }
 
 export const goToLastPage = (navigate) =>{
@@ -25,7 +25,6 @@ export const goToAdminTripsList = (navigate) =>{
 export const goToCreatTrip = (navigate) =>{
     navigate('/admin/trips/create')
 }
-
-// export const goToTripDetails = (navigate) => {
-//     navigate('/admin/trips/:id')
-// }
+export const goToTripDetails = (navigate, id) => {
+    navigate(`/admin/trips/${id}`)
+}

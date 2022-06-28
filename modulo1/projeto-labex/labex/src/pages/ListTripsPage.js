@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { goToForm } from "../routes/coordinator";
+import { goToForm, goToLastPage } from "../routes/coordinator";
 import { BackButton } from "../components/BackButton";
 import { useRequestData } from "../hooks/useRequestData";
 import { TripsCard } from "../components/TripsCard";
@@ -70,12 +70,12 @@ font-size: 20px;
 
 export const ListTripsPage = () => {
     const navigate = useNavigate()
-    const [trips, error, isLoading] = useRequestData('https://us-central1-labenu-apis.cloudfunctions.net/labeX/:aluno/trips')
+    const [trips, error, isLoading] = useRequestData('https://us-central1-labenu-apis.cloudfunctions.net/labeX/wanuzia-braga-franklin/trips')
     return (
         <ListTripsContainer>
             <Cabecalho>
                 <div>
-                    <BackButton />
+                    <BackButton onClick={() => goToLastPage(navigate)} name='Voltar'/>
                 </div>
                 <Inscrever onClick={() => goToForm(navigate)}>Inscrever-se para viajar</Inscrever>
                 <Logo>LabeX</Logo>
