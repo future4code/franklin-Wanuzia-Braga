@@ -27,25 +27,43 @@ export const TripDetailPage = () => {
             })
     };
 
-    console.log(tripDetails)
-
     useEffect((detailsPage), [params.id]);
+    const candidates = tripDetails.candidates && tripDetails.candidates.length > 0 && tripDetails.candidates.map((detail) => {
+        return (
+            <div>
+                <p>Nome: {detail.name}</p>
+                <p>Profissão: {detail.profession}</p>
+                <p>Idade: {detail.age}</p>
+                <p>País: {detail.country}</p>
+                <p>Texto de Candidatura: {detail.applicationText}</p>
+                <button>aprovar</button>
+                <button>reprovar</button>
 
-    // const candidates = tripDetails.candidates.map((detail) => {
-    //     return (
-    //         <div>
-    //             <p>{detail.name}</p>
-    //         </div>
-    //     )
-    // })
-
+            </div>
+        )
+    })
+    const approveds = tripDetails.approved && tripDetails.approved.length > 0 && tripDetails.approved.map((detail) => {
+        return (
+            <div>
+                <li>{detail.name}</li>
+            </div>
+        )
+    })
+    console.log(tripDetails)
     return (
         <div>
             <button onClick={() => goToLastPage(navigate)}>Voltar</button>
-            <h1>Detalhes da Viagem e candidatos</h1>
-                <p>{tripDetails.name}</p>
-                {/* {candidates} */}
-        </div>
+            <h1>{tripDetails.name}</h1>
+            <p>Nome: {tripDetails.name}</p>
+            <p>Descrição: {tripDetails.description}</p>
+            <p>Planeta: {tripDetails.planet}</p>
+            <p>Duração: {tripDetails.durationInDays}</p>
+            <p>Data: {tripDetails.date}</p>
+            <h2>Candidatos Pendentes:</h2>
+            {candidates}
+            <h2>Candidatos aprovados:</h2>
+           {approveds}
+                   </div>
 
     )
 }
