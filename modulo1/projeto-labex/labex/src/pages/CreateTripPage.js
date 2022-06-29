@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { goToLastPage } from "../routes/coordinator";
 import axios from "axios";
@@ -10,7 +10,7 @@ import {BASE_URL} from "../constants/urls"
 export const CreateTripPage = () => {
     useProtectedPage();
     const navigate = useNavigate()
-    const { form, onChange, clear } = useForm({
+    const { form, onChange } = useForm({
         name: '',
         planet: '',
         date: '',
@@ -18,24 +18,26 @@ export const CreateTripPage = () => {
         durationInDays: ''
         })
     const token = localStorage.getItem('token')
+
     const createTrip = (e) => {
         e.preventDefaul()
         axios.post(`${BASE_URL}trips`, form, {
             headers: {
-                ContentTyp: 'application/json', 
+                ContentType: 'application/json', 
                 auth: token
             }
         }
         ).then((response) => {
                 alert(`Viagem ${form.name} cadastrada com sucesso`);
-               console.log(response.data.trip.id)
-               clear()
+               console.log(response)
+            //    clear()
             }).catch((erro) => {
                 alert('Erro ao cadastrar');
                 console.log(erro)
             });
     };
-   
+    // useEffect((createTrip), [token, form])
+   console.log(form)
     return (
         <div>
             <button onClick={() => goToLastPage(navigate)}>Voltar</button>
@@ -44,7 +46,13 @@ export const CreateTripPage = () => {
                 <label> Nome:
                     <input name={'name'} value={form.name} onChange={onChange} required pattern={'^.{5,}'} title={'O nome deve ter no mínimo 5 letras'}/>
                 </label>
-                <Planets name={'planet'} value={form.planet} onChange={onChange}/>
+                <Planets 
+                nameSelect='planet' onChangeSelect={onChange} valueSelect={form.planet}
+                required 
+                // value={form.planet.map((plan) => {return ( <div>{plan}</div>)})}
+                // name={'planet'} 
+                onChange={onChange}
+                />
                 <label>Data
                     <input name={'date'} value={form.date} onChange={onChange} required type={'date'}/>
                 </label>
