@@ -1,103 +1,61 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { goToLastPage } from "../routes/coordinator";
 import axios from "axios";
 import { useProtectedPage } from "../hooks/useProtectedPage";
 import Planets from "../constants/Planets";
-// import DateInput from "../constants/DateInput";
+import useForm from '../hooks/useForm';
+import {BASE_URL} from "../constants/urls"
 
 export const CreateTripPage = () => {
     useProtectedPage();
     const navigate = useNavigate()
-    const [inputName, setInputName] = useState('');
-    const [inputDate, setInputDate] = useState({
-        tripDate: new Date()
-    })
-    const [inputDescription, setInputDescription] = useState('');
-    const [inputDuration, setInputDuration] = useState('');
-    const [inputPlanet, setInputPlanet] = useState('');
-
-    const body = {
-        name: inputName,
-        planet: inputPlanet,
-        date: inputDate,
-        description: inputDescription,
-        durationInDays: inputDuration
-
-    };
+    const { form, onChange, clear } = useForm({
+        name: '',
+        planet: '',
+        date: '',
+        description: '',
+        durationInDays: ''
+        })
     const token = localStorage.getItem('token')
-    const createTrip = () => {
-        axios.post("https://us-central1-labenu-apis.cloudfunctions.net/labeX/wanuzia-braga-franklin/trips", body, {
+    const createTrip = (e) => {
+        e.preventDefaul()
+        axios.post(`${BASE_URL}trips`, form, {
             headers: {
-               ContentType: 'application/json; charset=utf-8',
-               auth: token
-               
+                ContentTyp: 'application/json', 
+                auth: token
             }
         }
-        )
-            .then((response) => {
-                alert(`Viagem ${inputName} cadastrada com sucesso`);
-                setInputName('')
-                setInputDate('');
-                setInputDescription('');
-                setInputDuration('')
-                setInputPlanet('')
-                console.log(response.data)
-            })
-            .catch((erro) => {
+        ).then((response) => {
+                alert(`Viagem ${form.name} cadastrada com sucesso`);
+               console.log(response.data.trip.id)
+               clear()
+            }).catch((erro) => {
                 alert('Erro ao cadastrar');
                 console.log(erro)
             });
     };
-    const onChangeInputName = (event) => {
-        setInputName(event.target.value);
-    };
-    const onChangeInputDate = (event) => {
-        setInputDate(event);
-        console.log(event)
-    };
-    const onChangeInputDescription = (event) => {
-        setInputDescription(event.target.value);
-    };
-    const onChangeInputDuration = (event) => {
-        setInputDuration(event.target.value);
-    };
-    const onChangeInputPlanet = (event) => {
-        setInputPlanet(event.target.value);
-        };
-        
-        
+   
     return (
         <div>
-           <h1>Crie uma viagem</h1>
-            <form>
+            <button onClick={() => goToLastPage(navigate)}>Voltar</button>
+            <h1>Crie uma viagem</h1>
+            <form onSubmit={createTrip}>
                 <label> Nome:
-                    <input value={inputName} onChange={onChangeInputName} />
+                    <input name={'name'} value={form.name} onChange={onChange} required pattern={'^.{5,}'} title={'O nome deve ter no mínimo 5 letras'}/>
                 </label>
-                <Planets value={inputPlanet} onChange={onChangeInputPlanet}/>              
+                <Planets name={'planet'} value={form.planet} onChange={onChange}/>
                 <label>Data
-                {/* <DateInput 
-                value={inputDate} 
-                startdate={inputDate}
-               onChange={onChangeInputDate} 
-                id="tripDate" 
-                name="tripDate" 
-                type="date"
-                placeholder = 'dd/mm/aaaa'
-            />             */}
-                    <input value={inputDate} onChange={onChangeInputDate} />
+                    <input name={'date'} value={form.date} onChange={onChange} required type={'date'}/>
                 </label>
                 <label>Descrição:
-                    <input value={inputDescription} onChange={onChangeInputDescription} />
+                    <input name={'description'} value={form.description} onChange={onChange} required pattern={'^.{30,}'} title={'Insira no mínimo 30 caracteres na descrição.'}/>
                 </label>
                 <label>Duração em dias:
-                    <input value={inputDuration} onChange={onChangeInputDuration} />
+                    <input name={'durationInDays'} value={form.durationInDays} onChange={onChange} required type={'number'} min={50} title={'A duração deve ser de no mínimo 50 dias'}/>
                 </label>
+                    <button >Criar viagem</button>
             </form>
-            <button onClick={() => goToLastPage(navigate)}>Voltar</button>
-            <button onClick={createTrip}>Criar viagem</button>
-
-
         </div>
     )
 }

@@ -6,6 +6,7 @@ import { goToCreatTrip, goToListTrips, goToTripDetails } from "../routes/coordin
 import { useRequestData } from "../hooks/useRequestData";
 import { useProtectedPage } from "../hooks/useProtectedPage";
 import axios from "axios";
+import {BASE_URL} from "../constants/urls"
 
 const ContainerPainel = styled.div`
 display: flex;
@@ -25,12 +26,12 @@ export const AdminHomePage = () => {
     useProtectedPage();
     const navigate = useNavigate()
     const params = useParams()
-    const [trips, error, isLoading] = useRequestData('https://us-central1-labenu-apis.cloudfunctions.net/labeX/wanuzia-braga-franklin/trips')
+    const [trips, error, isLoading] = useRequestData(`${BASE_URL}trips`)
    
         const deleteTrip = (id) => {
                 const token = localStorage.getItem('token')
                 const content = 'application/JSON'
-                axios.delete(`https://us-central1-labenu-apis.cloudfunctions.net/labeX/wanuzia-braga-franklin/trips/${params.id}`, {
+                axios.delete(`${BASE_URL}trips/${params.id}`, {
                     headers: {
                         ContentType: content,
                         auth: token
@@ -39,9 +40,10 @@ export const AdminHomePage = () => {
                     alert('Viagem deletada com sucesso!')
                     console.log(response)
                 }).catch((err) => {
-                    console.log('erro', err)
+                    console.log(err)
                 })
             }
+            console.log(error)
                
       return (
 

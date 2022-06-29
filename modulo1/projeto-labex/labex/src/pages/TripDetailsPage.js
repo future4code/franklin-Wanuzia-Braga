@@ -4,7 +4,6 @@ import { goToLastPage } from "../routes/coordinator";
 import { useProtectedPage } from "../hooks/useProtectedPage";
 import axios from "axios";
 
-
 export const TripDetailPage = () => {
     useProtectedPage();
     const navigate = useNavigate()
@@ -60,9 +59,11 @@ export const TripDetailPage = () => {
             <p>Duração: {tripDetails.durationInDays}</p>
             <p>Data: {tripDetails.date}</p>
             <h2>Candidatos Pendentes:</h2>
-            {candidates}
+            {/* {tripDetails.candidates  ? {candidates} : 'Nenhum candidato pendente'} */}
+           {candidates}
             <h2>Candidatos aprovados:</h2>
-           {approveds}
+            {/* {tripDetails.approved  ? {approveds} : 'Nenhum candidato aprovado'} */}
+                   {approveds}
                    </div>
 
     )

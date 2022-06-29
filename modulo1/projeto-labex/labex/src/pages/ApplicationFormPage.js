@@ -1,10 +1,11 @@
 import React from "react";
 import { BackButton } from "../components/BackButton";
 import styled from "styled-components";
-import { useState } from "react";
 import axios from "axios";
 import { goToLastPage } from "../routes/coordinator";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { BASE_URL } from "../constants/urls";
+import useForm from '../hooks/useForm'
 
 
 const FormContainer = styled.div`
@@ -20,74 +21,62 @@ flex-direction: column;
 `
 
 export const ApplicationFormPage = () => {
-    const [inputName, setInputName] = useState('');
-    const [inputAge, setInputAge] = useState('');
-    const [inputText, setInputText] = useState('');
-    const [inputLabor, setInputLabor] = useState('');
-    const [inputCountry, setInputCountry] = useState('');
     const navigate = useNavigate()
+    const params = useParams()
 
-    const body = {
-        name: inputName,
-        age: inputAge,
-        applicationText: inputText,
-        profession: inputLabor,
-        country: inputCountry
+    const{ form, onChange, clear } = useForm({
+        name: '',
+        age: '',
+        applicationText: '',
+        profession: '',
+        country: '',
+        trip: `${params.id}`
 
-    };
-
-    const criaCandidato = () => {
-        axios.post("https://us-central1-labenu-apis.cloudfunctions.net/labeX/wanuzia-braga-franklin/trips/:id/apply", body
+    })
+ 
+    const criaCandidato = (e) => {
+        e.preventDefault()
+        axios.post(`${BASE_URL}trips/${params.id}   /apply`, form
         )
             .then((response) => {
-                alert(`Candidato ${inputName} inscrito com sucesso`, response.message);
-                setInputName('')
-                setInputAge('');
-                setInputLabor('');
-                setInputText('')
+                alert(`Candidato ${form.name} inscrito com sucesso`, response.message);
+                clear()
             })
             .catch((erro) => {
-                alert('Erro ao se inscrever', erro.message);
+                alert('Erro ao se inscrever' + erro.message);
                 console.log(erro)
             });
     };
-    const onChangeInputName = (event) => {
-        setInputName(event.target.value);
-    };
-    const onChangeInputAge = (event) => {
-        setInputAge(event.target.value);
-    };
-    const onChangeInputText = (event) => {
-        setInputText(event.target.value);
-    };
-    const onChangeInputLabor = (event) => {
-        setInputLabor(event.target.value);
-    };
-    const onChangeInputCountry = (event) => {
-        setInputCountry(event.target.value);
-    };
+    
     return (
         <FormContainer>
             <BackButton onClick={() => goToLastPage(navigate)} name='Voltar' />
             <h1>Formulário de inscrição</h1>
-            <Formulário>
+            <Formulário onSubmit={criaCandidato}>
                 <label> Nome:
-                    <input value={inputName} onChange={onChangeInputName} />
+                    <input  name={'name'} value={form.name} onChange={onChange} required pattern={'^.{3,}'} title={'O nome deve ter no mínimo 3 letras'} />
                 </label>
                 <label>Idade:
-                    <input value={inputAge} onChange={onChangeInputAge} />
+                    <input name={'age'} value={form.age} onChange={onChange} type={'number'} min={18} title={'A idade mínima é 18 anos'}/>
                 </label>
                 <label>Texto de candidatura:
-                    <input value={inputText} onChange={onChangeInputText} />
+                    <input name={'applicationText'} value={form.applicationText} onChange={onChange} required pattern={'^.{30,}'} title={'Insira no mínimo 30 caracteres.'}/>
                 </label>
                 <label>Profissão:
-                    <input value={inputLabor} onChange={onChangeInputLabor} />
+                    <input name={'profession'} value={form.profession} onChange={onChange} required pattern={'^.{10,}'} title={'Insira no mínimo 10 caracteres.'}/>
                 </label>
                 <label>Escolha um país:
-                    <input value={inputCountry} onChange={onChangeInputCountry} />
+                    <input name={'country'} value={form.country} onChange={onChange} />
                 </label>
+                <label> Escolha uma viagem
+                <select>
+                <option defaultValue>Escolha uma viagem</option>
+                <option name={'trip'}></option>
+                </select>
+                </label>
+                <button >Enviar</button>
             </Formulário>
-            <button onClick={criaCandidato}>Enviar</button>
+            
         </FormContainer>
     )
 }

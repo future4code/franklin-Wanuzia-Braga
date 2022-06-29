@@ -7,7 +7,12 @@ const Planets = (props) => {
         })
        return(
         <select >Planeta:
-        <option value disabled selected>Escolha um Planeta</option>
+        <option defaultValue={'Escolha um Planeta'} 
+        name={props.name} 
+        value={props.value} 
+        onChange={props.onChange}
+        required
+        >Escolha um planeta</option>
         {listaPlanetas}
         </select>
        )

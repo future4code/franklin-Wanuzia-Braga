@@ -27,16 +27,16 @@ align-self: center;
 margin: 2%;
 `
 const MailLogin = styled.input`
-width: 60%;
-height: 4%;
+/* width: 60%;
+height: 4%; */
 `
 const PasswordLogin = styled.input`
-width: 60%;
-height: 4%;
+/* width: 60%;
+height: 4%; */
 `
 
 const LoginButton = styled.button`
-background-color: black;
+/* background-color: black;
 color: #5062f0;
 font-size: 1.5rem;
 font-weight: bold;
@@ -49,7 +49,7 @@ border: 5px solid #5062f0;
     background-color: #5062f0;
     color: #ffffff;
     cursor: pointer;
-}
+} */
 `
 const GoHome = styled.button`
 width: 8rem;
@@ -71,8 +71,7 @@ margin-top: 2%;
 `
 export function LoginForm(props) {
     const navigate = useNavigate()
-    
-    return(
+        return(
         
         <LoginDiv>
             <GoHome onClick={() => goToHome(navigate)}> Home</GoHome>
@@ -82,17 +81,30 @@ export function LoginForm(props) {
             <LoginParagraph>
             Acesse sua conta de administrador
             </LoginParagraph>  
-              <Label>Email</Label><MailLogin 
+            <form onSubmit={props.onSubmit}>
+             <Label>Email</Label><MailLogin 
+             type='email'
               placeholder="Digite seu email" 
               value={props.valueEmail} 
-              onChange={props.onChangeEmail}/>
+              onChange={props.onChangeEmail}
+              required
+              name={props.nameMail}
+              />
                <Label>Senha</Label><PasswordLogin 
+               type='password'
                placeholder="Infome sua senha" 
                value={props.valuePassword} 
-               onChange={props.onChangePassword}/>           
+               onChange={props.onChangePassword}
+               required
+               name={props.namePass}
+               pattern={'^.{3,}'}
+               title={'Sua senha deve ter no mínimo 3 caracteres.'}
+               />           
             <LoginButton onClick={props.botaoLogar}>
              Entrar
-            </LoginButton>          
+            </LoginButton>    
+            </form>
+                  
         </LoginDiv>
     )
 }
