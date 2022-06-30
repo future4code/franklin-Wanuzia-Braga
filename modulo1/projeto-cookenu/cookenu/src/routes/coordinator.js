@@ -15,7 +15,7 @@ export const goToRecipeDetail = (navigate, id) => {
     navigate(`/detalhes/${id}`)
 }
 export const goToRecipeList = (navigate) => {
-    navigate('/'    )
+    navigate('/')
 }
 export const goToLastPage = (navigate) => {
     navigate(-1)

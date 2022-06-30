@@ -3,25 +3,20 @@ import { InputsContainer } from "./styled";
 import TextField from '@material-ui/core/TextField'
 import useForm from '../../hooks/useForm'
 import { Button } from "@material-ui/core";
-import axios from 'axios';
-import { BASE_URL } from "../../constants/urls";
+import { login } from "../../services/user";
+import {useNavigate} from 'react-router-dom'
 
-const LoginForm = () => {
+
+const LoginForm = ({setRightButtonText}) => {
+    const navigate = useNavigate()
     const [form, onChange, clear] = useForm({email:'', password: ''})
 
     const onSubmitForm = (e) => {
         console.log(form)
         e.preventDefault()
-        login()
+        login(form, clear, navigate, setRightButtonText)
     }
-    const login = () => {
-        axios.post(`${BASE_URL}/user/login`, form)
-        .then((res) => {
-            console.log(res)})
-        .catch((error) => {
-            console.log(error)
-        })
-    }
+    
     return(
            <InputsContainer>
             <form onSubmit={onSubmitForm}>

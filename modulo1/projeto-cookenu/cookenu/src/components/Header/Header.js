@@ -5,15 +5,32 @@ import { StyledToolBar } from './style';
 import { useNavigate } from 'react-router-dom';
 import { goToLogin, goToRecipeList } from '../../routes/coordinator';
 
-const Header = () => {
-    const navigate = useNavigate()
+
+const Header = ({ rightButtonText, setRightButtonText }) => {
+  const token = localStorage.getItem('token')
+  const navigate = useNavigate()
+
+  const logout = () => {
+    localStorage.removeItem('token')
+  }
+  const rightButtonActions = () => {
+    if (token) {
+      logout()
+      setRightButtonText('Login')
+      goToLogin(navigate)
+    } else {
+      goToLogin(navigate)
+    }
+  }
+
   return (
-        <AppBar position="static">
-        <StyledToolBar>
-          <Button onClick={()=> goToRecipeList(navigate)} color="inherit">Cookenu</Button>
-          <Button onClick={()=> goToLogin(navigate)}color="inherit">Login</Button>
-        </StyledToolBar>
-      </AppBar>
-  )}
+    <AppBar position="static">
+      <StyledToolBar>
+        <Button onClick={() => goToRecipeList(navigate)} color="inherit">Cookenu</Button>
+        <Button onClick={rightButtonActions} color="inherit">{rightButtonText}</Button>
+      </StyledToolBar>
+    </AppBar>
+  )
+}
 
 export default Header
