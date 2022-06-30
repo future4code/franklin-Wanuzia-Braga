@@ -12,7 +12,7 @@ export const goToAddRecipes = (navigate) => {
 }
 
 export const goToRecipeDetail = (navigate, id) => {
-    navigate(`/detalhes/${id}`)
+    navigate(`/detalhe/${id}`)
 }
 export const goToRecipeList = (navigate) => {
     navigate('/')
