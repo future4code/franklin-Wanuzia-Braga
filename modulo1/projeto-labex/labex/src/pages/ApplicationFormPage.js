@@ -1,12 +1,12 @@
 import React from "react";
 import { BackButton } from "../components/BackButton";
 import styled from "styled-components";
-import axios from "axios";
 import { goToLastPage } from "../routes/coordinator";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../constants/urls";
 import useForm from '../hooks/useForm'
 import { useRequestData } from "../hooks/useRequestData";
+import { submitCandidate } from "../services/user";
 
 
 const FormContainer = styled.div`
@@ -22,35 +22,31 @@ flex-direction: column;
 `
 
 export const ApplicationFormPage = () => {
-    const params = useParams()
     const navigate = useNavigate()
     const [trips] = useRequestData(`${BASE_URL}trips`)
-    const { form, onChange } = useForm({
+    const { form, onChange, clear } = useForm({
         name: '',
         age: '',
         applicationText: '',
         profession: '',
         country: '',
-        trip: `${params.id}`
+        trip: ''
 
     })
-
+   
     const criaCandidato = (e, id) => {
         e.preventDefault()
-        axios.post(`${BASE_URL}trips/${params.id}/apply`, form
+        submitCandidate(form, clear, id )
+     
+    }
+    const tripsOptions = trips && trips.length > 0 && trips.map((trip) => {
+        return (
+            <option name='id'
+                value={trip.id}
+                key={trip.id}>{trip.name} - {trip.planet}</option>
         )
-            .then((response) => {
-                alert(`Candidato ${form.name} inscrito com sucesso`);
-                console.log(response)
-               // clear()
-            })
-            .catch((erro) => {
-                alert('Erro ao se inscrever' + erro.message);
-                console.log(erro)
-            });
-    };
-
-    console.log(form)
+    })
+    console.log(form.trip)
     return (
         <FormContainer>
             <BackButton onClick={() => goToLastPage(navigate)} name='Voltar' />
@@ -69,23 +65,19 @@ export const ApplicationFormPage = () => {
                     <input name={'profession'} value={form.profession} onChange={onChange} required pattern={'^.{10,}'} title={'Insira no mínimo 10 caracteres.'} />
                 </label>
                 <label>Escolha um país:
-                    <input name={'country'} value={form.country} onChange={onChange} />
+                <input name={'country'} value={form.country} onChange={onChange}></input>
+                {/* <select name='country' id="paises" onChange={onChange} >
+                    <option>País</option>
+                    <option name={'country'} value={form.country}></option>
+                    </select> */}
                 </label>
                 <label> Escolha uma viagem
-
                     <select name='trip' onChange={onChange} required value={form.trip}>
                         <option >Escolha uma viagem</option>
-                        {trips && trips.length > 0 && trips.map((trip) => {
-                            return (
-                                <option name='id'
-                                    value={trip.id}
-                                    key={trip.id}>{trip.name} - {trip.planet}</option>
-                            )
-                        })}
-
+                        {tripsOptions}
                     </select>
                 </label>
-                <button >Enviar</button>
+                <button type='submit' >Enviar</button>
             </Formulário>
 
         </FormContainer>

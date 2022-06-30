@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { goToLastPage } from "../routes/coordinator";
 import axios from "axios";
@@ -10,7 +10,7 @@ import {BASE_URL} from "../constants/urls"
 export const CreateTripPage = () => {
     useProtectedPage();
     const navigate = useNavigate()
-    const { form, onChange } = useForm({
+    const { form, onChange, clear } = useForm({
         name: '',
         planet: '',
         date: '',
@@ -20,7 +20,7 @@ export const CreateTripPage = () => {
     const token = localStorage.getItem('token')
 
     const createTrip = (e) => {
-        e.preventDefaul()
+        e.preventDefault()
         axios.post(`${BASE_URL}trips`, form, {
             headers: {
                 ContentType: 'application/json', 
@@ -30,7 +30,7 @@ export const CreateTripPage = () => {
         ).then((response) => {
                 alert(`Viagem ${form.name} cadastrada com sucesso`);
                console.log(response)
-            //    clear()
+                clear()
             }).catch((erro) => {
                 alert('Erro ao cadastrar');
                 console.log(erro)

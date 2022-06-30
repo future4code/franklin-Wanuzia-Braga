@@ -1,8 +1,8 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { BackButton } from "../components/BackButton";
-import { goToCreatTrip, goToListTrips, goToTripDetails } from "../routes/coordinator";
+import { goToCreatTrip, goToListTrips, goToLogin, goToTripDetails } from "../routes/coordinator";
 import { useRequestData } from "../hooks/useRequestData";
 import { useProtectedPage } from "../hooks/useProtectedPage";
 import axios from "axios";
@@ -25,13 +25,12 @@ display: flex;
 export const AdminHomePage = () => {
     useProtectedPage();
     const navigate = useNavigate()
-    const params = useParams()
     const [trips, error, isLoading] = useRequestData(`${BASE_URL}trips`)
    
         const deleteTrip = (id) => {
                 const token = localStorage.getItem('token')
                 const content = 'application/JSON'
-                axios.delete(`${BASE_URL}trips/${params.id}`, {
+                axios.delete(`${BASE_URL}trips/${id}`, {
                     headers: {
                         ContentType: content,
                         auth: token
@@ -43,6 +42,10 @@ export const AdminHomePage = () => {
                     console.log(err)
                 })
             }
+            const logout = () => {
+                localStorage.removeItem('token')
+                goToLogin(navigate)
+            }
             console.log(error)
                
       return (
@@ -53,7 +56,7 @@ export const AdminHomePage = () => {
                 <h2>Painel Administrativo</h2>
                 <BackButton onClick={() => goToListTrips(navigate)} name='Painel'/>
                 <button onClick={() => goToCreatTrip(navigate)}>Criar Nova Viagem</button>
-                <button>LogOut</button>
+                <button onClick={logout}>LogOut</button>
 
             </div>
             <TripsContainer>

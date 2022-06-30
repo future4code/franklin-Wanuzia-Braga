@@ -59,10 +59,10 @@ export const TripDetailPage = () => {
             <p>Duração: {tripDetails.durationInDays}</p>
             <p>Data: {tripDetails.date}</p>
             <h2>Candidatos Pendentes:</h2>
-            {/* {tripDetails.candidates  ? {candidates} : 'Nenhum candidato pendente'} */}
+            {tripDetails.candidates > 0 ? {candidates} : 'Nenhum candidato pendente'}
            {candidates}
             <h2>Candidatos aprovados:</h2>
-            {/* {tripDetails.approved  ? {approveds} : 'Nenhum candidato aprovado'} */}
+            {tripDetails.approved > 0 ? {approveds} : 'Nenhum candidato aprovado'}
                    {approveds}
                    </div>
 

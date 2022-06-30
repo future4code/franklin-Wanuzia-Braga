@@ -5,6 +5,7 @@ import { BackgroundHome } from '../components/BackgroundHome';
 import { LoginForm } from "../components/LoginForm";
 import { goToAdminTripsList } from "../routes/coordinator";
 import useForm from "../hooks/useForm";
+import { useUnprotectedPage } from "../hooks/useUnprotectedPage";
 
 const LoginContainer = styled.div`
 display: flex;
@@ -12,6 +13,7 @@ width: screen;
 `
 
 export const LoginPage = () => {
+    useUnprotectedPage()
     const navigate = useNavigate()
     const {form, onChange} = useForm({email:'', password:''})
 
