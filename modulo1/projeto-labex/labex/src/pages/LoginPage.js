@@ -1,11 +1,10 @@
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { BackgroundHome } from '../components/BackgroundHome';
 import { LoginForm } from "../components/LoginForm";
 import { goToAdminTripsList } from "../routes/coordinator";
 import useForm from "../hooks/useForm";
-import { useUnprotectedPage } from "../hooks/useUnprotectedPage";
+import axios from "axios";
 
 const LoginContainer = styled.div`
 display: flex;
@@ -13,7 +12,6 @@ width: screen;
 `
 
 export const LoginPage = () => {
-    useUnprotectedPage()
     const navigate = useNavigate()
     const {form, onChange} = useForm({email:'', password:''})
 
@@ -28,7 +26,7 @@ export const LoginPage = () => {
             alert('Deu erro ao logar! ' + error.response.data.message)
         })       
     }
- 
+
     return (
         <LoginContainer>
             <BackgroundHome />
@@ -44,3 +42,4 @@ export const LoginPage = () => {
         </LoginContainer>
     )
 }
+

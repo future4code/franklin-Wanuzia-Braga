@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { goToLastPage } from "../routes/coordinator";
-import { useProtectedPage } from "../hooks/useProtectedPage";
+import { goToLastPage } from "../../routes/coordinator";
+import { useProtectedPage } from "../../hooks/useProtectedPage";
 import axios from "axios";
+import { BASE_URL } from "../../constants/urls";
+import Header from "../../components/Header";
+import { DetailsContainer, TripCard, TripTitle, Element, CandidatesCard } from "./styled";
 
 export const TripDetailPage = () => {
     useProtectedPage();
@@ -13,7 +16,7 @@ export const TripDetailPage = () => {
 
     const detailsPage = () => {
         const token = localStorage.getItem('token')
-        axios.get(`https://us-central1-labenu-apis.cloudfunctions.net/labeX/wanuzia-braga-franklin/trip/${params.id}
+        axios.get(`${BASE_URL}trip/${params.id}
         `, {
             headers: {
                 auth: token
@@ -48,23 +51,29 @@ export const TripDetailPage = () => {
             </div>
         )
     })
-    console.log(tripDetails)
+
     return (
-        <div>
-            <button onClick={() => goToLastPage(navigate)}>Voltar</button>
-            <h1>{tripDetails.name}</h1>
-            <p>Nome: {tripDetails.name}</p>
-            <p>Descrição: {tripDetails.description}</p>
-            <p>Planeta: {tripDetails.planet}</p>
-            <p>Duração: {tripDetails.durationInDays}</p>
-            <p>Data: {tripDetails.date}</p>
-            <h2>Candidatos Pendentes:</h2>
-            {tripDetails.candidates > 0 ? {candidates} : 'Nenhum candidato pendente'}
-           {candidates}
-            <h2>Candidatos aprovados:</h2>
-            {tripDetails.approved > 0 ? {approveds} : 'Nenhum candidato aprovado'}
-                   {approveds}
-                   </div>
+        <DetailsContainer>
+            <Header onClick={() => goToLastPage(navigate)} name='Voltar' />
+            <TripCard >
+                <TripTitle>{tripDetails.name}</TripTitle>
+                <Element>Nome: {tripDetails.name}</Element>
+                <Element>Descrição: {tripDetails.description}</Element>
+                <Element>Planeta: {tripDetails.planet}</Element>
+                <Element>Duração: {tripDetails.durationInDays}</Element>
+                <Element>Data: {tripDetails.date}</Element>
+            </TripCard>
+            <CandidatesCard>
+                <h2>Candidatos Pendentes:</h2>
+                {/* {tripDetails.candidates > 0 ? { candidates } : 'Nenhum candidato pendente'} */}
+                {candidates}
+            </CandidatesCard>
+            <CandidatesCard>
+                <h2>Candidatos aprovados:</h2>
+                {tripDetails.approved > 0 ? { approveds } : 'Nenhum candidato aprovado'}
+                {approveds}
+            </CandidatesCard>
+        </DetailsContainer>
 
     )
 }

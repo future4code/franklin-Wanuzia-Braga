@@ -23,33 +23,31 @@ font-size: 200%;
 const Label = styled.label`
 color: #f98882;
 font-size: 150%;
-align-self: center;
 margin: 2%;
 `
-const MailLogin = styled.input`
-/* width: 60%;
-height: 4%; */
-`
-const PasswordLogin = styled.input`
-/* width: 60%;
-height: 4%; */
-`
-
-const LoginButton = styled.button`
-/* background-color: black;
-color: #5062f0;
-font-size: 1.5rem;
+const Input = styled.input`
+width: 90vh;
+padding: 1vh;
+margin: 1vh;
+font-size: 2.5vh;
 font-weight: bold;
-width: 7rem;
-height: 5rem;
-border-radius: 20%;
-margin-top: 5%;
-border: 5px solid #5062f0;
-&:hover{
+color: blue;
+text-align: center;
+`
+const LoginButton = styled.button`
+width: 50vh;
+margin: 1vh;
+padding: 2vh;
+border-radius: 2vh;
+font-size: 4vh;
+color: #5062f0;
+font-weight: bold;
+align-self: center;
+&:hover{        
     background-color: #5062f0;
     color: #ffffff;
     cursor: pointer;
-} */
+}
 `
 const GoHome = styled.button`
 width: 8rem;
@@ -60,7 +58,6 @@ font-size: 1.5rem;
 font-weight: bold;
 color: #f98882;
 border: 5px solid #f98882;
-
 align-self: flex-start;
 margin-top: 2%;
 &:hover{        
@@ -69,6 +66,14 @@ margin-top: 2%;
     cursor: pointer;
 }
 `
+const Form = styled.form`
+display: flex;
+flex-direction: column;
+padding: 5vh;
+justify-content: flex-start;
+text-align: start;
+`
+
 export function LoginForm(props) {
     const navigate = useNavigate()
         return(
@@ -81,8 +86,8 @@ export function LoginForm(props) {
             <LoginParagraph>
             Acesse sua conta de administrador
             </LoginParagraph>  
-            <form onSubmit={props.onSubmit}>
-             <Label>Email</Label><MailLogin 
+            <Form onSubmit={props.onSubmit}>
+             <Label>Email</Label><Input 
              type='email'
               placeholder="Digite seu email" 
               value={props.valueEmail} 
@@ -90,7 +95,7 @@ export function LoginForm(props) {
               required
               name={props.nameMail}
               />
-               <Label>Senha</Label><PasswordLogin 
+               <Label>Senha</Label><Input 
                type='password'
                placeholder="Infome sua senha" 
                value={props.valuePassword} 
@@ -100,10 +105,10 @@ export function LoginForm(props) {
                pattern={'^.{3,}'}
                title={'Sua senha deve ter no mínimo 3 caracteres.'}
                />           
-            <LoginButton onClick={props.botaoLogar}>
+            <LoginButton onClick={props.botaoLogar} type='submit'>
              Entrar
             </LoginButton>    
-            </form>
+            </Form>
                   
         </LoginDiv>
     )

@@ -7,8 +7,6 @@ import { goToListTrips, goToLogin } from '../routes/coordinator';
 
 const HomeContainer = styled.div`
 display: flex;
-/* width: screen;
-height: 100%; */
 `
 
 export function HomePage () {

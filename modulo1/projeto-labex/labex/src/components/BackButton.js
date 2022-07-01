@@ -3,17 +3,15 @@ import styled from "styled-components";
 
 
 const BackButtonStyled = styled.button`
-width: 8rem;
-height: 3rem;
+width: 12vh;
 padding: 2px;
-border-radius: 30%;
-font-size: 1.5rem;
+border-radius: 3vh;
+font-size: 3vh;
 font-weight: bold;
 color: #f98882;
 border: 5px solid #f98882;
-
 align-self: flex-start;
-margin-top: 2%;
+margin: 1vh;
 &:hover{        
     background-color: #f98882;
     color: #ffffff;

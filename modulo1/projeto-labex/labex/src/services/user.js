@@ -14,3 +14,14 @@ export const submitCandidate = (body, clear, id) => {
             console.log(erro)
         });
 };
+
+// export const login = (body) => {
+//   axios.post(`${BASE_URL}login`, body
+//     ).then((response) => {
+//         localStorage.setItem('token', response.data.token)
+//         alert('logado')
+       
+//     }).catch((error) => {
+//         alert('Deu erro ao logar! ' + error.response.data.message)
+//     })       
+// }
