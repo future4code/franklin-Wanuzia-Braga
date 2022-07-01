@@ -15,19 +15,20 @@ export const deleteTrip = (id) => {
         console.log(err)
     })
 }
-export const createTrip = (body, clear) => {
-    const token = localStorage.getItem('token')
-    axios.post(`${BASE_URL}trips`, body, {
-        headers: {
-            ContentType: 'application/json', 
-            auth: token
-        }
-    }
-    ).then((response) => {
-            alert(`Viagem ${body.name} cadastrada com sucesso`);
-           console.log(response)
-            clear()
-        }).catch((erro) => {
-            alert('Erro ao cadastrar' + erro.message);
-        });
-};
+// export const createTrip = (body, clear) => {
+//     const token = localStorage.getItem('token')
+//     axios.post(`${BASE_URL}trips`, body, {
+//         headers: {
+//             ContentType: 'application/json', 
+//             auth: token
+//         }
+//     }
+//     ).then((response) => {
+//             alert(`Viagem ${body.name} cadastrada com sucesso`);
+//            console.log(response)
+//             clear()
+//         }).catch((erro) => {
+//             alert('Erro ao cadastrar' + erro.message);
+//             console.log(erro)
+//         });
+// };
