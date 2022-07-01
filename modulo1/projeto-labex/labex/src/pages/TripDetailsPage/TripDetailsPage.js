@@ -9,6 +9,7 @@ import { DetailsContainer, TripCard, TripTitle, Element, CandidatesCard } from "
 
 export const TripDetailPage = () => {
     useProtectedPage();
+    const [state, setState] = useState(true)
     const navigate = useNavigate()
     const [tripDetails, setTripDetails] = useState([])
     const params = useParams()
@@ -28,6 +29,24 @@ export const TripDetailPage = () => {
                 console.log(error);
             })
     };
+    const body = {
+        approve: state
+    }
+    const decideCandidate = (id, candidateId) => {
+        axios.put(`${BASE_URL}trips/${id}/candidates/${candidateId}/decide`, body, {
+                headers: {
+                    ContentType: 'application/json',
+                    auth: localStorage.getItem('token')
+                }
+        }).then((res) => {
+            console.log(res)
+            detailsPage()
+            setState(true)
+        }).catch((error) => {
+            console.log(error)
+        })
+    }
+
 
     useEffect((detailsPage), [params.id]);
     const candidates = tripDetails.candidates && tripDetails.candidates.length > 0 && tripDetails.candidates.map((detail) => {
@@ -38,8 +57,8 @@ export const TripDetailPage = () => {
                 <p>Idade: {detail.age}</p>
                 <p>País: {detail.country}</p>
                 <p>Texto de Candidatura: {detail.applicationText}</p>
-                <button>aprovar</button>
-                <button>reprovar</button>
+                <button onClick={() => decideCandidate(tripDetails.id, detail.id)}>aprovar</button>
+                <button onClick={() => setState(false)}>reprovar</button>
 
             </div>
         )
@@ -70,7 +89,7 @@ export const TripDetailPage = () => {
             </CandidatesCard>
             <CandidatesCard>
                 <h2>Candidatos aprovados:</h2>
-                {tripDetails.approved > 0 ? { approveds } : 'Nenhum candidato aprovado'}
+                {/* {tripDetails.approved > 0 ? { approveds } : 'Nenhum candidato aprovado'} */}
                 {approveds}
             </CandidatesCard>
         </DetailsContainer>

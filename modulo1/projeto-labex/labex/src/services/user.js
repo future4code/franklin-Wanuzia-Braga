@@ -25,3 +25,14 @@ export const submitCandidate = (body, clear, id) => {
 //         alert('Deu erro ao logar! ' + error.response.data.message)
 //     })       
 // }
+// const body = {
+//     approve: true
+// }
+// export const decideCandidate = (id, candidateId) => {
+//     axios.put(`${BASE_URL}trips/${id}/candidates/${candidateId}/decide`, body, {
+//             headers: {
+//                 ContentType: 'application/json',
+//                 auth: localStorage.getItem('token')
+//             }
+//     })
+// }

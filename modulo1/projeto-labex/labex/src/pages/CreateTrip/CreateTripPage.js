@@ -39,8 +39,6 @@ export const CreateTripPage = () => {
         })
     }
 
-
-
     return (
         <FormContainer>
             <Header onClick={() => goToLastPage(navigate)} name='Voltar' />
