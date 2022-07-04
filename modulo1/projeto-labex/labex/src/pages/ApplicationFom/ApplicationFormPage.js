@@ -20,9 +20,11 @@ export const ApplicationFormPage = () => {
         trip: ''
 
     })
-    const criaCandidato = (e, id) => {
+    const id = form.trip
+    const submit = (e) => {
         e.preventDefault()
-        submitCandidate(form, clear, id ) 
+        submitCandidate(form, id) 
+        clear()
     }
     const tripsOptions = trips && trips.length > 0 && trips.map((trip) => {
         return (
@@ -31,13 +33,13 @@ export const ApplicationFormPage = () => {
                 key={trip.id}>{trip.name} - {trip.planet}</option>
         )
     })
-    console.log(form.trip)
+   
     return (
         <FormContainer>
             <Header onClick={() => goToLastPage(navigate)} name='Voltar'/>
             <FormCard>
             <FormTitle>Formulário de inscrição</FormTitle>
-            <Form onSubmit={criaCandidato}>
+            <Form onSubmit={submit}>
                 <Label> Nome:
                     <Input name={'name'} value={form.name} onChange={onChange} required pattern={'^.{3,}'} title={'O nome deve ter no mínimo 3 letras'} />
                 </Label>

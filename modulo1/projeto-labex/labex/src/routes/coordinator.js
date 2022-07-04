@@ -15,7 +15,7 @@ export const goToLastPage = (navigate) =>{
 }
 
 export const goToForm = (navigate) => {
-    navigate('/trips/application')
+    navigate(`/trips/application`)
 }
 
 export const goToAdminTripsList = (navigate) =>{

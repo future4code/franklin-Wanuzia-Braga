@@ -6,6 +6,7 @@ import axios from "axios";
 import { BASE_URL } from "../../constants/urls";
 import Header from "../../components/Header";
 import { DetailsContainer, TripCard, TripTitle, Element, CandidatesCard } from "./styled";
+import { decideCandidate } from "../../services/user";
 
 export const TripDetailPage = () => {
     useProtectedPage();
@@ -13,7 +14,6 @@ export const TripDetailPage = () => {
     const navigate = useNavigate()
     const [tripDetails, setTripDetails] = useState([])
     const params = useParams()
-
 
     const detailsPage = () => {
         const token = localStorage.getItem('token')
@@ -30,23 +30,17 @@ export const TripDetailPage = () => {
             })
     };
     const body = {
-        approve: state
-    }
-    const decideCandidate = (id, candidateId) => {
-        axios.put(`${BASE_URL}trips/${id}/candidates/${candidateId}/decide`, body, {
-                headers: {
-                    ContentType: 'application/json',
-                    auth: localStorage.getItem('token')
-                }
-        }).then((res) => {
-            console.log(res)
-            detailsPage()
-            setState(true)
-        }).catch((error) => {
-            console.log(error)
-        })
-    }
-
+            approve: state
+        }
+   const approveCandidate = (id, candidateId) => {
+    decideCandidate(id, candidateId, body, setState)
+    detailsPage()
+   }
+   const rejectCandidate= (id, candidateId) => {
+    setState(false)
+    decideCandidate(id, candidateId, body, setState)
+    detailsPage()
+   }
 
     useEffect((detailsPage), [params.id]);
     const candidates = tripDetails.candidates && tripDetails.candidates.length > 0 && tripDetails.candidates.map((detail) => {
@@ -57,8 +51,8 @@ export const TripDetailPage = () => {
                 <p>Idade: {detail.age}</p>
                 <p>País: {detail.country}</p>
                 <p>Texto de Candidatura: {detail.applicationText}</p>
-                <button onClick={() => decideCandidate(tripDetails.id, detail.id)}>aprovar</button>
-                <button onClick={() => setState(false)}>reprovar</button>
+                <button onClick={() => approveCandidate(tripDetails.id, detail.id)}>aprovar</button>
+                <button onClick={() => rejectCandidate(tripDetails.id, detail.id)}>reprovar</button>
 
             </div>
         )

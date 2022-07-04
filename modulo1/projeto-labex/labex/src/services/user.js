@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { BASE_URL } from "../constants/urls";
 
-export const submitCandidate = (body, clear, id) => {
+export const submitCandidate = (body, id) => {
     axios.post(`${BASE_URL}trips/${id}/apply`, body
     )
         .then((response) => {
             alert(`Candidato ${body.name} inscrito com sucesso`);
-            console.log(response)
-           clear()
+            console.log(response.request.responseURL)
+          
         })
         .catch((erro) => {
             alert('Erro ao se inscrever' + erro.message);
@@ -25,14 +25,18 @@ export const submitCandidate = (body, clear, id) => {
 //         alert('Deu erro ao logar! ' + error.response.data.message)
 //     })       
 // }
-// const body = {
-//     approve: true
-// }
-// export const decideCandidate = (id, candidateId) => {
-//     axios.put(`${BASE_URL}trips/${id}/candidates/${candidateId}/decide`, body, {
-//             headers: {
-//                 ContentType: 'application/json',
-//                 auth: localStorage.getItem('token')
-//             }
-//     })
-// }
+export const decideCandidate = (id, candidateId, body, setState) => {
+    axios.put(`${BASE_URL}trips/${id}/candidates/${candidateId}/decide`, body, {
+            headers: {
+                ContentType: 'application/json',
+                auth: localStorage.getItem('token')
+            }
+    }).then((resp) => {
+        console.log(resp.data)
+        setState()
+   
+    }).catch((error) => {
+        alert('Deu errado!')
+        console.log(error)
+    })
+}
