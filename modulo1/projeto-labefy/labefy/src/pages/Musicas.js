@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
-
+import MediaControlCard from "../components/MediaControlCard";
 
 const TracksContainer = styled.div`
 display: flex;
@@ -40,7 +40,7 @@ const MúsicasdaPlaylist = () => {
             })
     }
     const body = {
-        name: inputTitle, 
+        name: inputTitle,
         artist: inputArtist,
         url: inputUrl
     }
@@ -55,7 +55,7 @@ const MúsicasdaPlaylist = () => {
             setInputTitle('')
             setInputArtist('')
             setInputUrl('')
-            
+
         }).catch((e) => {
             alert('Não foi possível inserir a música na playlist')
             console.log(e)
@@ -78,7 +78,7 @@ const MúsicasdaPlaylist = () => {
         }).then((response) => {
             alert('Música deletada com sucesso!')
             exibeMusicasDaPlaylist()
-  
+
         }).catch((err) => {
             alert(err)
         })
@@ -88,34 +88,34 @@ const MúsicasdaPlaylist = () => {
     const tracksList = tracks.map((track) => {
         return (
             <div>
-                <div>
-                <p key={track.id}>{track.name} - {track.artist}</p>
-                <audio controls autoplay >
-                    <source src={track.url} type="audio/mp3" />
-                    </audio>
-                    </div>
-             <button onClick={() => {deletaMusica(track.id)}}>deletar música</button>
+                <MediaControlCard 
+                name={track.name}
+                artist={track.artist}
+                src={track.url}
+                />
+                <button onClick={() => { deletaMusica(track.id) }}>deletar música</button>
             </div>
         )
     })
 
+
     return (
         <div>
-         <button onClick={() => goToPlaylists(navigate)}>Voltar para Playlists</button>
-        <TracksContainer>
-               <Tracks>
-                <h3>Músicas da Playlist</h3>
-                {/* {tracks && tracks.length > 0 ? {tracksList} : "Adicione múscas a playlist"} */}
-                {tracksList}
-            </Tracks>
+            <button onClick={() => goToPlaylists(navigate)}>Voltar para Playlists</button>
+            <TracksContainer>
+                <Tracks>
+                    <h3>Músicas da Playlist</h3>
+                    {/* {tracks && tracks.length > 0 ? {tracksList} : "Adicione múscas a playlist"} */}
+                    {tracksList}
+                </Tracks>
                 <CardAdiconarMúsica>
-                <h2>Adicionar Música</h2>
-                <label>Título</label><input value={inputTitle} onChange={handleInputTitle}/>
-                <label>Artista</label><input value={inputArtist} onChange={handleInputArtist}/>
-                <label>URL</label><input value={inputUrl} onChange={handleInputUrl} placeholder='Insira a url do arquivo mp3'/>
-                <button onClick={insereMusica}>Adicionar música</button>
-            </CardAdiconarMúsica>
-        </TracksContainer>
+                    <h2>Adicionar Música</h2>
+                    <label>Título</label><input value={inputTitle} onChange={handleInputTitle} />
+                    <label>Artista</label><input value={inputArtist} onChange={handleInputArtist} />
+                    <label>URL</label><input value={inputUrl} onChange={handleInputUrl} placeholder='Insira a url do arquivo mp3' />
+                    <button onClick={insereMusica}>Adicionar música</button>
+                </CardAdiconarMúsica>
+            </TracksContainer>
         </div>
     )
 }
