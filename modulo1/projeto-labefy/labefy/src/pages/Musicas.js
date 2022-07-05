@@ -5,6 +5,12 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import MediaControlCard from "../components/MediaControlCard";
+import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Typography from "@mui/material/Typography";
+import TextField from '@mui/material/TextField';
+
+
 
 const TracksContainer = styled.div`
 display: flex;
@@ -15,7 +21,7 @@ padding-top: 100px;
 const CardAdiconarMúsica = styled.div`
 display: flex;
 flex-direction: column;
-width: 200px;
+width: 400px;
 `
 const Tracks = styled.div`
 `
@@ -93,7 +99,9 @@ const MúsicasdaPlaylist = () => {
                 artist={track.artist}
                 src={track.url}
                 />
-                <button onClick={() => { deletaMusica(track.id) }}>deletar música</button>
+                <Button onClick={() => { deletaMusica(track.id) }}
+                color="warning" variant="outlined" startIcon={<DeleteIcon />}
+                >deletar música</Button>
             </div>
         )
     })
@@ -101,19 +109,51 @@ const MúsicasdaPlaylist = () => {
 
     return (
         <div>
-            <button onClick={() => goToPlaylists(navigate)}>Voltar para Playlists</button>
+            <Button onClick={() => goToPlaylists(navigate)}
+            color={'secondary'} fullWidth variant="outlined" 
+            >Voltar para Playlists</Button>
             <TracksContainer>
                 <Tracks>
-                    <h3>Músicas da Playlist</h3>
+                    <Typography variant={'h4'} color={'blue'}>Músicas da Playlist</Typography>
                     {/* {tracks && tracks.length > 0 ? {tracksList} : "Adicione múscas a playlist"} */}
                     {tracksList}
                 </Tracks>
                 <CardAdiconarMúsica>
-                    <h2>Adicionar Música</h2>
-                    <label>Título</label><input value={inputTitle} onChange={handleInputTitle} />
-                    <label>Artista</label><input value={inputArtist} onChange={handleInputArtist} />
-                    <label>URL</label><input value={inputUrl} onChange={handleInputUrl} placeholder='Insira a url do arquivo mp3' />
-                    <button onClick={insereMusica}>Adicionar música</button>
+                <Typography align={'center'} variant={'h5'} color={'secondary'}>Adicionar Música</Typography>
+                <TextField value={inputTitle} 
+                    onChange={handleInputTitle} 
+                    placeholder='Nome da música' 
+                    label={'Título'}
+                    variant={"outlined"}
+                    fullWidth
+                    margin={'normal'}
+                    color={'secondary'}
+                    required
+                    />
+                      <TextField value={inputArtist} 
+                    onChange={handleInputArtist} 
+                    placeholder='Nome do artista' 
+                    label={'Artista'}
+                    variant={"outlined"}
+                    fullWidth
+                    margin={'normal'}
+                    color={'secondary'}
+                    required
+                    />
+                     <TextField value={inputUrl} 
+                    onChange={handleInputUrl} 
+                    placeholder='Link formato mp3' 
+                    label={'Link da música'}
+                    variant={"outlined"}
+                    fullWidth
+                    margin={'normal'}
+                    color={'secondary'}
+                    required
+                    />
+                   
+                    <Button onClick={insereMusica}
+                    color={'secondary'} fullWidth variant="outlined" 
+                    >Adicionar música</Button>
                 </CardAdiconarMúsica>
             </TracksContainer>
         </div>

@@ -6,34 +6,38 @@ import { goToPlaylistTracks } from "../routes/coordinator";
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography'
+import PlaylistPlayIcon from '@mui/icons-material/PlaylistPlay';
 
 const PlaylistContainer = styled.div`
  display: flex ;
  flex-direction: column;
  align-items: center;
  border: 10px solid #f98882;
+ width: 50vh;
  `
 const ListaPlaylists = styled.div`
 display: flex;
 justify-content: center;
 align-items: center;
+flex-direction: row;
 padding: 10px;
-`
-const PlaylistItem = styled.p`
-font-size: 30px;
-font-weight: bold;
-color: black;
-margin-right: 10px;
+margin: 2vh;
+border-bottom: 2px solid violet;
 `
 const NewPlaylist = styled.div`
 display: flex;
 flex-direction: column;
+width: 80vw;
+max-width: 450px;
 align-items: center;
+margin-bottom: 20px;
 `
 const Container = styled.div`
 display: flex;
 justify-content: space-evenly;
-padding-top: 100px;
+padding: 10vh;
 `
 const PlaylistsPage = () => {
     const navigate = useNavigate()
@@ -89,12 +93,13 @@ const PlaylistsPage = () => {
     const listaDePlaylists = playlists.map((playlist) => {
         return (
             <ListaPlaylists>
-                <PlaylistItem key={playlist.id}>{playlist.name}</PlaylistItem>
-                <Button onClick={() => goToPlaylistTracks(navigate, playlist.id)}>Ver playlist</Button>
-                <Button onClick={() => { deletaPlaylist(playlist.id) }}
-                    variant="outlined" startIcon={<DeleteIcon />}>
-                    Delete
-                </Button>
+                <Typography key={playlist.id} variant={'h4'}>
+                🎵{playlist.name}🎶
+                </Typography>
+                <Button color={'secondary'} fullWidth variant="outlined" onClick={() => goToPlaylistTracks(navigate, playlist.id)}>Ver playlist</Button>
+                <Button color="warning" 
+                onClick={() => { deletaPlaylist(playlist.id) }}
+                variant="outlined" startIcon={<DeleteIcon />}></Button>
             </ListaPlaylists>
         )
     })
@@ -103,12 +108,22 @@ const PlaylistsPage = () => {
         <div>
             <Container>
                 <PlaylistContainer>
-                    <h2>Playlists</h2>
+                    <Typography variant="h3">Playlists</Typography><PlaylistPlayIcon/>
                     {listaDePlaylists}
                 </PlaylistContainer>
                 <NewPlaylist>
-                    <label>Nova Playlist</label><input value={inputPlaylist} onChange={handleInputNome} placeholder='Insira o nome da Playlist' />
-                    <Button onClick={criaPlaylist}>Criar Playlist</Button>
+                    <Typography align={'center'} variant={'h5'} color={'secondary'}>Nova Playlist</Typography>
+                    <TextField value={inputPlaylist} 
+                    onChange={handleInputNome} 
+                    placeholder='Insira o nome da Playlist' 
+                    label={'Nome da playlist'}
+                    variant={"outlined"}
+                    fullWidth
+                    margin={'normal'}
+                    color={'secondary'}
+                    required
+                    />
+                    <Button onClick={criaPlaylist}  color={'secondary'} variant={"outlined"} fullWidth>Criar Playlist</Button>
                 </NewPlaylist>
             </Container>
         </div>

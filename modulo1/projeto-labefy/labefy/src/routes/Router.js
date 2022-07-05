@@ -4,6 +4,7 @@ import PlaylistsPage from "../pages/PlaylistsPage";
 import MúsicasdaPlaylist from "../pages/Musicas";
 import ErrorPage from "../pages/ErrorPage"
 import Header from "../components/Header";
+import { Footer } from "../components/Footer";
 
 
 const Router =() => {
@@ -16,6 +17,7 @@ const Router =() => {
             <Route path='/playlists/musics/:id' element={<MúsicasdaPlaylist/>} />
             <Route path='*' element={<ErrorPage/>}/>
         </Routes>
+        <Footer />
         </BrowserRouter>
     )
 }
