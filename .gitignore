@@ -104,3 +104,8 @@ build/
 # TernJS port file
 .tern-port
 .DS_Store
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
