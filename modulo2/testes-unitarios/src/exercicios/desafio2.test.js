@@ -1,4 +1,4 @@
-import { tornaMaiuscula } from "./ex3";
+import { tornaMaiuscula } from "./desafio2";
 
 describe("Torna primeira letra de cada palavra da frase em maiúscula", () => {
     it("retorna frase com a primeira letra de cada palavra maiúscula", () => {

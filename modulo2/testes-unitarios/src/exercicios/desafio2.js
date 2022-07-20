@@ -1,8 +1,9 @@
 
-//Esta função não está dando o retorno esperado:
 export function tornaMaiuscula(frase) {
-    const palavras = frase.split(" ");
-    palavras.map((letra) => {
-        return letra[0].toUpperCase().join(" ")});
+    const palavras = frase.split(" ")
+    for (let i = 0; i < palavras.length; i++) {
+        palavras[i] = palavras[i][0].toUpperCase() + palavras[i].substr(1);
+    }
+ return palavras.join(" ")
  
 }
