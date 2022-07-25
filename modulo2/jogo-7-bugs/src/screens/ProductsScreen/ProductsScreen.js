@@ -27,10 +27,10 @@ const ProductsScreen = () => {
 
   const filteredProducts = states.products
     .filter((p) =>
-      states.filters.minValue ? Number(p.price) > states.filters.minValue : true
+      states.filters.minValue ? Number(p.price) >= states.filters.minValue : true
     )
     .filter((p) =>
-      states.filters.maxValue ? Number(p.price) < states.filters.maxValue : true
+      states.filters.maxValue ? Number(p.price) <= states.filters.maxValue : true
     )
     .filter((p) =>
       states.filters.name
