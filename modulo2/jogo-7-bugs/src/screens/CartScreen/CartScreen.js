@@ -62,7 +62,7 @@ const CartScreen = () => {
         <button onClick={() => goToProducts(history)}>
           Continuar Comprando
         </button>
-        <button onClick={makePurchase}>Finalizar compra</button>
+        <button disabled={states.cart.length <= 0} onClick={makePurchase}>Finalizar compra</button>
       </ScreenContainer>
     </>
   );
