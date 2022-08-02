@@ -1,0 +1,12 @@
+{
+  "name": "exercicio-2",
+  "version": "1.0.0",
+  "description": " aplicação Node que recebe uma string representando uma operação matemática e dois valores numéricos",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./index.js"
+  },
+  "author": "Wanuzia Braga",
+  "license": "ISC"
+}
