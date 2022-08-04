@@ -1,7 +1,7 @@
 {
   "name": "intro-typescript",
   "version": "1.0.0",
-  "description": "Aula 1 de typescript - refatornado código js para ts.",
+  "description": "Aula 1 de typescript - refatorando código js para ts.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
