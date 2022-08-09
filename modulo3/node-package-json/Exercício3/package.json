@@ -1,0 +1,12 @@
+{
+  "name": "exercicio-3",
+  "version": "1.0.0",
+  "description": "uma aplicação Node que recebe uma string representando uma tarefa.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./index.js"
+  },
+  "author": "Wanuzia Braga",
+  "license": "ISC"
+}
