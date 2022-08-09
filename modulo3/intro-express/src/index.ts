@@ -31,21 +31,23 @@ if(!getPostsUser) {
 response.status(201).send(getPostsUser)
 })
 
-app.delete("/posts/:postId", (request:Request, response:Response) => {
-    const postid = Number(request.params.id)
+app.delete("/posts/:id", (request:Request, response:Response) => {
+    const id = Number(request.params.id)
 
-    const index = postsList.findIndex((i) => i.id === postid);
+    const index = postsList.findIndex((i) => i.id === id);
     if(index) {
         postsList.splice(index, 1) 
-        response.send('Ok! Deletado!').status(201)
+        // response.send('Ok! Deletado!').status(201)
     }
     if(!index){
         response.send("Erro")
-
     }
-  
+    response.status(200).end()
 })
 
+app.get("*", (request:Request, response:Response) => {
+    response.status(404).send("Rota não encontrada.")
+})
 
 app.listen(3003, () => {
 console.log('Server is running in http://localhost:3003')
