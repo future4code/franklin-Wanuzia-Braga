@@ -49,7 +49,6 @@ app.post("/creatTask", (req:Request, res:Response) => {
   const findUser:ToDo[] = tasks.filter((task) => {
     return task.userId === userId
 })
-  console.log(findUser)
      res.status(201).send(findUser)
 })
 
@@ -91,8 +90,30 @@ app.get('/tasksUser/:id', (req:Request, res:Response) => {
     const findTasks = tasks.filter((task) => {
       return task.userId === id
     })
-    res.status(200).send(findTasks)
+    const retorno = {
+        todos: {
+            selectedUser: 
+                findTasks.map((task) => {
+                    task.userId
+                    task.id
+                    task.title
+                    task.completed
+                })
+            ,
+            others:
+                tasks.map((task) => {
+                    task.userId
+                    task.id
+                    task.title
+                    task.completed
+                })
+            
+        }
+    }
+    res.status(200).send(findTasks) 
+    console.log(retorno)
   })
+
 
 
 app.listen(3003, () => {
