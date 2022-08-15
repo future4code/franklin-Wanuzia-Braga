@@ -1,8 +1,7 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
-import { clientsList, Client } from "./clientsList";
+import { clientsList } from "./clientsList";
 import { validaData } from "./validaData";
-import { countList } from "./count";
 
 const app = express();
 
@@ -17,7 +16,7 @@ res.status(200).send("Rota funcionando! Banco no ar!")
 //ok - exbindo apenas nomes da lista de clientes
 app.get("/clients", (req:Request, res:Response) => {
     const client = clientsList.map((cli) => {
-        return cli.name
+        return cli.client.name
     })
     res.status(200).send(client)
 })
@@ -28,14 +27,13 @@ app.post("/singUp", (req:Request, res:Response) => {
 })
 
 //não retorna na requisição apenas o saldo; retorna objeto inteiro.
-app.get("/saldo/:cpf", (req:Request, res:Response) => {
-
+app.get("/saldo/:cpf", async (req:Request, res:Response) => {
 const cpf = req.params.cpf
-const findId = clientsList.filter((client) => {
-     if (client.cpf === cpf ) {
-         return  client.balance 
+const findId = await clientsList.find((client) => {
+     if (client.client.cpf === cpf ) {
+         return  client.client.balance 
      }
-     console.log(findId)
+     console.log(cpf)
      return 0
     }
  )
