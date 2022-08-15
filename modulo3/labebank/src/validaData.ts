@@ -13,11 +13,9 @@ export function validaData(data:string):boolean{
     if (mes < 0 || (mes === 0 && today.getDate() < birthDate.getDate())) age--;
     
     if(age < 18){
-       console.log("Pessoas menores de 18 não podem se cadastrar.");
        return false;
     }
     else {
-       console.log("Maior de 18, pode se cadastrar.");
        return true;
     }
  }

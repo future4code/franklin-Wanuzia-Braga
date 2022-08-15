@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import { clientsList } from "./clientsList";
 import { validaData } from "./validaData";
-
+import { Count } from "./Tipos";
 const app = express();
 
 app.use(express.json());
@@ -22,7 +22,23 @@ app.get("/clients", (req:Request, res:Response) => {
 })
 
 app.post("/singUp", (req:Request, res:Response) => {
-
+const clients = clientsList
+const {id, name, cpf, birthDate} = req.body
+const newCount : Count ={
+    id:id,
+    client: {name:name,
+    cpf:cpf,
+    birthDate:birthDate,
+    balance: 0
+},
+    extract:[],
+}
+if(!validaData(birthDate)) {
+    res.status(400).send("Pessoas menores de 18 não podem se cadastrar.")
+} else {
+    clients.push(newCount)
+    res.status(201).send(`Cliente ${name} cadastrado com sucesso`)
+}
 
 })
 
@@ -39,17 +55,7 @@ const findId = await clientsList.find((client) => {
  )
  res.status(200).send(findId)
 })
-// const pegaSaldo = countList.filter((count) => {
-//      if (id === count.clientId){
-//          return count.balance
-//      }
-// })  
-//  })
-  
-//  res.status(200).send(findId)
 
-
-// })
 
 
 
