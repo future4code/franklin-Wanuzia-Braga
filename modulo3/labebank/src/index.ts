@@ -33,11 +33,20 @@ const newCount : Count ={
 },
     extract:[],
 }
+
+if(clientsList.find(cli => cli.client.cpf === req.body.cpf)) {
+    res.statusCode = 409
+    throw new Error("CPF já cadastrado.")
+}
+
 if(!validaData(birthDate)) {
     res.status(400).send("Pessoas menores de 18 não podem se cadastrar.")
 } else {
     clients.push(newCount)
-    res.status(201).send(`Cliente ${name} cadastrado com sucesso`)
+    res.status(201).send({
+        message:`Cliente ${name} cadastrado com sucesso`,
+        clientes: clients
+    })
 }
 
 })
