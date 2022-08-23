@@ -243,3 +243,66 @@ app.get("/mediaSalarial/:gender", async (req:Request, res:Response) => {
         res.status(501).send("An unexpected error ocurred")
     }
 })
+//inserir filme na tabela Filmes
+const createMovie = async (
+    id: string,
+    nome: string,
+    sinopse: string,
+    data_lancamento: Date,
+    playingLimitDate: Date
+  ) => {
+    await connection
+      .insert({
+        id: id,
+        nome: nome,
+        sinopse: sinopse,
+        data_lancamento: data_lancamento,
+        playing_limit_date: playingLimitDate,
+      })
+      .into("Filmes");
+  };
+  
+  app.post("/movie", async (req: Request, res: Response) => {
+    try {
+      await createMovie(
+        req.body.id,
+        req.body.nome,
+        req.body.sinopse,
+        req.body.data_lancamento,
+        req.body.playingLimitDate
+      );
+  
+      res.status(200).send({
+        message: "Success"
+      });
+    } catch (err) {
+      res.status(400).send({
+        message: err,
+      });
+    }
+  });
+
+  //get all movies
+  app.get("/movies", async (req:Request, res:Response) => {
+    try {
+    const result = await connection("Filmes")
+    console.log(result);
+    res.send(result)
+    }catch(error) {
+        console.log(error)
+    }
+})
+
+// app.get("/movie/search", async (req: Request, res: Response) => {
+//     try {
+//       const movies = await connection(req.query.query as string);
+  
+//       res.status(200).send({
+//         movies: movies,
+//       });
+//     } catch (err) {
+//       res.status(400).send({
+//         message: err
+//       });
+//     }
+//   });

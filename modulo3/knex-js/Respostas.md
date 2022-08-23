@@ -159,3 +159,96 @@ app.delete("/actor/:id", async (req: Request, res: Response) => {
 });
 ~~~
 
+
+## Exercício 5
+
+- Criar filme na tabela
+
+~~~javascript
+
+const createMovie = async (
+  id: string,
+  nome: string,
+  sinopse: string,
+  data_lancamento: Date,
+  playingLimitDate: Date
+) => {
+  await connection
+    .insert({
+      id: id,
+      nome: nome,
+      sinopse: sinopse,
+      data_lancamento: data_lancamento,
+      playing_limit_date: playingLimitDate,
+    })
+    .into("Filmes");
+};
+
+app.post("/movie", async (req: Request, res: Response) => {
+  try {
+    await createMovie(
+      req.body.id,
+      req.body.nome,
+      req.body.sinopse,
+      req.body.data_lancamento,
+      req.body.playingLimitDate
+    );
+
+    res.status(200).send({
+      message: "Success"
+    });
+  } catch (err) {
+    res.status(400).send({
+      message: err.message,
+    });
+  }
+});
+~~~
+
+## Exercício 6
+- Pegar todos os filmes da tabela
+
+~~~javascript
+
+const getAllMovies = async (): Promise<any> => {
+  const result = await connection.raw(`
+    SELECT * FROM Movie LIMIT 15
+  `);
+
+  return result[0];
+};
+
+app.post("/movie/:id", async (req: Request, res: Response) => {
+  try {
+    const movies = await getAllMovies();
+
+    res.status(200).send({
+      movies: movies,
+    });
+  } catch (err) {
+    res.status(400).send({
+      message: err.message,
+    });
+  }
+});
+~~~
+
+## Exercício 7
+- Busca filme por termo:
+
+~~~javascript
+
+app.get("/movie/search", async (req: Request, res: Response) => {
+  try {
+    const movies = await searchMovie(req.query.query as string);
+
+    res.status(200).send({
+      movies: movies,
+    });
+  } catch (err) {
+    res.status(400).send({
+      message: err.message,
+    });
+  }
+});
+~~~
