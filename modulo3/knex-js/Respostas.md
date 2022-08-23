@@ -42,7 +42,7 @@ const countActors = async (gender: string): Promise<any> => {
 };
 ~~~
 
-### Exercício 1 => query builders
+### Exercício 2 => query builders
 
 #### A)
 
@@ -52,7 +52,7 @@ const countActors = async (gender: string): Promise<any> => {
 const updateActor = async (id: string, salary: number): Promise<Actor> => {
   await connection("Actor")
     .update({
-      salary: salary,
+      salary: salary
     })
     .where("id", id);
 };
@@ -82,4 +82,23 @@ const avgSalary = async (gender: string): Promise<number> => {
 
   return result[0].average;
 };
+~~~
+
+### Exercício 3 => endpoints
+
+- Pega ator/atriz por id:
+
+~~~javascript
+app.get("/actor/:id", async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+    const actor = await getActorById(id);
+
+    res.status(200).send(actor)
+  } catch (err) {
+    res.status(400).send({
+      message: err.message,
+    });
+  }
+});
 ~~~

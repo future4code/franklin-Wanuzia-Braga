@@ -4,6 +4,19 @@ import connection from './connection';
 import { Actor } from './types';
 
 
+app.get("/actors", async (req:Request, res:Response) => {
+    try {
+    //  const result = await connection.raw(`select id, name from Actor`)
+    
+    //query builder
+    const result = await connection("Actor")
+    console.log(result);
+    res.send(result)
+    }catch(error) {
+        console.log(error)
+    }
+})
+
 const getActorById = async (id: string): Promise<Actor> => {
   const result = await connection.raw(`
     SELECT * FROM Actor WHERE id = '${id}'
@@ -66,6 +79,19 @@ const searchActor = async (name: string): Promise<Actor> => {
   (async () => {
     console.log(await searchActor("Taís Araújo") )
   })()
+//Retorna corretamente o objeto do ator selecionado por nome
+  app.get("/actorsByName/:name", async (req:Request, res:Response) => {
+    const name = req.params.name
+    try {
+    const result = await connection.raw(`
+    SELECT * FROM Actor WHERE name = "${name}"
+    `);
+    const response = result[0][0];
+    res.status(200).send(response)
+    }catch(error) {
+        console.log(error)
+    }
+})
   
   //o retorno no Postman está sendo vazio. No console a resposta vem corretamente.
   const countActors = async (gender: string): Promise<number> => {
@@ -146,7 +172,7 @@ app.get("/actorsByGender/:gender", async (req:Request, res:Response) => {
       }
   })
   //Neste exemplo, há resposta de sucesso na requisição:
-  app.post("/actor/create", async (req:Request, res:Response) => {
+  app.post("/actor/create", async (req:Request, res:Response):Promise<void> => {
     const {name, salary, dateOfBirth, gender} = req.body
     try{
         await connection("Actor")
@@ -161,5 +187,59 @@ app.get("/actorsByGender/:gender", async (req:Request, res:Response) => {
     }catch(error) {
         console.log(error)
         res.status(500).send("An unexpected error ocurred")
+    }
+})
+
+app.put("/actor/:id", async (req:Request, res:Response) => {
+    const salary:number = req.body.salary;
+    const id:string = req.params.id
+    try{
+        await connection("Actor").update({
+            salary: salary
+        }).where({
+            id: id
+        })
+        res.send('Success!')
+
+    }catch(error){
+        console.log(error)
+        res.status(500).send("An unexpected error ocurred.")
+    }
+})
+
+//não reconhece os ids gerados automaticamente, apenas o inseridos manualmente
+app.delete("/actor/:id", async (req:Request, res:Response) => {
+    const id:string = req.params.id
+    try{
+       const linhasDeletadas = await connection("Actor")
+        .delete()
+        .where({
+            id: id
+        })
+        // if(linhasDeletadas === 0){
+        //     throw new Error
+        // }
+        res.send("Success!")
+    
+    }catch(error){
+    console.log(error)
+    res.status(500).send('Erro no delete')
+    }
+    })
+//só retorna o objeto
+app.get("/mediaSalarial/:gender", async (req:Request, res:Response) => {
+    const gender:string = req.params.gender
+    try{
+       const result =  await connection("Actor")
+        .select()
+        .avg("salary as average")
+        .where({
+            gender: gender
+        })
+        const media = result[0]
+            res.status(200).send(media)
+    }catch(error) {
+        console.log(error)
+        res.status(501).send("An unexpected error ocurred")
     }
 })
