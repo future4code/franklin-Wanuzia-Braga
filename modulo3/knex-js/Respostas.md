@@ -210,7 +210,7 @@ app.post("/movie", async (req: Request, res: Response) => {
 
 ~~~javascript
 
-const getAllMovies = async (): Promise<any> => {
+const getAllMovies = async (): Promise<Movie> => {
   const result = await connection.raw(`
     SELECT * FROM Movie LIMIT 15
   `);
