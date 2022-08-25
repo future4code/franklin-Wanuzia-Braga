@@ -4,9 +4,11 @@ import connection from "../../connection";
 const getUserById =  async (req:Request, res:Response) => {
     try{
         const result = await connection("TodoListUser")
+        .select("*")
         .where({
             id: req.params.id
         })
+        // não está entrando no if para retornar o erro. Retornando array vazio.
         // if(!req.params.id){
         //     res.send("id não encontrado")
         // }

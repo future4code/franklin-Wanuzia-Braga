@@ -5,7 +5,7 @@ import { AddressInfo } from "net";
 
 
 const app = express();
-const port = process.env.PORT || 3008
+const port = process.env.PORT || 3006
 
 app.use(express.json());
 app.use(cors());

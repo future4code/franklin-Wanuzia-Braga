@@ -5,14 +5,14 @@ export type User = {
     email:string
 }
 
-// export type Task = {
-//     id:string,
-//     title:string,
-//     description:string,
-//     status: ENUM,
-//     limit_date: Date,
-//     creator_user_id:string  
-// }
+export type Task = {
+    id:string,
+    title:string,
+    description:string,
+    status: string,
+    limit_date: Date,
+    creator_user_id:string  
+}
 
 export type ResponsibleUserTask = {
     task_id:string,

@@ -3,16 +3,15 @@ import connection from "../../connection";
 
 //error: field 'creator_uder_id' doesn't have a default value
 const createTask = async (req:Request, res:Response) => {
-    const {title, description, limit_date} = req.body
-    const id = req.query.id
+    const {title, description, limit_date, creator_user_id} = req.body
     try{
         await connection("TodoListTask").insert({
             id: Date.now().toString(),
             title: title,
             description: description,
-            limit_date:limit_date
-        }).where({
-            creator_user_id: id
+            limit_date:limit_date,
+        // }).where({
+            creator_user_id: creator_user_id
         })
         res.status(201).send("Success!")
 

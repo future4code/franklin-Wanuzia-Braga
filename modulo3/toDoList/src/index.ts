@@ -9,4 +9,4 @@ app.get("/users", getAllUsers);
 app.post("/user", createUser);
 app.get("/user/:id", getUserById);
 app.put("/user/edit/:id", editUser);
-app.post("/task",createTask);
+app.post("/createTask",createTask);
