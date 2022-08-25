@@ -2,11 +2,9 @@ import { Response, Request } from "express";
 import connection from "../../connection";
 
 const createUser = async (req:Request, res:Response) => {
-    const {name, nickname, email} = req.body;
     try{
-        if(!name || !nickname || !email){
-            res.statusCode = 422
-           
+        const {name, nickname, email} = req.body;
+        if(!name || !nickname || !email){         
             throw new Error("Preencha todos os campos")
         }
         await connection("TodoListUser").insert({

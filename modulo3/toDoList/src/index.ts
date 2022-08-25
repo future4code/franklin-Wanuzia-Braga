@@ -1,5 +1,6 @@
 import app from "./app";
 import createTask from "./endpoints/tasks/createTask";
+import getTaskById from "./endpoints/tasks/getTaskById";
 import createUser from "./endpoints/user/createUser";
 import editUser from "./endpoints/user/editUser";
 import getAllUsers from "./endpoints/user/getAllUsers";
@@ -10,3 +11,4 @@ app.post("/user", createUser);
 app.get("/user/:id", getUserById);
 app.put("/user/edit/:id", editUser);
 app.post("/createTask",createTask);
+app.get("/task/:id", getTaskById);
