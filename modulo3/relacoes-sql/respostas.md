@@ -83,7 +83,7 @@ VALUES (
 
 ***SQL Error [1452] [23000]: Cannot add or update a child row: a foreign key constraint fails (`franklin-wanuzia-braga`.`Rating`, CONSTRAINT `Rating_ibfk_1` FOREIGN KEY (`movie_id`) REFERENCES `Filmes` (`id`))***
 
-- O resultado deu erro pois não encontrou um id correspondente ao informado na table Fimes.
+- O resultado deu erro pois não encontrou um id correspondente ao informado na tabela Fimes.
 
 ### D)
 - Altera a tabela de filmes para que ela não tenha mais uma coluna chamada rating:
@@ -287,17 +287,79 @@ movie_id|nome                                        |actor_id     |name        
 
 ## Exercício 6
 ### A)
-- A relação é M:N na tabela Óscar dos filmes: 
+- A relação é M:N na tabela Óscar dos filmes: cada chave estrangeira pode ter várias referências a mais de um outro elemento. Neste caso, um filme pode ter vários óscar(Óscar de melhor filme,  Óscar de melhor direção, etc) e cada edição e categoria do oscar pode ser entregue a diferentes filmes.
 ### B) 
 - Query utilizada para criar a tabela Óscar dos filmes:
+```sql
+CREATE TABLE Oscar (
+	id VARCHAR(255) PRIMARY KEY,
+    name_oscar VARCHAR(255) NOT NULL,
+	win_date DATE NOT NULL,
+    movie_id VARCHAR(255),
+    FOREIGN KEY (movie_id) REFERENCES Filmes(id)
+)
 
+ALTER TABLE Oscar 
+CHANGE id id INT AUTO_INCREMENT;
+```
 ### C)
 - Cria ao menos dois Oscar para cada filme:
 ```sql
+INSERT INTO Oscar(name_oscar, win_date, movie_id)
+VALUES("Melhor Filme", "2022-05-21", "002");
 
+INSERT INTO Oscar(name_oscar, win_date, movie_id)
+VALUES("Melhor Direção", "2022-05-21", "002");
+
+INSERT INTO Oscar(name_oscar, win_date, movie_id)
+VALUES("Melhor Fotografia", "2022-05-21", "003");
+
+INSERT INTO Oscar(name_oscar, win_date, movie_id)
+VALUES("Melhor Cenografia", "2022-05-21", "003");
+
+INSERT INTO Oscar(name_oscar, win_date, movie_id)
+VALUES("Melhor Direção", "2021-05-21", "004");
+
+INSERT INTO Oscar(name_oscar, win_date, movie_id)
+VALUES("Melhor Cenografia", "2021-05-21", "004");
+
+INSERT INTO Oscar(name_oscar, win_date, movie_id)
+VALUES("Melhor Figurino", "2020-05-21", "008");
+
+INSERT INTO Oscar(name_oscar, win_date, movie_id)
+VALUES("Melhor Filme", "2020-05-21", "008");
+
+INSERT INTO Oscar(name_oscar, win_date, movie_id)
+VALUES("Melhor Sonoplastia", "2019-05-21", "009");
+
+INSERT INTO Oscar(name_oscar, win_date, movie_id)
+VALUES("Melhor Iluminação", "2019-05-21", "009");
+
+INSERT INTO Oscar(name_oscar, win_date, movie_id)
+VALUES("Melhor Roteiro", "2018-05-21", "010");
+
+INSERT INTO Oscar(name_oscar, win_date, movie_id)
+VALUES("Melhor Direção", "2017-05-21", "010");
 ```
 ### D)
 - Query que retorna todos os filmes e seus respectivos óscar:
 ```sql
-
+SELECT f.id as movie_id, f.nome, o.name_oscar FROM Filmes f 
+JOIN Oscar o ON f.id = o.movie_id;
 ```
+- Retorno da query:
+
+movie_id|nome                                        |name_oscar        |
+--------|--------------------------------------------|------------------|
+002     |Doce de mãe                                 |Melhor Filme      |
+002     |Doce de mãe                                 |Melhor Direção    |
+003     |Dona Flor e Seus Dois Maridos               |Melhor Fotografia |
+003     |Dona Flor e Seus Dois Maridos               |Melhor Cenografia |
+004     |Deus é Brasileiro                           |Melhor Direção    |
+004     |Deus é Brasileiro                           |Melhor Cenografia |
+008     |Filme que não foi criado                    |Melhor Figurino   |
+008     |Filme que não foi criado                    |Melhor Filme      |
+009     |Filme que não foi criado - a revanche       |Melhor Sonoplastia|
+009     |Filme que não foi criado - a revanche       |Melhor Iluminação |
+010     |Filme que não foi criado 3 - o retorno final|Melhor Roteiro    |
+010     |Filme que não foi criado 3 - o retorno final|Melhor Direção    |
