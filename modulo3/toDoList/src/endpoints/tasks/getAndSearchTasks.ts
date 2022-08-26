@@ -1,17 +1,17 @@
 import { Response, Request } from "express";
 import connection from "../../connection";
 
-const getAllUsers = async (req:Request, res:Response) => {
+const gestTasks = async (req:Request, res:Response) => {
     let {name} = req.query
     console.log(name)
     try{
         if(!name) {
             name = ""
         };
-       const result =  await connection("TodoListUser")
+       const result =  await connection("TodoListTask")
         .select('*')
-        .from('TodoListUser as u')
-        .where('u.name',  'LIKE',  `%${name}%`)        
+        .from('TodoListTask as t')
+        .where('t.title',  'LIKE',  `%${name}%`)        
         
         res.send(result)
 
@@ -21,4 +21,4 @@ const getAllUsers = async (req:Request, res:Response) => {
     }
 };
 
-export default getAllUsers;
+export default gestTasks;

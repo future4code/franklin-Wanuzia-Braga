@@ -1,7 +1,6 @@
 import { Response, Request } from "express";
 import connection from "../../connection";
 
-//error: field 'creator_uder_id' doesn't have a default value
 const createTask = async (req:Request, res:Response) => {
     const {title, description, limit_date, creator_user_id} = req.body
     try{
