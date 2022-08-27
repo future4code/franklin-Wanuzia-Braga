@@ -1,7 +1,7 @@
 import { Response, Request } from "express";
 import connection from "../../connection";
 
-const gestTasks = async (req:Request, res:Response) => {
+const getTasks = async (req:Request, res:Response) => {
     let {name} = req.query
     console.log(name)
     try{
@@ -11,9 +11,9 @@ const gestTasks = async (req:Request, res:Response) => {
        const result =  await connection("TodoListTask")
         .select('*')
         .from('TodoListTask as t')
-        .where('t.title',  'LIKE',  `%${name}%`)        
+        .where('t.title',  'LIKE',  `%${name}%`)
         
-        res.send(result)
+        res.send({Tasks: result})
 
     }catch(error){
         console.log(error)
@@ -21,4 +21,7 @@ const gestTasks = async (req:Request, res:Response) => {
     }
 };
 
-export default gestTasks;
+export default getTasks;
+/*
+
+*/

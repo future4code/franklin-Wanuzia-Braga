@@ -11,7 +11,7 @@ const getAllUsers = async (req:Request, res:Response) => {
        const result =  await connection("TodoListUser")
         .select('*')
         .from('TodoListUser as u')
-        .where('u.name',  'LIKE',  `%${name}%`)        
+        .where('u.name',  'LIKE',  `%${name}%`)
         
         res.send(result)
 
