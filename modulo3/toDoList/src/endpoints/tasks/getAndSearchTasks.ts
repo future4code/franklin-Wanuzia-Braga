@@ -3,7 +3,6 @@ import connection from "../../connection";
 
 const getTasks = async (req:Request, res:Response) => {
     let {name} = req.query
-    console.log(name)
     try{
         if(!name) {
             name = ""
