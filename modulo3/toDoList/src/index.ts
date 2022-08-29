@@ -12,6 +12,7 @@ import deleteTask from "./endpoints/tasks/deleteTask";
 import deleteUser from "./endpoints/user/deleteUser";
 import getTasksByStatus from "./endpoints/tasks/getTasksByStatus";
 import getStatusByTaskId from "./endpoints/tasks/getStatusById";
+import setStatus from "./endpoints/tasks/setStatus";
 
 app.get("/users", getAllUsers);
 app.get("/users/:id", getUserById);
@@ -24,5 +25,6 @@ app.get("/users/:id/tasks/:taskId", getTaskById); /* só está dando match com p
 app.get("/tasks", getTasks);
 app.get("/tasks/:status", getTasksByStatus);
 app.get("/tasks/status/:id", getStatusByTaskId);/* O retorno em caso de sucesso está ok. Não está retornando erros corretamente. */
+app.put("/tasks/status/:id", setStatus);/* Está retornando catch error e não altera o status da tarefa */
 app.delete("/users/:id/tasks/:taskId", deleteTask);/*A tarefa não está sendo deletada... */
 app.get("*", notFound);
