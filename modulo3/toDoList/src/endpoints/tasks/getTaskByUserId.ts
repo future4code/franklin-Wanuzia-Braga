@@ -25,7 +25,7 @@ const getTaskByUserId =  async (req:Request, res:Response) => {
         const result = await query
         res.status(200).send({Tarefas: result})
         if(result?.length < 0){
-            res.send({message: 'VocÊ não possui tarefas registradas.'})
+            res.send({message: 'Você não possui tarefas registradas.'})
         };
         
     }catch(error){

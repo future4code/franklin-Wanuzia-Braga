@@ -4,24 +4,24 @@ import connection from "../../connection";
 const getTaskById =  async (req:Request, res:Response) => {
     
     try{
-        const {id, uf} = req.params;
+        const {id, taskId} = req.params;
         const  query = connection('TodoListTask')
-        console.log(id, uf)
-        if(id !== 'a'|| uf !== 'rj'){
-            return res.status(400).json({ message: 'Informe id da tarefa.', id:id === 'a', uf:uf === 'rj'})
+        console.log(id, taskId)
+        if(id === undefined|| taskId === undefined){
+            return res.status(400).send({ message: 'Informe id da tarefa e user_id.', id:id === undefined, taskId:taskId === undefined})
         };
         if (id) {
             query
                 .select( 't.*', 'u.nickname as user')
                 .from('TodoListTask as t')
                 .join('TodoListUser as u', 't.creator_user_id', '=', 'u.id')
-                .where('t.id',  '=',  `${id}`)
+                .where('t.id',  '=',  `${taskId}`)
         };
         const result = await query
-        res.status(200).json({Tarefa: result})
+        res.status(200).send({Tarefa: result})
 
         if(result?.length < 0){
-            return res.json({message: 'Tarefa não encontrada.'})
+            return res.send({message: 'Tarefa não encontrada.'})
         };
         
     }catch(error){
