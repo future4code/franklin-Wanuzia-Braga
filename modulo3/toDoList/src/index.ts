@@ -11,6 +11,7 @@ import getUserById from "./endpoints/user/getUserById";
 import deleteTask from "./endpoints/tasks/deleteTask";
 import deleteUser from "./endpoints/user/deleteUser";
 import getTasksByStatus from "./endpoints/tasks/getTasksByStatus";
+import getStatusByTaskId from "./endpoints/tasks/getStatusById";
 
 app.get("/users", getAllUsers);
 app.get("/users/:id", getUserById);
@@ -22,5 +23,6 @@ app.post("/users/:id/tasks",createTask);/* Falta resolver retorno do if e format
 app.get("/users/:id/tasks/:taskId", getTaskById); /* só está dando match com palavra na posição title.[0] */ 
 app.get("/tasks", getTasks);
 app.get("/tasks/:status", getTasksByStatus);
+app.get("/tasks/status/:id", getStatusByTaskId);/* O retorno em caso de sucesso está ok. Não está retornando erros corretamente. */
 app.delete("/users/:id/tasks/:taskId", deleteTask);/*A tarefa não está sendo deletada... */
 app.get("*", notFound);
