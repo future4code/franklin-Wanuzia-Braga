@@ -41,4 +41,7 @@ export class UserAccount {
     // public getTransactions(transactions:Transaction):Transaction {
     //     return this.transactions = transactions;
     // }
+    public setTransaction(newTransaction:Transaction):void {
+        this.transactions.push(newTransaction)
+    }
   }

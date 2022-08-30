@@ -20,5 +20,11 @@ app.get("/teste", (req:Request, res:Response) => {
  Instancia classe Transaction abaixo:
  */
 const newTransaction = new Transaction('Depósito', 100, '2022-08-29');
+newUser.setTransaction(newTransaction)
+
+
+
+
+
 /*Tentativa de instanciar a class Bank, criada no exercício 3, arquivo Bank.ts. */
 app.post('/createAccount', )
