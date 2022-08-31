@@ -1,0 +1,26 @@
+import {Request, Response} from 'express';
+import app from './app';
+import connection from './connection';
+import averageByGender from './endpoints/averageByGender';
+import countByGender from './endpoints/countByGender';
+import createActor from './endpoints/createActor';
+import createMovie from './endpoints/createMovie';
+import deleteActor from './endpoints/deleteActor';
+import getActorById from './endpoints/getActorById';
+import getActorByName from './endpoints/getActorByName';
+import getAllActors from './endpoints/getAllActors';
+import getAllMovies from './endpoints/getAllMovies';
+import searchMovie from './endpoints/searchMovie';
+import updateActor from './endpoints/updateActor';
+
+app.get("/actors", getAllActors);
+app.get("/actors/:id",getActorById);
+app.get("/actorsName/:name", getActorByName);
+app.get("/actorsByGender/:gender",countByGender);
+app.post("/actor/create",createActor);
+app.delete("/actor/:id", deleteActor);
+app.put("/actor/:id", updateActor);
+app.get("/mediaSalarial/:gender", averageByGender);
+app.post("/createMovie", createMovie);
+app.get("/movies",getAllMovies);
+app.get("/movie/search", searchMovie);
