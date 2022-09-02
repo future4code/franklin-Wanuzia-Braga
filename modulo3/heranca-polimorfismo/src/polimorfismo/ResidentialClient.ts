@@ -16,6 +16,10 @@ export class ResidentialClient extends Residence implements Client {
     public getCpf(): string {
       return this.cpf;
     }
+    public setConsumedEnergy(consumo:number, mes:string):string {
+      this.consumedEnergy = consumo
+      return `O consumo do mês de ${mes} foi de ${consumo}`
+    }
   
     public calculateBill(): number {
       return this.consumedEnergy * 0.75;

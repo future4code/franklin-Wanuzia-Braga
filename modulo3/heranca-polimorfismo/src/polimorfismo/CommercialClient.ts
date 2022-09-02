@@ -20,4 +20,8 @@ export class CommercialClient extends Commerce implements Client {
     public getCnpj(): string {
       return this.cnpj;
     }
+    public setConsumedEnergy(consumo:number, mes:string):string {
+      this.consumedEnergy = consumo
+      return `O consumo do mês de ${mes} foi de ${consumo}`
+    }
   }
