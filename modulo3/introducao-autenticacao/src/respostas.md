@@ -17,3 +17,10 @@ CREATE TABLE User (
 ```
 ### C)
 - Função responsável pela criação de usuários no banco de dados, no arquivo './endpoints/createUser'.
+
+## Exercício 3
+### A) 
+- A linha __as string__ garante que o tipo recebido seja string, pois é o tipo esperado como parâmetro do método sign do json-web-token.
+
+### B) 
+- Função que gera o token no arquivo './services/Authenticator'. Type para representar o input da função no arquivo 'types.ts'.
