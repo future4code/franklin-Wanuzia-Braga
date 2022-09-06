@@ -9,3 +9,14 @@ Content-Type: application/application/json
     "email": "meuemail@email.com",
     "password":"abc123"
 }
+
+###
+POST http://localhost:3003/user/login
+Content-Type: application/json
+
+{
+   "email": "osbourne@oscorp.com",
+   "password": "ihatepeter"
+}
+
+###

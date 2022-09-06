@@ -6,10 +6,17 @@ import { IdGenerator } from "../services/idGenerator";
 import { authenticationData } from "../types";
 
 const userTable = "User";
-export const createUser = async (req:Request, res:Response) => {
-    const id:string = new IdGenerator().generateId();
+
+const getUserByEmail = async(email: string): Promise<User> => {
+    const result = await connection
+      .select("*")
+      .from(userTable)
+      .where({ email });
+    return result[0];
+   };
+
+ export const login = async (req:Request, res:Response) => {
     const {email, password} = req.body;
-    const newUser = new User(id, email, password);
 
     try{
 
@@ -17,21 +24,15 @@ export const createUser = async (req:Request, res:Response) => {
             res.statusCode = 422
             throw new Error("Preencha com um email válido.")
         }
-        const [user] =  await connection(userTable)
-        .where({ email })
-        if(user) {
-            res.statusCode = 409
-            throw new Error('Email já cadastrado.')
+        const user =  await getUserByEmail(email);
+
+        if(!user || user.password !== password) {
+            res.statusCode = 401
+            throw new Error('Credenciais de acesso inválidas.')
         }
-        if(!password || password.length < 6) {
-            throw new Error("Senha inválida!")
-        }
-        const payload:authenticationData = {id:newUser.id}
+        const payload:authenticationData = {id:user.id}
         const token = new Authenticator().generateToken(payload);
-        await connection
-            .insert(newUser)
-            .into(userTable);
-            res.status(201).send({ "token": "token gerado pelo jwt" })
+       res.status(200).send({token})
     }catch(error:any) {
         console.log(error)
         if(res.statusCode ===200) {
@@ -40,5 +41,4 @@ export const createUser = async (req:Request, res:Response) => {
             res.send({message: error.message})
         }
     } 
-    
-};
+ }
