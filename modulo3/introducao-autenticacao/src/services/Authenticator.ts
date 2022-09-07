@@ -14,4 +14,17 @@ export default class Authenticator {
             }
         )
     }
+    getTokenData = (token:string) => {
+        const tokenData = jwt.verify(
+            token, process.env.JWT_KEY as string
+        )
+        return tokenData
+    }
 }
+
+/*
+O generateToken guarda a informação do payload, nesse caso, o id do usuário, declarado no
+no método da class idGenerator, do type authenticationData. 
+O getTokenData retorna o token gerado.
+
+*/
