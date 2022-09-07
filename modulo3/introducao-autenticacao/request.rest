@@ -20,11 +20,9 @@ Content-Type: application/json
 }
 
 ###
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImViYTNiNjMzLTJmZTYtNDQ3Ny1iNTdiLWYxZWJjZWFhNzk5NyIsImlhdCI6MTY2MjU3NzI0NiwiZXhwIjoxNjYyNTk1MjQ2fQ.XgaIXDs8r19_bUMUOuWky4z5JGk7_2Ch1-e5veY1ypY
 GET http://localhost:3003/user/profile
 Content-Type: application/json
-Headers:
-{
-   "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImViYTNiNjMzLTJmZTYtNDQ3Ny1iNTdiLWYxZWJjZWFhNzk5NyIsImlhdCI6MTY2MjU3NzI0NiwiZXhwIjoxNjYyNTk1MjQ2fQ.XgaIXDs8r19_bUMUOuWky4z5JGk7_2Ch1-e5veY1ypY"
-}
+Authorization: {{token}}
 
 ###
