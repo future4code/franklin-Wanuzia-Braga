@@ -22,9 +22,9 @@ export class UserDatabase extends BaseDatabase {
 
         return result[0]
     }
-    public async createUser(newUser:User){
-        await this.connection
-        .insert({newUser})
-        .into(this.tableName)
+    public async createUser(id:string, email:string, password:string){
+       await this.connection
+        .insert({id, email, password})
+        .into(this.tableName)  
     }
 }

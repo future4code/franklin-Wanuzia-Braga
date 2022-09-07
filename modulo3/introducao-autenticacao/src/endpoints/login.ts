@@ -9,13 +9,15 @@ import { authenticationData } from "../types";
 
         if(!email || email.indexOf("@") === -1) {
             res.statusCode = 422
-            throw new Error("Preencha com um email válido.")
+            res.send("Preencha com um email válido.")
+            return
         }
         const user =  await new UserDatabase().getUserByEmail(email);
 
         if(!user || user.password !== password) {
             res.statusCode = 401
-            throw new Error('Credenciais de acesso inválidas.')
+            res.send('Credenciais de acesso inválidas.')
+            return
         }
         const payload:authenticationData = {id:user.id}
         const token = new Authenticator().generateToken(payload);
@@ -24,11 +26,7 @@ import { authenticationData } from "../types";
         res.send(error)
         if(res.statusCode === 200) {
             res.status(500).send({message: "Internal server error"})
-            
-        } if(error.statusCode = 422){
-            res.send(error.message)
-        }
-        else {
+        }else {
             res.send({message: error})
         }
     } 
