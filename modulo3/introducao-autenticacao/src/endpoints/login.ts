@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { UserDatabase } from "../database/UserDatabase";
 import Authenticator from "../services/Authenticator";
+import { HashManager } from "../services/HashManager";
 import { authenticationData } from "../types";
 
  export const login = async (req:Request, res:Response) => {
@@ -14,7 +15,10 @@ import { authenticationData } from "../types";
         }
         const user =  await new UserDatabase().getUserByEmail(email);
 
-        if(!user || user.password !== password) {
+        const hashManager = new HashManager();
+        const passwordIsValid:boolean = await hashManager.compare(password, user.password)
+
+        if(!user || !passwordIsValid) {
             res.statusCode = 401
             res.send('Credenciais de acesso inválidas.')
             return
