@@ -23,7 +23,7 @@ import { authenticationData } from "../types";
             res.send('Credenciais de acesso inválidas.')
             return
         }
-        const payload:authenticationData = {id:user.id}
+        const payload:authenticationData = {id:user.id, role:user.role}
         const token = new Authenticator().generateToken(payload);
        res.status(200).send({token})
     }catch(error:any) {

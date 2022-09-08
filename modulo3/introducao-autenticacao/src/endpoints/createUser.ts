@@ -8,7 +8,7 @@ import { authenticationData } from "../types";
 
 export const createUser = async (req:Request, res:Response) => {
     const id:string = new IdGenerator().generateId();
-    const {email, password} = req.body;
+    const {email, password, role} = req.body;
 
     try{
              
@@ -30,15 +30,15 @@ export const createUser = async (req:Request, res:Response) => {
         }
         const hasManager = new HashManager()
         const hash = await hasManager.hash(password)
-        const newUser:User = new User(id, email, hash);
+        const newUser:User = new User(id, email, hash, role);
 
-        const payload:authenticationData = {id:newUser.id}
+        const payload:authenticationData = {id:newUser.id, role:newUser.role}
         const token = new Authenticator().generateToken(payload);
         const userDatabase = new UserDatabase()
 
         await  userDatabase.createUser(newUser)
             res.status(201).send({ newUser:{
-                id, email
+                id, email, role
             },token })
 
     }catch(error:any) {
