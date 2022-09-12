@@ -1,0 +1,38 @@
+GET http://localhost:3003/teste
+Content-Type: application/json
+
+### 
+
+POST http://localhost:3003/user
+Content-Type: application/application/json
+{
+    "email": "meuemail@email.com",
+    "password":"abc123"
+}
+
+###
+POST http://localhost:3003/user/login
+Content-Type: application/json
+
+{
+   "email": "osbourne@oscorp.com",
+   "password": "ihatepeter"
+}
+
+###
+
+POST http://localhost:3003/user
+Content-Type: application/application/json
+{
+    "email": "email@email.com",
+    "password":"abc123"
+}
+
+###
+
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImViYTNiNjMzLTJmZTYtNDQ3Ny1iNTdiLWYxZWJjZWFhNzk5NyIsImlhdCI6MTY2MjU3NzI0NiwiZXhwIjoxNjYyNTk1MjQ2fQ.XgaIXDs8r19_bUMUOuWky4z5JGk7_2Ch1-e5veY1ypY
+GET http://localhost:3003/user/profile
+Content-Type: application/json
+Authorization: {{token}}
+
+###
