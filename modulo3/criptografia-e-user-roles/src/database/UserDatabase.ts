@@ -32,4 +32,10 @@ public async getUserById(id:string): Promise<User> {
 
     return result[0]
 }
+public async deleteUser(id:string): Promise<void> {
+    await BaseDatabase.connection
+    .delete()
+    .from(this.tableName)
+    .where({ id })
+}
 }
