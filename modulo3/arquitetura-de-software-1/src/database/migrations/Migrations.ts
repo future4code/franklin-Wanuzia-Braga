@@ -1,10 +1,19 @@
 import { BaseDatabase } from "../BaseDatabase"
-
+import UserDatabase from "../UserDatabase"
+import { users } from "./data"
 
 class Migrations extends BaseDatabase {
     public execute = async () => {
         try {
-        
+            console.log("Creating tables...")
+            await this.createTables()
+            console.log("Tables created successfully.")
+
+            console.log("Populating tables...")
+            await this.insertData()
+            console.log("Tables populated successfully.")
+
+            console.log("Migrations completed.")
         } catch (error: any) {
             console.log("Error in migrations...")
             console.log(error.message)
@@ -17,9 +26,9 @@ class Migrations extends BaseDatabase {
 
     public createTables = async () => {
         await BaseDatabase.connection.raw(`
-        DROP TABLE IF EXISTS Arq_Users;
+        DROP TABLE IF EXISTS ${UserDatabase.TABLE_USERS};
         
-        CREATE TABLE IF NOT EXISTS Arq_Users(
+        CREATE TABLE IF NOT EXISTS ${UserDatabase.TABLE_USERS}(
             id VARCHAR(255) PRIMARY KEY,
             name VARCHAR(255) NOT NULL,
             email VARCHAR(255) NOT NULL UNIQUE,
@@ -29,7 +38,11 @@ class Migrations extends BaseDatabase {
         `)
     }
 
-
+    public insertData = async () => {
+        await BaseDatabase
+            .connection(UserDatabase.TABLE_USERS)
+            .insert(users)
+    }
 }
 
 const migrations = new Migrations()
