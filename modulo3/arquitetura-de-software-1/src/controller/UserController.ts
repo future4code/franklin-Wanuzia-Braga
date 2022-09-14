@@ -47,11 +47,27 @@ export default class UserController {
         }catch(error:any){
             res.send(error)
             if(error.message === "Token faltando")
-            res.status(401).send("Token faltando")
+            res.status(403).send("Token faltando")
+            if(error.message === "Usuário não autorizado")
+            res.status(401).send("Usuário não autorizado")
             if (error instanceof Error) {
                 return res.status(400).send({ message: error.message })
             }
             res.status(500).send({ message: "Erro inesperado" })
+        }
+    }
+    public deleteUser = async (req:Request, res:Response) => {
+        try{
+            const input:any = {
+                token:req.headers.authorization,
+                idToDelete: req.params.id
+            }
+
+            const result = await new UserBusiness().deteleUser(input)
+            res.status(200).send(result)
+
+        }catch(error){
+            res.send(error)
         }
     }
 }

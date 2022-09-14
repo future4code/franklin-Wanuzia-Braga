@@ -39,4 +39,18 @@ export default class UserDatabase extends BaseDatabase {
         return users
         
     }
+    public findById = async (id: string) => {
+        const usersDB: IUserDB[] = await BaseDatabase
+            .connection(UserDatabase.TABLE_USERS)
+            .select()
+            .where({ id })
+
+        return usersDB[0]
+    }
+    public deleteUser = async (id:string) => {
+        await BaseDatabase
+        .connection(UserDatabase.TABLE_USERS)
+        .delete()
+        .where({ id })
+    }
 }

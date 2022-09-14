@@ -6,10 +6,6 @@ POST http://localhost:3003/users
 Content-Type: application/json
 
 {
-  "tokenGeradoNaResposta": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE2NTA2MGM0LTY5NTEtNGY3Mi04NzhhLWRlZTU0Y2U0YzkyZiIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NjMxOTEyMDUsImV4cCI6MTY2MzI3NzYwNX0.mzUQfsTU3NfQOlDyoBqwlfUJc6dRgoXv7FrTTsMbbXY"
-}
-
-{
     "name": "Beltrano",
     "email": "beltrano2@gmail.com",
     "password": "abc123"

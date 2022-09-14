@@ -115,6 +115,9 @@ export default class UserBusiness {
             if (!payload) {
                 throw new Error("Token inválido")
             }
+            // if(payload.role !== USER_ROLES.ADMIN){
+            //     throw new Error("Usuário não autorizado")
+            // }
             const users = await new UserDatabase().getAll()
             const userMap = users.map((u) => {
               return {
@@ -124,6 +127,37 @@ export default class UserBusiness {
                }
             })
             return userMap
-
     };
+    public deteleUser = async (input: any) => {
+        const token = input.token
+        const idToDelete = input.idToDelete
+
+        const payload = new Authenticator().getTokenPayload(token)
+
+        if (!payload) {
+            throw new Error("Token inválido ou faltando")
+        }
+
+        if (payload.role !== USER_ROLES.ADMIN) {
+            throw new Error("Apenas admins podem deletar usuários")
+        }
+
+        if (payload.id === idToDelete) {
+            throw new Error("Não é possível deletar a própria conta")
+        }
+
+        const userDB = await new UserDatabase().findById(idToDelete)
+
+        if (!userDB) {
+            throw new Error("Usuário a ser deletado não encontrado")
+        }
+
+        await new UserDatabase().deleteUser(idToDelete)
+
+        const response = {
+            message: "Usuário deletado com sucesso"
+        }
+
+        return response
+    }
 }
