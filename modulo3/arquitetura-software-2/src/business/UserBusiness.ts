@@ -1,11 +1,11 @@
 import { UserDatabase } from "../database/UserDatabase"
-import { User, USER_ROLES } from "../models/User"
+import { IDeleteUserInputDTO, IEditUserInputDTO, IGetUsersInputDBDTO, IGetUsersInputDTO, IGetUsersOutputDTO, ILoginInputDTO, ISignupInputDTO, ISignupOutputDTO, User, USER_ROLES } from "../models/User"
 import { Authenticator, ITokenPayload } from "../services/Authenticator"
 import { HashManager } from "../services/HashManager"
 import { IdGenerator } from "../services/IdGenerator"
 
 export class UserBusiness {
-    public signup = async (input: any) => {
+    public signup = async (input: ISignupInputDTO) => {
         const name = input.name
         const email = input.email
         const password = input.password
@@ -61,7 +61,7 @@ export class UserBusiness {
         const authenticator = new Authenticator()
         const token = authenticator.generateToken(payload)
 
-        const response = {
+        const response:ISignupOutputDTO = {
             message: "Cadastro realizado com sucesso",
             token
         }
@@ -69,7 +69,7 @@ export class UserBusiness {
         return response
     }
 
-    public login = async (input: any) => {
+    public login = async (input: ILoginInputDTO) => {
         const email = input.email
         const password = input.password
 
@@ -119,7 +119,7 @@ export class UserBusiness {
         const authenticator = new Authenticator()
         const token = authenticator.generateToken(payload)
 
-        const response = {
+        const response:ISignupOutputDTO = {
             message: "Login realizado com sucesso",
             token
         }
@@ -127,7 +127,7 @@ export class UserBusiness {
         return response
     }
 
-    public getUsers = async (input: any) => {
+    public getUsers = async (input: IGetUsersInputDTO) => {
         const token = input.token
         const search = input.search || ""
         const order = input.order || "name"
@@ -136,6 +136,9 @@ export class UserBusiness {
         const page = Number(input.page) || 1
 
         const offset = limit * (page - 1)
+        if(!token) {
+            throw new Error("Token faltando!")
+        }
 
         const authenticator = new Authenticator()
         const payload = authenticator.getTokenPayload(token)
@@ -144,7 +147,7 @@ export class UserBusiness {
             throw new Error("Token inválido ou faltando")
         }
 
-        const getUsersInputDB: any = {
+        const getUsersInputDB: IGetUsersInputDBDTO = {
             search,
             order,
             sort,
@@ -155,8 +158,8 @@ export class UserBusiness {
         const userDatabase = new UserDatabase()
         const usersDB = await userDatabase.getUsers(getUsersInputDB)
 
-        const users = usersDB.map(userDB => {
-            const user = new User(
+        const users:IGetUsersOutputDTO[] = usersDB.map(userDB => {
+            const user:User = new User(
                 userDB.id,
                 userDB.name,
                 userDB.email,
@@ -164,7 +167,7 @@ export class UserBusiness {
                 userDB.role
             )
 
-            const userResponse: any = {
+            const userResponse: IGetUsersOutputDTO = {
                 id: user.getId(),
                 name: user.getName(),
                 email: user.getEmail()
@@ -173,17 +176,20 @@ export class UserBusiness {
             return userResponse
         })
 
-        const response: any = {
+        const response:any = {
             users
         }
 
         return response
     }
 
-    public deleteUser = async (input: any) => {
+    public deleteUser = async (input: IDeleteUserInputDTO) => {
         const token = input.token
         const idToDelete = input.idToDelete
 
+        if (!token) {
+            throw new Error("Token faltando")
+        }
         const authenticator = new Authenticator()
         const payload = authenticator.getTokenPayload(token)
 
@@ -215,7 +221,7 @@ export class UserBusiness {
         return response
     }
 
-    public editUser = async (input: any) => {
+    public editUser = async (input: IEditUserInputDTO) => {
         const {
             token,
             idToEdit,
