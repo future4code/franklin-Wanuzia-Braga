@@ -16,3 +16,4 @@ const recipeController = new RecipeController(
     );
 
 recipeRouter.post("/", recipeController.createRecipe)
+recipeRouter.get("/:id", recipeController.getRecipeById)
