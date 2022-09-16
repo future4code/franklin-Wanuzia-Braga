@@ -1,6 +1,6 @@
 import { RecipeDataBase } from "../database/RecipeDatabase";
 import { UserDatabase } from "../database/UserDatabase";
-import { ICreateRecipeInputDTO, IGetRecipeByIdInputDTO, IGetrecipeByIdOutputDTO, IRecipeMessageOutputDTO } from "../models/DTO's/RecipeDTOs";
+import { ICreateRecipeInputDTO, IEditrecipeInputDBDTO, IEditRecipeInputDTO, IGetRecipeByIdInputDTO, IGetrecipeByIdOutputDTO, IRecipeMessageOutputDTO } from "../models/DTO's/RecipeDTOs";
 import { Recipe } from "../models/Receitas";
 import { Authenticator, ITokenPayload } from "../services/Authenticator";
 import { IdGenerator } from "../services/IdGenerator";
@@ -75,7 +75,7 @@ export class RecipeBusiness {
         const recipeDB = await this.recipeDatabase.findById(id)
 
         if (!recipeDB) {
-            throw new Error("Usuário não encontrado")
+            throw new Error("Receita não encontrada")
         }
             const recipeResponse: IGetrecipeByIdOutputDTO = {
                 id: recipeDB.id,
@@ -86,6 +86,65 @@ export class RecipeBusiness {
             }
 
             return recipeResponse
-    }
+    };
+    public editRecipe = async (input: IEditRecipeInputDTO) => {
+        const {
+            token,
+            idToEdit,
+            title,
+            description
+        } = input
 
+        if (!token) {
+            throw new Error("Token faltando")
+        }
+
+        if (!token && !idToEdit && !title || !description) {
+            throw new Error("Parâmetros faltando")
+        }
+        const payload = this.authenticator.getTokenPayload(token)
+
+        if (!payload) {
+            throw new Error("Token inválido")
+        }
+
+        if (title && typeof title !== "string") {
+            throw new Error("Parâmetro 'title' inválido")
+        }
+
+        if (description && typeof description !== "string") {
+            throw new Error("Parâmetro 'description' inválido")
+        }
+
+        const recipeDB = await this.recipeDatabase.findById(idToEdit)
+
+        if (!recipeDB) {
+            throw new Error("Receita a ser editada não existe")
+        }
+
+        if (payload.id !== recipeDB.user_id) {
+             throw new Error("Usuários só podem editar a própria receita.")
+        }
+
+
+        const recipe = new Recipe(
+            recipeDB.id,
+            recipeDB.title,
+            recipeDB.description,
+            recipeDB.createdAt,
+            recipeDB.user_id,
+            recipeDB.user_name
+        )
+
+        title && recipe.setTitle(title)
+        description && recipe.setDescription(description)
+
+        await this.recipeDatabase.editRecipe(recipe)
+
+        const response = {
+            message: "Edição realizada com sucesso"
+        }
+
+        return response
+    }
 }

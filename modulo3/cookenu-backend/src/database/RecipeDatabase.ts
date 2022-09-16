@@ -26,5 +26,21 @@ public findById = async (id: string) => {
         .where({ id })
 
     return usersDB[0]
+};
+public editRecipe = async (recipe: Recipe) => {
+    const recipeDB: IRecipeDB = {
+        id: recipe.getId(),
+        title: recipe.getTitle(),
+        description: recipe.getDescription(),
+        createdAt: recipe.getCreatedAt(),
+        user_id: recipe.getUserId(),
+        user_name: recipe.getUserName(),
+
+    }
+
+    await BaseDatabase
+        .connection(RecipeDataBase.TABLE_RECIPES)
+        .update(recipeDB)
+        .where({ id: recipeDB.id })
 }
 }

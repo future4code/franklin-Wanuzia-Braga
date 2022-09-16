@@ -43,14 +43,14 @@ Content-Type: application/json
 ### 6) Get Recipe
 
 GET http://localhost:3003/recipes/c1d42c80-5e90-4b4c-8e64-4fdabf397726
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJiOWI3ZWU4LWFlNGItNGJkMS05YmQ2LWU3ZTIxNTk0Mzk5YiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY2MzI3NjQ0NCwiZXhwIjoxNjYzMzYyODQ0fQ.C0lLBmgSdYldXThM62fGzZVXM8iPfPJJSelkeFAnuAQ
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJiOWI3ZWU4LWFlNGItNGJkMS05YmQ2LWU3ZTIxNTk0Mzk5YiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY2MzM3MDk1NCwiZXhwIjoxNjYzNDU3MzU0fQ.2J410sVb_hMdQGA3_sAHVwpO09qVdQj2fHPOr2StWYM
 
 ###  Get Feed Recipes all users
 GET http://localhost:3003/recipes
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJiOWI3ZWU4LWFlNGItNGJkMS05YmQ2LWU3ZTIxNTk0Mzk5YiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY2MzI3NjQ0NCwiZXhwIjoxNjYzMzYyODQ0fQ.C0lLBmgSdYldXThM62fGzZVXM8iPfPJJSelkeFAnuAQ
 
 ### 7) Edit recipe
-PUT http://localhost:3003/users/:id/recipes
+PUT http://localhost:3003/recipes/:id
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIwMzM3NWRkLThiMzItNGU1My04NWViLWViYTkxNDQzZmIzZSIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NjAwNTI2NDEsImV4cCI6MTY2MDEzOTA0MX0.jOF6vSbGc8AuQAf82UJ1bKC_Xle9YNuKYl3SRFh2Ex0
 Content-Type: application/json
 

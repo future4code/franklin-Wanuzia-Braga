@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { RecipeBusiness } from "../business/RecipeBusiness";
-import { ICreateRecipeInputDTO, IGetRecipeByIdInputDTO, IGetrecipeByIdOutputDTO, IRecipeMessageOutputDTO } from "../models/DTO's/RecipeDTOs";
+import { ICreateRecipeInputDTO, IEditRecipeInputDTO, IGetRecipeByIdInputDTO, IGetrecipeByIdOutputDTO, IRecipeMessageOutputDTO } from "../models/DTO's/RecipeDTOs";
 
 export class RecipeController {
     constructor(
@@ -46,4 +46,26 @@ export class RecipeController {
             res.status(500).send({ message: "Erro inesperado" })
         }
     };
+    public editRecipe = async (req: Request, res: Response) => {
+        try {
+            const input: IEditRecipeInputDTO = {
+                token: req.headers.authorization,
+                idToEdit: req.params.id,
+                title: req.body.title,
+                description: req.body.description,
+            }
+
+            const response = await this.recipeBusiness.editRecipe(input)
+
+            res.status(200).send(response)
+        } catch (error) {
+            console.log(error)
+
+            if (error instanceof Error) {
+                return res.status(400).send({ message: error.message })
+            }
+
+            res.status(500).send({ message: "Erro inesperado" })
+        }
+    }
 }
