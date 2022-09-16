@@ -29,6 +29,7 @@ class Migrations extends BaseDatabase {
 
     createTables = async () => {
         await BaseDatabase.connection.raw(`
+        DROP TABLE IF EXISTS ${RecipeDataBase.TABLE_RECIPES};
         DROP TABLE IF EXISTS ${UserDatabase.TABLE_USERS};
         
         CREATE TABLE IF NOT EXISTS ${UserDatabase.TABLE_USERS}(
@@ -39,19 +40,15 @@ class Migrations extends BaseDatabase {
             role ENUM("NORMAL", "ADMIN") DEFAULT "NORMAL" NOT NULL
         );
 
-        DROP TABLE IF EXISTS ${RecipeDataBase.TABLE_RECIPES};
-        
         CREATE TABLE IF NOT EXISTS ${RecipeDataBase.TABLE_RECIPES}(
             id VARCHAR(255) PRIMARY KEY,
             title VARCHAR(255) NOT NULL,
             description VARCHAR(255) NOT NULL,
-            createdAt DATE NOT NULL
+            createdAt DATE NOT NULL,
             user_id VARCHAR(255) NOT NULL,
-            user_name VARCHAR(255) NOT NULL
+            user_name VARCHAR(255) NOT NULL,
             FOREIGN KEY (user_id) REFERENCES ${UserDatabase.TABLE_USERS}(id)
-            FOREIGN KEY (user_name) REFERENCES ${UserDatabase.TABLE_USERS}(name)
         );
-
         `)
     }
 

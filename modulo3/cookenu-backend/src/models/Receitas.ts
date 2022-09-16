@@ -4,8 +4,8 @@ export interface IRecipeDB {
     title: string,
     description: string,
     createdAt: Date,
-    userId: string,
-    userName: string,
+    user_id: string,
+    user_name: string,
 }
 
 
