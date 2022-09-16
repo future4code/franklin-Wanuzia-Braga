@@ -1,6 +1,7 @@
 import { UserDatabase } from "../database/UserDatabase"
-import { ILoginInputDTO, ISignupInputDTO, ISignupOutputDTO } from "../models/DTO's/UserDTOs"
-import { User, USER_ROLES } from "../models/User"
+import { IGetrecipeByIdOutputDTO } from "../models/DTO's/RecipeDTOs"
+import { IGetUserByIdInputDTO, IGetUserProfileOutputDTO, ILoginInputDTO, ISignupInputDTO, ISignupOutputDTO } from "../models/DTO's/UserDTOs"
+import { IUserDB, User, USER_ROLES } from "../models/User"
 import { Authenticator, ITokenPayload } from "../services/Authenticator"
 import { HashManager } from "../services/HashManager"
 import { IdGenerator } from "../services/IdGenerator"
@@ -123,6 +124,29 @@ export class UserBusiness {
         }
 
         return response
+    };
+    public getUserProfile = async (token:string) => {
+
+        if(!token) {
+            throw new Error("Token inválido ou faltando!")
+        }
+
+        const payload = this.authenticator.getTokenPayload(token)
+
+        if (!payload) {
+            throw new Error("Token inválido ou faltando")
+        }
+
+        const id = payload.id 
+        const usersDB = await this.userDatabase.findById(id)
+
+            const userResponse: IGetUserProfileOutputDTO = {
+                id: usersDB.id,
+                name: usersDB.name,
+                email: usersDB.email
+            }
+
+            return userResponse
     }
 
 }

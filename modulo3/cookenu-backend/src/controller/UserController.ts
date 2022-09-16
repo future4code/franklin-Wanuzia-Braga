@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { UserBusiness } from "../business/Userbusiness";
-import { ILoginInputDTO, ISignupInputDTO, ISignupOutputDTO } from "../models/DTO's/UserDTOs";
+import { IGetUserByIdInputDTO, IGetUserProfileOutputDTO, ILoginInputDTO, ISignupInputDTO, ISignupOutputDTO } from "../models/DTO's/UserDTOs";
 
 export class UserController {
     constructor(
@@ -47,5 +47,21 @@ export class UserController {
 
             res.status(500).send({ message: "Erro inesperado" })
         }
-    }
+    };
+    public getOwnProfile = async (req:Request, res:Response) => {
+        try{
+            const token:string = req.headers.authorization as string;
+            const response:IGetUserProfileOutputDTO = await this.userBusiness.getUserProfile(token)
+
+            res.status(200).send(response)
+        }catch(error) {
+            console.log(error)
+
+            if (error instanceof Error) {
+                return res.status(400).send({ message: error.message })
+            }
+
+            res.status(500).send({ message: "Erro inesperado" })
+        }
+    };
 }
