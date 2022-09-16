@@ -64,4 +64,23 @@ export class UserController {
             res.status(500).send({ message: "Erro inesperado" })
         }
     };
+    public getProfileByUserId = async (req:Request, res:Response) => {
+        try{
+            const input:IGetUserByIdInputDTO = {
+                token: req.headers.authorization,
+                idProfile: req.params.id
+            }
+            const response:IGetUserProfileOutputDTO = await this.userBusiness.getUserProfileById(input)
+
+            res.status(200).send(response)
+        }catch(error) {
+            console.log(error)
+
+            if (error instanceof Error) {
+                return res.status(400).send({ message: error.message })
+            }
+
+            res.status(500).send({ message: "Erro inesperado" })
+        }
+    };
 }

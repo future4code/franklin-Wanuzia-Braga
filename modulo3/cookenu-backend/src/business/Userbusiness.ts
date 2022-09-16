@@ -147,6 +147,33 @@ export class UserBusiness {
             }
 
             return userResponse
+    };
+    public getUserProfileById = async (input:IGetUserByIdInputDTO) => {
+        const token = input.token
+        const id = input.idProfile
+
+        if(!token) {
+            throw new Error("Token inválido ou faltando!")
+        }
+
+        const payload = this.authenticator.getTokenPayload(token)
+
+        if (!payload) {
+            throw new Error("Token inválido ou faltando")
+        }
+
+        const userDB = await this.userDatabase.findById(id)
+
+        if (!userDB) {
+            throw new Error("Usuário não encontrado")
+        }
+            const userResponse: IGetUserProfileOutputDTO = {
+                id: userDB.id,
+                name: userDB.name,
+                email: userDB.email
+            }
+
+            return userResponse
     }
 
 }

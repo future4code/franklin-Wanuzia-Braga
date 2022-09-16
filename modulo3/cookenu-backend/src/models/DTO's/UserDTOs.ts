@@ -12,9 +12,9 @@ export interface ILoginInputDTO {
     password: string
 }
 
-export interface IGetUserProfileInputDTO {
-    token: string | undefined
-}
+// export interface IGetUserProfileInputDTO {
+//     token: string | undefined
+// }
 
 export interface IGetUserByIdInputDTO {
     token: string | undefined, 
