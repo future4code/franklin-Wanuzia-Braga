@@ -12,24 +12,17 @@ export interface ILoginInputDTO {
     password: string
 }
 
-export interface IGetUsersInputDTO {
-    token: string | undefined,
-    search: string,
-    order: string,
-    sort: string,
-    limit: string,
-    page: string
+export interface IGetUserProfileInputDTO {
+    token: string | undefined
 }
 
-export interface IGetUsersInputDBDTO {
-    search: string, 
-    order: string, 
-    sort: string, 
-    limit: number,
-    offset: number
+export interface IGetUserByIdInputDTO {
+    token: string | undefined, 
+    idProfile: string
+
 }
 
-export interface IGetUsersOutputDTO {
+export interface IGetUserProfileOutputDTO {
     id: string,
     name: string,
     email: string
