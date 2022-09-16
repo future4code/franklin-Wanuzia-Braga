@@ -1,6 +1,22 @@
+import { IRecipeDB, Recipe } from "../models/Receitas";
 import { BaseDatabase } from "./BaseDatabase"
 
 export class RecipeDataBase extends BaseDatabase {
     public static TABLE_RECIPES = "Cookenu_Recipes";
 
+    public createRecipe = async (recipe: Recipe) => {
+        const recipeDB: IRecipeDB = {
+            id: recipe.getId(),
+            title: recipe.getTitle(),
+            description: recipe.getDescription(),
+            createdAt: recipe.getCreatedAt(),
+            user_id: recipe.getUserId(),
+            user_name: recipe.getUserName()
+        }
+
+
+        await BaseDatabase
+            .connection(RecipeDataBase.TABLE_RECIPES)
+            .insert(recipeDB)
+}
 }
