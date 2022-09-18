@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { RecipeBusiness } from "../business/RecipeBusiness";
-import { ICreateRecipeInputDTO, IEditRecipeInputDTO, IGetRecipeByIdInputDTO, IGetrecipeByIdOutputDTO, IRecipeMessageOutputDTO } from "../models/DTO's/RecipeDTOs";
+import { ICreateRecipeInputDTO, IDeleteRecipeInputDTO, IEditRecipeInputDTO, IGetRecipeByIdInputDTO, IGetrecipeByIdOutputDTO, IRecipeMessageOutputDTO } from "../models/DTO's/RecipeDTOs";
 
 export class RecipeController {
     constructor(
@@ -56,6 +56,26 @@ export class RecipeController {
             }
 
             const response = await this.recipeBusiness.editRecipe(input)
+
+            res.status(200).send(response)
+        } catch (error) {
+            console.log(error)
+
+            if (error instanceof Error) {
+                return res.status(400).send({ message: error.message })
+            }
+
+            res.status(500).send({ message: "Erro inesperado" })
+        }
+    };
+    public deleteRecipe = async (req: Request, res: Response) => {
+        try {
+            const input: IDeleteRecipeInputDTO = {
+                token: req.headers.authorization,
+                idToDelete: req.params.id
+            }
+
+            const response = await this.recipeBusiness.deleteRecipe(input)
 
             res.status(200).send(response)
         } catch (error) {

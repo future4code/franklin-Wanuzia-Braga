@@ -42,5 +42,11 @@ public editRecipe = async (recipe: Recipe) => {
         .connection(RecipeDataBase.TABLE_RECIPES)
         .update(recipeDB)
         .where({ id: recipeDB.id })
-}
+};
+public deleteRecipe = async (id:string) => {
+    await BaseDatabase
+    .connection(RecipeDataBase.TABLE_RECIPES)
+    .delete()
+    .where({ id })
+};
 }

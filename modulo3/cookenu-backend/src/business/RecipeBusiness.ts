@@ -1,7 +1,8 @@
 import { RecipeDataBase } from "../database/RecipeDatabase";
 import { UserDatabase } from "../database/UserDatabase";
-import { ICreateRecipeInputDTO, IEditrecipeInputDBDTO, IEditRecipeInputDTO, IGetRecipeByIdInputDTO, IGetrecipeByIdOutputDTO, IRecipeMessageOutputDTO } from "../models/DTO's/RecipeDTOs";
+import { ICreateRecipeInputDTO, IDeleteRecipeInputDTO, IEditrecipeInputDBDTO, IEditRecipeInputDTO, IGetRecipeByIdInputDTO, IGetrecipeByIdOutputDTO, IRecipeMessageOutputDTO } from "../models/DTO's/RecipeDTOs";
 import { Recipe } from "../models/Receitas";
+import { USER_ROLES } from "../models/User";
 import { Authenticator, ITokenPayload } from "../services/Authenticator";
 import { IdGenerator } from "../services/IdGenerator";
 
@@ -143,6 +144,36 @@ export class RecipeBusiness {
 
         const response = {
             message: "Edição realizada com sucesso"
+        }
+
+        return response
+    };
+    public deleteRecipe = async (input: IDeleteRecipeInputDTO) => {
+        const token = input.token
+        const idToDelete = input.idToDelete
+
+        if (!token) {
+            throw new Error("Token faltando")
+        }
+        const payload = this.authenticator.getTokenPayload(token)
+
+        if (!payload) {
+            throw new Error("Token inválido ou faltando")
+        }
+        const recipeDB = await this.recipeDatabase.findById(idToDelete)
+
+        if (!recipeDB) {
+            throw new Error("Receita a ser deletada não encontrada")
+        }
+
+        if (payload.id !== recipeDB.user_id && payload.role !== USER_ROLES.ADMIN) {
+             throw new Error("Você só pode deletar a própria receita.")
+        }
+
+        await this.recipeDatabase.deleteRecipe(idToDelete)
+
+        const response = {
+            message: "Receita deletada com sucesso"
         }
 
         return response
