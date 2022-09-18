@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { UserBusiness } from "../business/Userbusiness";
-import { IGetUserByIdInputDTO, IGetUserProfileOutputDTO, ILoginInputDTO, ISignupInputDTO, ISignupOutputDTO } from "../models/DTO's/UserDTOs";
+import { IDeleteUserInputDTO, IGetUserByIdInputDTO, IGetUserProfileOutputDTO, ILoginInputDTO, ISignupInputDTO, ISignupOutputDTO } from "../models/DTO's/UserDTOs";
 
 export class UserController {
     constructor(
@@ -83,4 +83,24 @@ export class UserController {
             res.status(500).send({ message: "Erro inesperado" })
         }
     };
+    public deleteUser = async (req: Request, res: Response) => {
+        try {
+            const input: IDeleteUserInputDTO = {
+                token: req.headers.authorization,
+                idToDelete: req.params.id
+            }
+
+            const response = await this.userBusiness.deleteUser(input)
+
+            res.status(200).send(response)
+        } catch (error) {
+            console.log(error)
+
+            if (error instanceof Error) {
+                return res.status(400).send({ message: error.message })
+            }
+
+            res.status(500).send({ message: "Erro inesperado" })
+        }
+    }
 }

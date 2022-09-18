@@ -49,4 +49,10 @@ public deleteRecipe = async (id:string) => {
     .delete()
     .where({ id })
 };
+public deleteUserRecipes = async (idUser:string) => {
+    await BaseDatabase
+    .connection(RecipeDataBase.TABLE_RECIPES)
+    .delete()
+    .where('user_id', '=', `${idUser}`)
+};
 }

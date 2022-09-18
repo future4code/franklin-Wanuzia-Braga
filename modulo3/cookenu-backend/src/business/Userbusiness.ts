@@ -1,7 +1,7 @@
+import { RecipeDataBase } from "../database/RecipeDatabase"
 import { UserDatabase } from "../database/UserDatabase"
-import { IGetrecipeByIdOutputDTO } from "../models/DTO's/RecipeDTOs"
-import { IGetUserByIdInputDTO, IGetUserProfileOutputDTO, ILoginInputDTO, ISignupInputDTO, ISignupOutputDTO } from "../models/DTO's/UserDTOs"
-import { IUserDB, User, USER_ROLES } from "../models/User"
+import { IDeleteUserInputDTO, IGetUserByIdInputDTO, IGetUserProfileOutputDTO, ILoginInputDTO, ISignupInputDTO, ISignupOutputDTO } from "../models/DTO's/UserDTOs"
+import { User, USER_ROLES } from "../models/User"
 import { Authenticator, ITokenPayload } from "../services/Authenticator"
 import { HashManager } from "../services/HashManager"
 import { IdGenerator } from "../services/IdGenerator"
@@ -174,6 +174,43 @@ export class UserBusiness {
             }
 
             return userResponse
+    };
+    public deleteUser = async (input: IDeleteUserInputDTO) => {
+        const token = input.token
+        const idToDelete = input.idToDelete
+
+        if (!token) {
+            throw new Error("Token faltando")
+        }
+        const payload = this.authenticator.getTokenPayload(token)
+
+        if (!payload) {
+            throw new Error("Token inválido ou faltando")
+        }
+
+        if (payload.role !== USER_ROLES.ADMIN) {
+            throw new Error("Apenas admins podem deletar usuários")
+        }
+
+        if (payload.id === idToDelete) {
+            throw new Error("Não é possível deletar a própria conta")
+        }
+
+        const userDB = await this.userDatabase.findById(idToDelete)
+
+        if (!userDB) {
+            throw new Error("Usuário a ser deletado não encontrado")
+        }
+        
+        await new RecipeDataBase().deleteUserRecipes(userDB.id)
+
+        await this.userDatabase.deleteUser(idToDelete)
+
+        const response = {
+            message: "Usuário deletado com sucesso"
+        }
+
+        return response
     }
 
 }
