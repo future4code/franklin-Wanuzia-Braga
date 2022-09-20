@@ -14,7 +14,9 @@ describe("Testing verifyAge function", () => {
         };
 
         const result = verifyAge(casino, [brazilianAllowed]);
-        expect(result.brazilians.allowed).toEqual(["Wanuzia"])
+        expect(result.brazilians.allowed).toEqual(["Wanuzia"]);
+        expect(result.brazilians.allowed.length).toBeGreaterThan(0);
+        expect(result.brazilians.allowed.length).toBeLessThan(2);
     });
 
     test("Should return one allowed american", () => {
@@ -29,7 +31,8 @@ describe("Testing verifyAge function", () => {
         };
 
         const result = verifyAge(casino, [americanAllowed]);
-        expect(result.americans.allowed).toEqual(["Khenzhero"])
+        expect(result.americans.allowed).toEqual(["Khenzhero"]);
+        expect(result.americans.unallowed.length).toBe(0);
     });
 
     test("Should return two unallowed americans and two unallowed brazilians", () => {
@@ -50,7 +53,9 @@ describe("Testing verifyAge function", () => {
 
         const result = verifyAge(casino, [americanUnallowed, americanUnallowed, brazilianUnallowed, brazilianUnallowed]);
         expect(result.americans.unallowed).toEqual(["Khenzhero", "Khenzhero"]);
-        expect(result.brazilians.unallowed).toEqual(["Wanuzia", "Wanuzia"])
+        expect(result.brazilians.unallowed).toEqual(["Wanuzia", "Wanuzia"]);
+        expect(result.americans.unallowed).toContain("Khenzhero");
+        expect(result.brazilians.unallowed).toContain("Wanuzia");
     });
 
     test("Should return two unallowed brazilians and two allowed americans", () => {
@@ -71,7 +76,10 @@ describe("Testing verifyAge function", () => {
 
         const result = verifyAge(casino, [americanallowed, americanallowed, brazilianUnallowed, brazilianUnallowed]);
         expect(result.americans.allowed).toEqual(["Khenzhero", "Khenzhero"]);
-        expect(result.brazilians.unallowed).toEqual(["Wanuzia", "Wanuzia"])
+        expect(result.brazilians.unallowed).toEqual(["Wanuzia", "Wanuzia"]);
+        expect(result.brazilians.unallowed.length).toBeGreaterThan(1);
+        expect(result.americans.unallowed.length).toBeLessThan(1);
+        expect(result.americans.allowed.length).toBe(2);
     });
 
 })
