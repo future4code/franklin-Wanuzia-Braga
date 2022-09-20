@@ -1,7 +1,4 @@
-export interface User {
-    name:string
-    balance:number
-};
+import { User } from "../models/User"
 
 
 export function performPurchase(user:User, value:number): User | undefined {
