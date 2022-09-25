@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { UserBusiness } from "../business/Userbusiness";
-import { IDeleteUserInputDTO, IGetUserByIdInputDTO, IGetUserProfileOutputDTO, ILoginInputDTO, ISignupInputDTO, ISignupOutputDTO } from "../models/DTO's/UserDTOs";
+import { IDeleteUserInputDTO, IFollowInputDTO, IGetUserByIdInputDTO, IGetUserProfileOutputDTO, ILoginInputDTO, ISignupInputDTO, ISignupOutputDTO } from "../models/DTO's/UserDTOs";
 
 export class UserController {
     constructor(
@@ -102,5 +102,26 @@ export class UserController {
 
             res.status(500).send({ message: "Erro inesperado" })
         }
+    };
+    public followUser = async (req: Request, res: Response) => {
+        try {
+            const input: IFollowInputDTO = {
+                token: req.headers.authorization,
+                id_followed: req.body.id_followed
+                
+            }
+            const response = await this.userBusiness.followUser(input)
+
+            res.status(200).send(response)
+        } catch (error) {
+            console.log(error)
+
+            if (error instanceof Error) {
+                return res.status(400).send({ message: error.message })
+            }
+
+            res.status(500).send({ message: "Erro inesperado" })
+        }
     }
+
 }

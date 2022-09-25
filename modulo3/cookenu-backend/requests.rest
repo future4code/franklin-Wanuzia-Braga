@@ -43,11 +43,11 @@ Content-Type: application/json
 ### 6) Get Recipe
 
 GET http://localhost:3003/recipes/c1d42c80-5e90-4b4c-8e64-4fdabf397726
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJiOWI3ZWU4LWFlNGItNGJkMS05YmQ2LWU3ZTIxNTk0Mzk5YiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY2MzM3MjY1OCwiZXhwIjoxNjYzNDU5MDU4fQ.Zhf9TuruWr1LyPmXWjlx6Oal3FqgYmE2FipHkdeUtMU
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJiOWI3ZWU4LWFlNGItNGJkMS05YmQ2LWU3ZTIxNTk0Mzk5YiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY2NDE0NjY4OSwiZXhwIjoxNjY0MjMzMDg5fQ.iHDYznDQBpm_hJmckinqAy6hI5xfUtodiconY0uqpX4
 
 ###  Get Feed Recipes all users
 GET http://localhost:3003/recipes
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJiOWI3ZWU4LWFlNGItNGJkMS05YmQ2LWU3ZTIxNTk0Mzk5YiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY2MzI3NjQ0NCwiZXhwIjoxNjYzMzYyODQ0fQ.C0lLBmgSdYldXThM62fGzZVXM8iPfPJJSelkeFAnuAQ
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJiOWI3ZWU4LWFlNGItNGJkMS05YmQ2LWU3ZTIxNTk0Mzk5YiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY2NDE0NjY4OSwiZXhwIjoxNjY0MjMzMDg5fQ.iHDYznDQBpm_hJmckinqAy6hI5xfUtodiconY0uqpX4
 
 ### 7) Edit recipe
 PUT http://localhost:3003/recipes/c1d42c80-5e90-4b4c-8e64-4fdabf397726
@@ -76,3 +76,24 @@ Content-Type: application/json
 {
     "name": "Astrodev3"
 }
+
+### 11) Follow user
+POST http://localhost:3003/users/follow
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImM3YzE1YmI2LWI0ZjktNGFkMC1hZmM2LThiY2E3NzMwZTQ5YyIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NjQxNDgzNDgsImV4cCI6MTY2NDIzNDc0OH0.93NsZjCboM-2Mn6o19WibVteiqcKWbct6isEkCVQEGE
+Content-Type: application/json
+
+{
+    "id_followed": "7079b8e4-95cd-48aa-82a9-77454e94b789"
+}
+
+
+### 1) Signup
+POST http://localhost:3003/users/signup
+Content-Type: application/json
+
+{
+    "name": "Wanuzia",
+    "email": "wanuzia@gmail.com",
+    "password": "abc123"
+}
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImM3YzE1YmI2LWI0ZjktNGFkMC1hZmM2LThiY2E3NzMwZTQ5YyIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NjQxNDgzNDgsImV4cCI6MTY2NDIzNDc0OH0.93NsZjCboM-2Mn6o19WibVteiqcKWbct6isEkCVQEGE

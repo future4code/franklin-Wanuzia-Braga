@@ -40,3 +40,12 @@ export interface IEditUserInputDTO {
     email: string,
     password: string
 }
+
+export interface IFollowInputDBDTO {
+    id_followed: string,
+    id_follower: string
+}
+export interface IFollowInputDTO {
+    token: string | undefined,
+    id_followed: string
+}

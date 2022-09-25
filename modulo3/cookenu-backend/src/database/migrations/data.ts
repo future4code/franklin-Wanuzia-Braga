@@ -50,4 +50,16 @@ export const recipes: IRecipeDB[] = [
         user_id: "7079b8e4-95cd-48aa-82a9-77454e94b789",
         user_name: "Ciclana",
     }
-]
+];
+export const followers = [
+    {
+        id_followed: "7079b8e4-95cd-48aa-82a9-77454e94b789",
+        id_follower: "f03017bb-2c08-4cdc-bb63-7fbd7cebe01f",
+ 
+    },
+    {
+        id_followed: "bb9b7ee8-ae4b-4bd1-9bd6-e7e21594399b",
+        id_follower: "7079b8e4-95cd-48aa-82a9-77454e94b789",
+ 
+    }
+];

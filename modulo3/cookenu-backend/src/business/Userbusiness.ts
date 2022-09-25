@@ -1,6 +1,6 @@
 import { RecipeDataBase } from "../database/RecipeDatabase"
 import { UserDatabase } from "../database/UserDatabase"
-import { IDeleteUserInputDTO, IGetUserByIdInputDTO, IGetUserProfileOutputDTO, ILoginInputDTO, ISignupInputDTO, ISignupOutputDTO } from "../models/DTO's/UserDTOs"
+import { IDeleteUserInputDTO, IFollowInputDBDTO, IFollowInputDTO, IGetUserByIdInputDTO, IGetUserProfileOutputDTO, ILoginInputDTO, ISignupInputDTO, ISignupOutputDTO } from "../models/DTO's/UserDTOs"
 import { User, USER_ROLES } from "../models/User"
 import { Authenticator, ITokenPayload } from "../services/Authenticator"
 import { HashManager } from "../services/HashManager"
@@ -211,6 +211,45 @@ export class UserBusiness {
         }
 
         return response
-    }
+    };
+
+    public followUser = async (input: IFollowInputDTO) => {
+        const token = input.token
+        const id = input.id_followed
+
+        if (!token) {
+            throw new Error("Token faltando")
+        }
+        const payload = this.authenticator.getTokenPayload(token)
+
+        if (!payload) {
+            throw new Error("Token inválido ou faltando")
+        }
+        const userFollowed = await this.userDatabase.findById(id);
+        const userFollower = await this.userDatabase.findById(payload.id);
+
+        if (!userFollowed) {
+            throw new Error("Usuário a ser seguido não encontrado")
+        }
+
+        if (!userFollower) {
+            throw new Error("Usuário seguidor não encontrado")
+        }
+
+        if (payload.id === userFollowed.id) {
+            throw new Error("Não é possível seguir a si mesmo.")
+        }
+        const followers:IFollowInputDBDTO = {
+            id_followed: userFollowed.id,
+            id_follower: userFollower.id
+        }
+
+        await this.userDatabase.followUser(followers)
+        const response = {
+            message: "Usuário seguido com sucesso"
+        }
+
+        return response
+    };
 
 }

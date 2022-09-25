@@ -1,8 +1,11 @@
+import { IFollowInputDBDTO } from "../models/DTO's/UserDTOs";
 import { IUserDB, User } from "../models/User"
 import { BaseDatabase } from "./BaseDatabase"
 
 export class UserDatabase extends BaseDatabase {
-    public static TABLE_USERS = "Cookenu_Users"
+    public static TABLE_USERS = "Cookenu_Users";
+
+    public static TABLE_FOLLOWERS = "Followers"
 
     public findByEmail = async (email: string) => {
         const usersDB: IUserDB[] = await BaseDatabase
@@ -31,7 +34,7 @@ export class UserDatabase extends BaseDatabase {
         const usersDB: IUserDB[] = await BaseDatabase
             .connection(UserDatabase.TABLE_USERS)
             .select()
-            .where({ id })
+            .where( 'id', '=', `${id}`)
 
         return usersDB[0]
     }
@@ -40,5 +43,14 @@ export class UserDatabase extends BaseDatabase {
             .connection(UserDatabase.TABLE_USERS)
             .delete()
             .where({ id })
+    }
+    public followUser = async (input:IFollowInputDBDTO) => {
+        const followers:IFollowInputDBDTO = {
+            id_followed: input.id_followed,
+            id_follower: input.id_follower,
+        }
+        await BaseDatabase
+        .connection(UserDatabase.TABLE_FOLLOWERS)
+        .insert(followers)
     }
 }
