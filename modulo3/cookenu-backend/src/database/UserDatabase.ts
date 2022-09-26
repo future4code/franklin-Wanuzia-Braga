@@ -53,4 +53,28 @@ export class UserDatabase extends BaseDatabase {
         .connection(UserDatabase.TABLE_FOLLOWERS)
         .insert(followers)
     }
+    public unFollowUser = async (input:IFollowInputDBDTO) => {
+        const followers:IFollowInputDBDTO = {
+            id_followed: input.id_followed,
+            id_follower: input.id_follower,
+        }
+        await BaseDatabase
+        .connection(UserDatabase.TABLE_FOLLOWERS)
+        .delete()
+        .where('id_followed', '=', `${followers.id_followed}`)
+        .andWhere('id_follower', '=', `${followers.id_follower}`)
+    }
+    public findFollowersById = async (input: IFollowInputDBDTO) => {
+        const followers:IFollowInputDBDTO = {
+            id_followed: input.id_followed,
+            id_follower: input.id_follower,
+        }
+        const existFollowers: IUserDB[] = await BaseDatabase
+            .connection(UserDatabase.TABLE_FOLLOWERS)
+            .select()
+            .where('id_followed', '=', `${followers.id_followed}`)
+            .andWhere('id_follower', '=', `${followers.id_follower}`)
+
+        return existFollowers[0]
+    }
 }

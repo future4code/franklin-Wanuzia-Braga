@@ -86,6 +86,15 @@ Content-Type: application/json
     "id_followed": "7079b8e4-95cd-48aa-82a9-77454e94b789"
 }
 
+### 12) Unfollow user
+POST  http://localhost:3003/users/unfollow
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImM3YzE1YmI2LWI0ZjktNGFkMC1hZmM2LThiY2E3NzMwZTQ5YyIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NjQxNDgzNDgsImV4cCI6MTY2NDIzNDc0OH0.93NsZjCboM-2Mn6o19WibVteiqcKWbct6isEkCVQEGE
+Content-Type: application/json
+
+{
+    "id_followed": "7079b8e4-95cd-48aa-82a9-77454e94b789"
+}
+
 
 ### 1) Signup
 POST http://localhost:3003/users/signup

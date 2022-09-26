@@ -251,5 +251,46 @@ export class UserBusiness {
 
         return response
     };
+    public unFollowUser = async (input: IFollowInputDTO) => {
+        const token = input.token
+        const id = input.id_followed
 
+        if (!token) {
+            throw new Error("Token faltando")
+        }
+        const payload = this.authenticator.getTokenPayload(token)
+
+        if (!payload) {
+            throw new Error("Token inválido ou faltando")
+        }
+        const toUnfollow = await this.userDatabase.findById(id);
+        const userFollower = await this.userDatabase.findById(payload.id);
+
+        if (!toUnfollow) {
+            throw new Error("Usuário a ser seguido não encontrado")
+        }
+
+        if (!userFollower) {
+            throw new Error("Usuário seguidor não encontrado")
+        }
+
+        if (payload.id === toUnfollow.id) {
+            throw new Error("Não é possível seguir ou deixar de seguir a si mesmo.")
+        }
+        const followers:IFollowInputDBDTO = {
+            id_followed: toUnfollow.id,
+            id_follower: userFollower.id
+        }
+
+        const existFollowers = await this.userDatabase.findFollowersById(followers)
+        if(!existFollowers) {
+            throw new Error("Usuários informados não estão na relação de seguido e seguidor.")
+        }
+        await this.userDatabase.unFollowUser(followers)
+        const response = {
+            message: "Você deixou de seguir o usuário com sucesso"
+        }
+
+        return response
+    };
 }
