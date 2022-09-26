@@ -202,9 +202,9 @@ export class UserBusiness {
             throw new Error("Usuário a ser deletado não encontrado")
         }
         
-        await new RecipeDataBase().deleteUserRecipes(userDB.id)
-
-        await this.userDatabase.deleteUser(idToDelete)
+        await new RecipeDataBase().deleteUserRecipes(userDB.id);
+        await this.userDatabase.deleteUserFromFollowers(userDB.id);
+        await this.userDatabase.deleteUser(userDB.id);
 
         const response = {
             message: "Usuário deletado com sucesso"

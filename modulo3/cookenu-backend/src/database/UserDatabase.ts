@@ -76,5 +76,13 @@ export class UserDatabase extends BaseDatabase {
             .andWhere('id_follower', '=', `${followers.id_follower}`)
 
         return existFollowers[0]
-    }
+    };
+    public deleteUserFromFollowers = async (id:string) => {
+        const existFollowers: IUserDB[] = await BaseDatabase
+            .connection(UserDatabase.TABLE_FOLLOWERS)
+            .select()
+            .where('id_followed', '=', `${id}`)
+            .orWhere('id_follower', '=', `${id}`)
+
+    };
 }
