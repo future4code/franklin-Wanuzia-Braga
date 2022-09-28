@@ -3,7 +3,7 @@ import CardActionArea from '@mui/material/CardActionArea'
 import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
 import { MovieCardContainer, MovieCardContent } from './styled'
-
+import {colors} from '../../constants/colors'
 
 const MovieCard = (props) => {
 
@@ -13,15 +13,18 @@ const MovieCard = (props) => {
           <CardMedia
             component={'img'}
             alt={props.title}
-            height={'150px'}
+            height={'264px'}
             image={props.image}
             title={props.title}
           />
-          <MovieCardContent>
-            <Typography align={'center'}>
+          <MovieCardContent >
+            <Typography fontSize={16} fontWeight={700} sx={{ maxHeight: 24 }}>
+
               {props.title}
-            </Typography>
-            <Typography align={'center'}>
+              </Typography >
+              <br />
+              <Typography fontSize={14} color={colors.dateGray} marginTop={4}>
+
               {props.release_date}
             </Typography>
           </MovieCardContent>

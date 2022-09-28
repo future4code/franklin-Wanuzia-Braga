@@ -9,3 +9,7 @@ export const goToMovieDetails = (navigate, id) => {
 export const goToLastPage = (navigate) => {
     navigate(-1)
 }
+
+export const goToMoviesDBSite = (navigate, link) => {
+    navigate(link)
+}

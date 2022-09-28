@@ -4,13 +4,14 @@ import CardContent from '@mui/material/CardContent'
 
 export const MovieCardContainer = styled(Card)`
   width: 176px;
-  height: 320px;
-  margin: 10px
+  height: 360px;
+  margin: 30px;
+  padding: 10px;
 `
 
 export const MovieCardContent = styled(CardContent)`
   display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 40px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
 `
