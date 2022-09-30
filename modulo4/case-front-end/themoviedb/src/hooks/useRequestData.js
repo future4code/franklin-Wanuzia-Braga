@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from 'axios';
 
+// dotenv.config()
+
+
 const useRequestData = (initialData, url) => {
 
     const [data, setData] = useState(initialData)

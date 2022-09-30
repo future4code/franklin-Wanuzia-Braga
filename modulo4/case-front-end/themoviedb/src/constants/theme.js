@@ -41,11 +41,36 @@ components: {
             justifyContent: 'center',
             padding: '5px',
             alignItems: 'center',
-            maxWidth: '85%',
-
-
         },
         
+      },
+    },
+
+    MuiPagination: {
+      styleOverrides: {
+        // Name of the slot
+        root: {
+          display: 'flex',
+          width: '100%',
+          justifyContent: 'center',
+          padding: '5px',
+          margin: 0,
+        },
+        icon: {
+
+      },
+      },
+    },
+    MuiPaginationItem: {
+      styleOverrides: {
+        // Name of the slot
+        root: {
+          color: colors.topColor,
+          fontWeight: '700',
+        },
+        icon: {
+
+      },
       },
     },
   },

@@ -1,27 +1,32 @@
 import { useState, useEffect } from "react";
 import axios from 'axios';
+import { API_KEY } from "../constants/urls";
+
+// const api_key = 'c443e2649c9a98f6605f9a352ebdf2de'
 
 const useGenres = () => {
     const [genres, setGenres] = useState()
     useEffect(() => {
-        axios.get('https://api.themoviedb.org/3/discover/movie?api_key=c443e2649c9a98f6605f9a352ebdf2de&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1 - 100&with_genres=Action%20Horror%20Western&with_watch_monetization_types=flatrate', {
+        axios.get(`https://api.themoviedb.org/3/genre/movie/list`, {
             headers: {
                 Authorization: process.env.REACT_APP_API_AUTHORIZATION
             }
-            // ,
-            // params: {
-            //     api_key: process.env.REACT_APP_API_KEY
-            // }
+            ,
+            params: {
+                api_key: API_KEY,
+                language: 'en-US'
+            }
         })
         .then((res) => {
             console.log(genres)
-            setGenres(res.data)
+            setGenres(res.data.genres)
     })
     .catch((error) => {
         console.log(error)
         alert('Ocorreu um erro')
     })
-}, [genres])
+// eslint-disable-next-line react-hooks/exhaustive-deps
+}, [])
     return(genres)
 }
 export default useGenres

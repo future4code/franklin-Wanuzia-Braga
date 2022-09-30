@@ -16,6 +16,7 @@ const BannerHeader = () => {
     const apikey = 'api_key=c443e2649c9a98f6605f9a352ebdf2de'
     const genres = useGenres([],`${BASE_URL_GENRES}${apikey}&language=en-US`)
     const allGenres = genresMock.genres.map(genre => {
+
         return (
             <ThemeProvider theme={theme}>
                 <ToggleButton 

@@ -9,12 +9,11 @@ import theme from '../../constants/theme';
 
 
 export default function ToggleButtonsMultiple({genres}) {
-//   const apikey = 'api_key=c443e2649c9a98f6605f9a352ebdf2de'
-//   const [filters, setFilters] = useState(() => []);
+  const [filters, setFilters] = useState(() => []);
 
-//   const handleFormat = (event, newFormats) => {
-//     setFilters(newFormats);
-//   };
+  const handleFormat = (event, newFormats) => {
+    setFilters(newFormats);
+  };
 // const genres = useGenres(`${BASE_URL_GENRES}${apikey}&language=pt-BR`)
 // useEffect(() => {
 //   }, [genres]);
@@ -27,14 +26,15 @@ export default function ToggleButtonsMultiple({genres}) {
 //     })
 
   return (
-    <div
-    //   value={filters}
-    //   onChange={handleFormat}
-      // aria-label="filter by"
-    >
+    <div>
          <ThemeProvider theme={theme}>
-            <ToggleButtonGroup >
+            <ToggleButtonGroup 
+                  value={filters}
+                  onChange={handleFormat}
+                  aria-label="filter by">
+                    
                   {genres}
+
             </ToggleButtonGroup> 
          </ThemeProvider>
 

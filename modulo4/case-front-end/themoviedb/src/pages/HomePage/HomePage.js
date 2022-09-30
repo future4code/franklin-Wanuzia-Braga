@@ -7,42 +7,39 @@ import useRequestData from "../../hooks/useRequestData";
 import { MovieListContainer } from "./styled";
 import Loading from "../../components/Loading/Loading";
 import { useState, useEffect } from "react";
-import Pagination from "../../components/Pagination/Pagination";
+import Pagination from '@mui/material/Pagination';
+import { ThemeProvider } from '@mui/material/styles';
+import theme from '../../constants/theme';
+
 
 
 const apikey = 'api_key=c443e2649c9a98f6605f9a352ebdf2de'
+// const apikey = process.env.REACT_APP_API_KEY
+
 
 const HomePage = () => {
     const navigate = useNavigate()
-    let [pageNumber, setPage] = useState('1')
-    const [currentPageUrl, setCurrentPageUrl] = useState(`${BASE_URL}popular?${apikey}&lang=en&page=${pageNumber}`);
+    let [pageNumber, setPage] = useState(1)
+    const [currentPageUrl, setCurrentPageUrl] = useState(`${BASE_URL}popular?${apikey}&lang=pt-BR&page=${pageNumber}`);
     const movies = useRequestData([], currentPageUrl)
 
+    const handleChange = (event, value) => {
+        setPage(value);
+        setCurrentPageUrl(`${BASE_URL}popular?${apikey}&lang=en&page=${pageNumber}`);
+      };
     useEffect(() => {
         // setCurrentPageUrl()
       }, [movies, pageNumber]);
     
       console.log(pageNumber)
 
-      function goToNextPage() {
-          for (let i = 0; i <= 99; i++) {
-           setPage(pageNumber ++)
-          }
-        setCurrentPageUrl(`${BASE_URL}popular?${apikey}&lang=en&page=${pageNumber}`);
-      }
-      function goToPrevPage() {
-        for (let i = 1; i <= 99; i++) {
-        setPage(pageNumber --)
-        }
-        setCurrentPageUrl(`${BASE_URL}popular?${apikey}&page=${pageNumber}`);
-      }
-
     const onClickCard = (id) => {
         goToMovieDetails(navigate, id)
     }
 
-  
+
     const movieCards = movies.map((movie) => {
+        
         return(
             <MovieCard 
             key={movie.id}
@@ -61,10 +58,10 @@ const HomePage = () => {
            {movieCards.length > 0 ? movieCards : <Loading />}
         </MovieListContainer>
         <div>
-      
-        <Pagination goToPrevPage={goToPrevPage} goToNextPage={goToNextPage} />
-
-    </div>
+        <ThemeProvider theme={theme}>
+        <Pagination count={500} page={pageNumber} onChange={handleChange} /> 
+        </ThemeProvider>
+        </div>
 
         </div>
     )
