@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 import Pagination from '@mui/material/Pagination';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../../constants/theme';
+import BannerHeader from "../../components/BannerFilter/BannerFilter";
 
 
 
@@ -53,11 +54,11 @@ const HomePage = () => {
 
     return(
         <div>
-
+            < BannerHeader />
         <MovieListContainer>
            {movieCards.length > 0 ? movieCards : <Loading />}
         </MovieListContainer>
-        <div>
+        <div>       
         <ThemeProvider theme={theme}>
         <Pagination count={500} page={pageNumber} onChange={handleChange} /> 
         </ThemeProvider>
