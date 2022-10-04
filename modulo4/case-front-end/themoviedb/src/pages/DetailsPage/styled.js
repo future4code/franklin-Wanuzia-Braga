@@ -22,7 +22,7 @@ export const MovieCardContainer = styled.div`
   /* padding: 10px; */
 `
 export const PosterImg = styled.img`
-  height:'574px';
+  height:'500px';
   width: '383px';
 `
 export const MovieCardContent = styled.div`
@@ -37,4 +37,37 @@ export const MovieCardContent = styled.div`
 `
 export const FirtsDetails = styled.div`
 display: flex;
+max-width: 350px;
+`
+export const Character = styled.div`
+display: flex;
+flex-direction: column;
+flex-wrap: wrap;
+padding: 2px;
+margin: 16px;
+width: 150px;
+`
+export const Name = styled.div`
+display: flex;
+flex-direction: row;
+width: 150px;
+font-weight: 700;
+`
+export const Cast = styled.div`
+display: flex;
+flex-direction: row;
+margin-top: 5vh;
+`
+export const CharacterDetails = styled.div`
+padding: 5px;
+background: #FFFFFF;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 4px;
+margin: 1vh;
+`
+
+export const ProfileImage = styled.img`
+width: 175px;
+height: 221px;
+margin-bottom: 2vh;
 `

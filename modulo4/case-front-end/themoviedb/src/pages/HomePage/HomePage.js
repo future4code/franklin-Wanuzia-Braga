@@ -11,6 +11,7 @@ import Pagination from '@mui/material/Pagination';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../../constants/theme';
 import BannerHeader from "../../components/BannerFilter/BannerFilter";
+import { formataData } from "../../utils/formatDate";
 
 
 
@@ -30,23 +31,20 @@ const HomePage = () => {
       };
     useEffect(() => {
         // setCurrentPageUrl()
-      }, [movies, pageNumber]);
+      }, [movies]);
     
-      console.log(pageNumber)
-
     const onClickCard = (id) => {
         goToMovieDetails(navigate, id)
     }
-
-
     const movieCards = movies.map((movie) => {
-        
+        const date = formataData(movie.release_date)
+
         return(
             <MovieCard 
             key={movie.id}
             title={movie.title}
             image={BASE_URL_IMAGE + movie.poster_path}
-            release_date={movie.release_date}
+            release_date={date}
              onClick={() => onClickCard(movie.id)}
             />
         )
