@@ -41,7 +41,7 @@ export const MovieCardContent = styled.div`
 `
 export const FirtsDetails = styled.div`
 display: flex;
-max-width: 350px;
+/* max-width: 350px; */
 `
 export const Character = styled.div`
 display: flex;
@@ -57,13 +57,19 @@ flex-direction: row;
 width: 150px;
 font-weight: 700;
 `
+export const Section = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`
+
 export const ShowCase = styled.div`
 display: flex;
 /* flex-direction: row; */
-/* flex: none; */
-/* max-width: 85vw; */
+flex: none;
+max-width: 84vw;
 /* justify-content: center; */
-/* align-self: center; */
+align-self: center;
 overflow-x: auto;
 scroll-behavior: smooth;
 margin: 0px 5vh ;
@@ -76,22 +82,25 @@ background: #FFFFFF;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 border-radius: 4px;
 margin: 1vh;
-
 `
-export const Trailer = styled.video`
-width: 907px;
-height: 510px;
-margin-left: 5vh;
-`
-
 export const ProfileImage = styled.img`
 width: 175px;
 height: 221px;
 margin-bottom: 2vh;
 object-fit: cover;
 `
-export const Section = styled.section`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+export const Trailer = styled.img`
+width: 907px;
+height: 510px;
+margin-left: 5vh;
+`
+
+export const PosterItem = styled.img`
+width: 175px;
+height: 221px;
+margin-bottom: 2vh;
+object-fit: cover;
+:hover {
+  cursor: pointer;
+}
 `

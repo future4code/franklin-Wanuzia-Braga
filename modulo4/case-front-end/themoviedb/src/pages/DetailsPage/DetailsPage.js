@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { BannerSection, FirtsDetails, Character, Name, ShowCase, 
-ProfileImage, Recommendations, Container, Trailer} from './styled'
+ProfileImage, Container, Trailer, PosterItem} from './styled'
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
-import { MovieCardContainer, MovieCardContent, PosterImg, CharacterDetails, ShowcaseItem, Section } from './styled'
+import { MovieCardContainer, MovieCardContent, PosterImg, ShowcaseItem, Section } from './styled'
 import { BASE_URL, BASE_URL_IMAGE, URL_YOUTUBE } from "../../constants/urls";
 import { formataData, getYear } from "../../utils/formatDate";
 import useDetailsData from "../../hooks/useDetailsData";
 import CircularProgressWithLabel from "../../components/CircularProgress/CircularProgress";
 import useRequestData from "../../hooks/useRequestData";
-import { CardMedia } from "@mui/material";
-import MovieCard from "../../components/MovieCard/MovieCard";
 import { goToMovieDetails } from "../../routes/coordinator";
 import { useNavigate } from "react-router-dom";
 
@@ -49,54 +47,66 @@ const DetailsPage = () => {
             <ShowcaseItem key={p.id}>
                 <ProfileImage src={BASE_URL_IMAGE + p.profile_path} alt={p.name} />
                 <Name>{p.name}</Name>
-                {p.character !== null ? <p>{p.character}</p> : <p>{p.job}</p>}
+                <p>{p.character}</p>
             </ShowcaseItem>
         )
     })
-    const casting = cast && cast.filter(p => p.character !== null)
+    const casting = cast && cast.filter(p => p.job !== null)
     const validCasting = casting && casting.map((p) => {
         return (
             <Character key={p.id}>
                 <Name>{p.name}</Name>
-                <p>{p.character}</p>
+                <p>{p.job}</p>
             </Character>
         )
     })
-    // const getVideos = useRequestData([],`${BASE_URL}${params.id}/videos?api_key=c443e2649c9a98f6605f9a352ebdf2de`)
-    // const validVideos = getVideos.filter(v => v.type === "Trailer" || v.name === "Official Trailer")
-    //     const trailers = validVideos.map((trailer) => {
-    //     const valid = URL_YOUTUBE + trailer.key
-    //     console.log(valid)
-    //     return (
-    //         <img
-    //         // key={trailer.id}
-    //         // component="video"
-    //         src={valid}
-    //         alt=""
-    //       />
-    //     )
-    // })
+    const getVideos = useRequestData([],`${BASE_URL}${params.id}/videos?api_key=c443e2649c9a98f6605f9a352ebdf2de`)
+    const validVideos = getVideos.filter(v => v.type === "Trailer" || v.name === "Official Trailer")
+        const trailers = validVideos.map((trailer) => {
+        const valid = URL_YOUTUBE + trailer.key
+        console.log(valid)
+        return (
+            <iframe
+            type="text/html" 
+            key={trailer.id}
+            // component="video"
+            src={valid}
+            alt=""
+          />
+        )
+    })
     // console.log(trailers)
     //    const certification = useRequestData([], `${BASE_URL}${params.id}/release_dates?api_key=c443e2649c9a98f6605f9a352ebdf2de`)
+    
+//     <MovieCard
+//     key={similar.id}
+//     title={similar.title}
+//     image={BASE_URL_IMAGE + similar.poster_path}
+//     release_date={date}
+//  onClick={() => onClickCard(similar.id)}
+// />
+        const onClickCard = (id) => {
+        goToMovieDetails(navigate, id)
+    }
     const recommendations = useRequestData([], `${BASE_URL}${params.id}/similar?api_key=c443e2649c9a98f6605f9a352ebdf2de`)
     const showCase = recommendations.map((similar) => {
         const date = formataData(similar.release_date)
         return (
-            <ShowcaseItem>
-            <MovieCard
-                key={similar.id}
-                title={similar.title}
-                image={BASE_URL_IMAGE + similar.poster_path}
-                release_date={date}
-             onClick={() => onClickCard(similar.id)}
-            />
+            
+            <ShowcaseItem key={similar.id}>
+
+                <PosterItem src={BASE_URL_IMAGE + similar.poster_path} 
+                alt={similar.title} 
+                onClick={() => onClickCard(similar.id)}
+                />
+                <Name>{similar.title}</Name>
+                <p>{date}</p>
+            
             </ShowcaseItem>
         )
 
     })
-    const onClickCard = (id) => {
-        goToMovieDetails(navigate, id)
-    }
+
     useEffect(detailsMovie, [params.id]);
     return (
         <Container>
@@ -129,7 +139,7 @@ const DetailsPage = () => {
             <Section>
             <Typography
                 marginTop={15}
-                marginLeft={5}
+                marginLeft={15}
                 fontWeight={700}
                 fontSize={28}
                 align={"left"}
@@ -142,19 +152,19 @@ const DetailsPage = () => {
             <div>
                 <Typography
                     marginTop={5}
-                    marginLeft={5}
+                    marginLeft={15}
                     fontWeight={700}
                     fontSize={28}
                 >
                     Trailer
                 </Typography>
-                {/* {trailers} */}
-                <Trailer
+                {trailers}
+                {/* <Trailer
                         alt={movie.original_title}
                         src={"https://www.youtube.com/watch?v=5PSNL1qE6VY"}
       
 
-                    />
+                    /> */}
                     {/* <source 
                     src="https://www.youtube.com/watch?v=5PSNL1qE6VY" 
                     type="video"/> */}
@@ -163,7 +173,7 @@ const DetailsPage = () => {
             <div>
                 <Typography
                     marginTop={5}
-                    marginLeft={5}
+                    marginLeft={15}
                     fontWeight={700}
                     fontSize={28}
                 >
