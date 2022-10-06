@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import { MovieCardContainer, MovieCardContent, PosterImg, ShowcaseItem, Section, Jobs } from './styled'
-import { BASE_URL, BASE_URL_IMAGE, URL_YOUTUBE } from "../../constants/urls";
+import { API_KEY, BASE_URL, BASE_URL_IMAGE, URL_LANGUAGE, URL_YOUTUBE } from "../../urls";
 import { formataData, getYear } from "../../utils/formatDate";
 import useDetailsData from "../../hooks/useDetailsData";
 import CircularProgressWithLabel from "../../components/CircularProgress/CircularProgress";
@@ -13,7 +13,8 @@ import useRequestData from "../../hooks/useRequestData";
 import { goToMovieDetails } from "../../routes/coordinator";
 import { useNavigate } from "react-router-dom";
 import moment from 'moment';
-import 'moment/locale/pt-br'
+import 'moment/locale/pt-br';
+import GetByGenre from "../../services/moviesByGenre";
 
 const DetailsPage = () => {
     const navigate = useNavigate()
@@ -21,7 +22,7 @@ const DetailsPage = () => {
     const [movie, setMovie] = useState({})
     // const api_key = process.env.REACT_APP_API_KEY
     const detailsMovie = () => {
-        axios.get(`${BASE_URL}${params.id}?api_key=c443e2649c9a98f6605f9a352ebdf2de`,
+        axios.get(`${BASE_URL}${params.id}?${API_KEY}${URL_LANGUAGE}`,
             {
                 headers: {
                     Authorization: process.env.REACT_APP_API_AUTHORIZATION
@@ -42,7 +43,7 @@ const DetailsPage = () => {
     
     const date = formataData(movie.release_date)
     const year = getYear(movie.release_date)
-    const persons = useDetailsData([], `${BASE_URL}${params.id}/credits?api_key=c443e2649c9a98f6605f9a352ebdf2de`)
+    const persons = useDetailsData([], `${BASE_URL}${params.id}/credits?${API_KEY}`)
     const cast = persons.cast
     const images = cast && cast.filter(p => p.profile_path !== null)
     const personDetails = images && images.map((p) => {
@@ -68,7 +69,7 @@ const DetailsPage = () => {
             </Character>
         )
     })
-    const getVideos = useRequestData([],`${BASE_URL}${params.id}/videos?api_key=c443e2649c9a98f6605f9a352ebdf2de`)
+    const getVideos = useRequestData([],`${BASE_URL}${params.id}/videos?${API_KEY}`)
     const validVideos = getVideos.filter(v => v.name === "Official Trailer")
     // const secondaryVideos= getVideos.filter(v => v.name === "Trailer")
 
@@ -84,17 +85,17 @@ const DetailsPage = () => {
             type="text/html" 
             key={trailer.id}
             src={valid}
-            alt=""
+            alt={trailer.name}
             title={trailer.name}
           />
         )
     })
-    //    const certification = useRequestData([], `${BASE_URL}${params.id}/release_dates?api_key=c443e2649c9a98f6605f9a352ebdf2de`)
+    //    const certification = useRequestData([], `${BASE_URL}${params.id}/release_dates?{API_KEY}`)
 
         const onClickCard = (id) => {
         goToMovieDetails(navigate, id)
     }
-    const recommendations = useRequestData([], `${BASE_URL}${params.id}/similar?api_key=c443e2649c9a98f6605f9a352ebdf2de`)
+    const recommendations = useRequestData([], `${BASE_URL}${params.id}/similar?${API_KEY}`)
     const showCase = recommendations.map((similar) => {
         const date = moment(similar.release_date).format("D MMM YYYY").toUpperCase()
         return (
@@ -112,7 +113,7 @@ const DetailsPage = () => {
         )
 
     })
-
+    GetByGenre()
     useEffect(detailsMovie, [params.id]);
     return (
         <Container>

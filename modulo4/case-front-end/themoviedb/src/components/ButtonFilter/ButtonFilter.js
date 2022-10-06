@@ -3,7 +3,7 @@ import * as React from 'react';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 // import { useState, useEffect } from 'react';
 // import useGenres from '../../services/genres';
-// import { BASE_URL_GENRES } from '../../constants/urls';
+// import { BASE_URL_GENRES } from '../urls';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../../constants/theme';
 
@@ -14,7 +14,7 @@ export default function ToggleButtonsMultiple({genres}) {
   // const handleFormat = (event, newFormats) => {
   //   setFilters(newFormats);
   // };
-// const genres = useGenres(`${BASE_URL_GENRES}${apikey}&language=pt-BR`)
+// const genres = useGenres()
 // useEffect(() => {
 //   }, [genres]);
 

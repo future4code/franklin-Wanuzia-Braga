@@ -2,7 +2,7 @@ import React from "react";
 import MovieCard from "../../components/MovieCard/MovieCard";
 import { goToMovieDetails } from "../../routes/coordinator";
 import { useNavigate } from "react-router-dom";
-import { BASE_URL, BASE_URL_IMAGE } from "../../constants/urls";
+import { API_KEY, BASE_URL, BASE_URL_IMAGE, URL_LANGUAGE } from "../../urls";
 import useRequestData from "../../hooks/useRequestData";
 import { MovieListContainer } from "./styled";
 import Loading from "../../components/Loading/Loading";
@@ -14,21 +14,18 @@ import BannerHeader from "../../components/BannerFilter/BannerFilter";
 import moment from 'moment';
 import 'moment/locale/pt-br'
 
-
-
-const apikey = 'api_key=c443e2649c9a98f6605f9a352ebdf2de'
 // const apikey = process.env.REACT_APP_API_KEY
 
 
 const HomePage = () => {
     const navigate = useNavigate()
     let [pageNumber, setPage] = useState(1)
-    const [currentPageUrl, setCurrentPageUrl] = useState(`${BASE_URL}popular?${apikey}&lang=pt-BR&page=${pageNumber}`);
+    const [currentPageUrl, setCurrentPageUrl] = useState(`${BASE_URL}popular?${API_KEY}${URL_LANGUAGE}&page=${pageNumber}`);
     const movies = useRequestData([], currentPageUrl)
 
     const handleChange = (event, value) => {
         setPage(value);
-        setCurrentPageUrl(`${BASE_URL}popular?${apikey}&lang=pt-BR&page=${pageNumber}`);
+        setCurrentPageUrl(`${BASE_URL}popular?${API_KEY}${URL_LANGUAGE}&page=${pageNumber}`);
       };
     useEffect(() => {
         // setCurrentPageUrl()

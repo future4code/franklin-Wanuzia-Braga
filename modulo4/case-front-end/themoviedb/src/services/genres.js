@@ -1,24 +1,17 @@
 import { useState, useEffect } from "react";
 import axios from 'axios';
-import { API_KEY } from "../constants/urls";
-
-// const api_key = 'c443e2649c9a98f6605f9a352ebdf2de'
+import { API_KEY, BASE_URL_GENRES, URL_LANGUAGE } from "../urls";
 
 const useGenres = () => {
-    const [genres, setGenres] = useState()
+    // const api = process.env.REACT_APP_API_KEY
+    const [genres, setGenres] = useState([])
     useEffect(() => {
-        axios.get(`https://api.themoviedb.org/3/genre/movie/list`, {
+        axios.get(`${BASE_URL_GENRES}${API_KEY}${URL_LANGUAGE}`, {
             headers: {
                 Authorization: process.env.REACT_APP_API_AUTHORIZATION
             }
-            ,
-            params: {
-                api_key: API_KEY,
-                language: 'en-US'
-            }
         })
         .then((res) => {
-            console.log(genres)
             setGenres(res.data.genres)
     })
     .catch((error) => {

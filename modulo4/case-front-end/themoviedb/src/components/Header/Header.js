@@ -1,9 +1,6 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import { StyledToolBar, TMDBLogo } from './style';
-// import { useNavigate } from 'react-router-dom';
-// import { goToMoviesDBSite } from '../../routes/coordinator';
-// import { colors } from '../../constants/colors';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../../constants/theme';
 import logo from '../../assets/logo.svg'

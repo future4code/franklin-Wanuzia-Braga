@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from 'axios';
 
-// dotenv.config()
-
 
 const useDetailsData = (initialData, url) => {
 
@@ -12,9 +10,6 @@ useEffect(() => {
         headers: {
             Authorization: process.env.REACT_APP_API_AUTHORIZATION
         }
-        // params: {
-        //     api_key: process.env.REACT_APP_API_KEY
-        // }
     })
     .then((res) => {
        setData(res.data)
