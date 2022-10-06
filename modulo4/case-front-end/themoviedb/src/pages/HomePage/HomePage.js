@@ -11,7 +11,8 @@ import Pagination from '@mui/material/Pagination';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../../constants/theme';
 import BannerHeader from "../../components/BannerFilter/BannerFilter";
-import { formataData } from "../../utils/formatDate";
+import moment from 'moment';
+import 'moment/locale/pt-br'
 
 
 
@@ -27,7 +28,7 @@ const HomePage = () => {
 
     const handleChange = (event, value) => {
         setPage(value);
-        setCurrentPageUrl(`${BASE_URL}popular?${apikey}&lang=en&page=${pageNumber}`);
+        setCurrentPageUrl(`${BASE_URL}popular?${apikey}&lang=pt-BR&page=${pageNumber}`);
       };
     useEffect(() => {
         // setCurrentPageUrl()
@@ -37,14 +38,13 @@ const HomePage = () => {
         goToMovieDetails(navigate, id)
     }
     const movieCards = movies.map((movie) => {
-        const date = formataData(movie.release_date)
-
+        const dataCerta = moment(movie.release_date).format("D MMM YYYY").toUpperCase()
         return(
             <MovieCard 
             key={movie.id}
             title={movie.title}
             image={BASE_URL_IMAGE + movie.poster_path}
-            release_date={date}
+            release_date={dataCerta}
              onClick={() => onClickCard(movie.id)}
             />
         )
