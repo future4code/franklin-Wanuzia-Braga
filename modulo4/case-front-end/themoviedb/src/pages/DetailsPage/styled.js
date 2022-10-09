@@ -27,13 +27,16 @@ min-height: 600px;
 `
 export const PosterImg = styled.img`
 width: 186px; 
-height:289px;
+height: 289px;
 align-self: center;
 margin: 90px 86px;
+filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+border-radius: 8px;
 
 @media (min-width: 767px) {
-  height:574px;
+  height: 574px;
   width: 383px;
+
 }
 `
 
@@ -59,37 +62,69 @@ export const MovieCardContent = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  margin-top: 72px;
+  margin-top: 90px;
   margin-left: 70vh;
-  position: relative;
+  /* position: relative; */
 }
 `
 export const FirtsDetails = styled.div`
 display: flex;
 flex-direction: row;
-padding: 10px;
-justify-content: space-between;
 /* /* max-width: 350px; */
+`
+
+export const LittleDetails = styled.div`
+display: flex;
+flex-direction: row;
+padding: 15px;
+justify-content: flex-start;
+font-weight: 400;
+
+@media (min-width: 767px) {
+width: 684px;
+height: 24px;
+font-size: 18px;
+line-height: 24px;
+align-items: center;
+}
+
+`
+export const GenresMovie = styled.div`
+display: flex;
+padding: 8px;
+column-gap: 5px;
+align-items: center;
+
+`
+
+export const DetailParagraph = styled.p`
+margin-left: 15px;
+
+`
+export const SinopseDetail = styled.p`
+text-align: justify;
+max-width: 80vh;
 `
 export const Jobs = styled.div`
 max-width: 590px;
-max-height: 111px;
 display: flex;
 flex-direction: row;
 flex-wrap: wrap;
+margin-left: 15px;
 `
 export const Character = styled.div`
 display: flex;
 flex-direction: column;
 flex-wrap: wrap;
-padding: 2px;
-margin: 16px;
+margin: 10px;
 width: 150px;
+align-content: center;
+
 `
 export const Name = styled.div`
 display: flex;
 flex-direction: row;
-width: 150px;
+width: 200px;
 font-weight: 700;
 `
 export const Section = styled.section`
@@ -105,7 +140,7 @@ scroll-behavior: smooth;
 flex: none;
 @media (min-width: 767px) {
 max-width: 84vw;
-align-self: center;
+/* align-self: center; */
 overflow-x: auto;
 margin: 0px 5vh ;
 padding: 5px;
