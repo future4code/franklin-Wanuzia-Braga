@@ -3,16 +3,15 @@ import ToggleButtonsMultiple from '../ButtonFilter/ButtonFilter';
 import { BannerSection, TitleBanner, TitleDiv, ButtonsGenres } from './style';
 import ToggleButton from '@mui/material/ToggleButton';
 import useGenres from '../../services/genres';
-import { genresMock } from '../../services/mockGenres';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../../constants/theme';
 
 
 const BannerHeader = () => {
-    // const [genre, setGenre] = useState() - passar esse dado por props? criar endpoint para fiter results?
+    // const [genre, setGenre] = useState() - passar esse dado por props? criar endpoint para filter results?
     //   const navigate = useNavigate()
     const genres = useGenres() // falta utilizar os dados que chegam da API
-    const allGenres = genresMock.genres.map(genre => {
+    const allGenres = genres.map(genre => {
 
         return (
             <ThemeProvider theme={theme}>

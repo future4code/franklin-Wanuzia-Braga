@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { BannerSection, FirtsDetails, Character, Name, ShowCase, 
-ProfileImage, Container, Trailer, PosterItem, LittleDetails, GenresMovie, DetailParagraph, SinopseDetail} from './styled'
+import {
+    BannerSection, FirtsDetails, Character, Name, ShowCase,
+    ProfileImage, Container, Trailer, PosterItem, LittleDetails, GenresMovie, DetailParagraph, SinopseDetail
+} from './styled'
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
@@ -39,11 +41,11 @@ const DetailsPage = () => {
     const genres = genre && genre.map((genre) => {
         return (
 
-                <p key={genre.id}> {genre.name} </p >
+            <p key={genre.id}> {genre.name} </p >
 
         )
     })
-    
+
     const date = formataData(movie.release_date)
     const year = getYear(movie.release_date)
     const persons = useDetailsData([], `${BASE_URL}${params.id}/credits?${API_KEY}`)
@@ -63,11 +65,7 @@ const DetailsPage = () => {
     }
     const casting = cast && cast.filter(p => p.job !== null)
     const validCasting = casting && casting.map((p) => {
-         // if(casting.length > 5) {
-        //     return(
-        //         casting.length = 5
-        //     )
-        // }
+
         return (
             <Character key={p.id}>
                 <Name>{p.name}</Name>
@@ -75,54 +73,70 @@ const DetailsPage = () => {
             </Character>
         )
     })
-    const getVideos = useRequestData([],`${BASE_URL}${params.id}/videos?${API_KEY}`)
+    const getVideos = useRequestData([], `${BASE_URL}${params.id}/videos?${API_KEY}`)
     const validVideos = getVideos.filter(v => v.name === "Official Trailer")
-    // const secondaryVideos= getVideos.filter(v => v.name === "Trailer")
 
-    //     if(!validVideos) {
-    //         return secondaryVideos[0]
-    //     }
-        const trailers = validVideos.map((trailer) => {
+    const trailers = validVideos.map((trailer) => {
         const valid = URL_YOUTUBE + trailer.key
         return (
             <Trailer
-            type="text/html" 
-            key={trailer.id}
-            src={valid}
-            alt={trailer.name}
-            title={trailer.name}
-          />
+                type="text/html"
+                key={trailer.id}
+                src={valid}
+                alt={trailer.name}
+                title={trailer.name}
+            />
         )
     })
-    //    const certification = useRequestData([], `${BASE_URL}${params.id}/release_dates?{API_KEY}`)
+    const certification = useRequestData([], `${BASE_URL}${params.id}/release_dates?${API_KEY}`)
+    // const validAgeBR = certification && certification.filter(p => p.iso_3166_1 = "BR")
+    // const ageBR = validAgeBR & validAgeBR.map((a) => {
+    //     return a.release_date
+    // })
+    // console.log(ageBR)
+    // const ageBR = validAgeBR && validAgeBR.map((a) => {
+    //     const i = a && a.release_date
+    //     console.log(i)
+    //     const finallyage = i && i.map((c) => {
+    //         return  c.certification
+    //     })
+    //     return  finallyage
+    // })
+       const allAges = certification && certification.map((country) => {
+           return country && country.release_date
 
-        const onClickCard = (id) => {
+       })
+    //    const fodaSe = allAges && allAges.map((a) => {
+    //        return a.certification
+    //    })
+       console.log(allAges)
+    const onClickCard = (id) => {
         goToMovieDetails(navigate, id)
     }
-    const recommendations = useRequestData([], `${BASE_URL}${params.id}/similar?${API_KEY}`)
+    const recommendations = useRequestData([], `${BASE_URL}${params.id}/similar?${API_KEY}${URL_LANGUAGE}&page=1`)
     const validShowCase = recommendations.filter(v => v.poster_path !== null)
     const showCase = validShowCase.map((similar) => {
         const date = moment(similar.release_date).format("D MMM YYYY").toUpperCase()
-        
+
         return (
-            
+
             <ShowcaseItem key={similar.id}>
 
-                { similar.poster_path ? 
+                {similar.poster_path ?
                     <PosterItem src={BASE_URL_IMAGE + similar.poster_path}
-                alt={similar.title} 
-                onClick={() => onClickCard(similar.id)}
-                /> : 
-                <PosterItem 
-                src={NotAddedIcon}
-                alt={similar.title} 
-                onClick={() => onClickCard(similar.id)}
-                />
-                
+                        alt={similar.title}
+                        onClick={() => onClickCard(similar.id)}
+                    /> :
+                    <PosterItem
+                        src={NotAddedIcon}
+                        alt={similar.title}
+                        onClick={() => onClickCard(similar.id)}
+                    />
+
                 }
                 <Name>{similar.title}</Name>
                 <p>{date}</p>
-            
+
             </ShowcaseItem>
         )
 
@@ -145,76 +159,71 @@ const DetailsPage = () => {
                     <LittleDetails>
                         <li>{date}</li>
                         <GenresMovie>
-                        <li></li>{genres}
+                            <li></li>{genres}
                         </GenresMovie>
                         <li>{movie.runtime}min</li>
                     </LittleDetails>
                     <FirtsDetails>
-                    <CircularProgressWithLabel
-                        value={movie && movie.vote_average * 10}
-                    />
-                    <DetailParagraph>Avaliação dos usuários</DetailParagraph>
+                        <CircularProgressWithLabel
+                            value={movie && movie.vote_average * 10}
+                        />
+                        <DetailParagraph>Avaliação dos usuários</DetailParagraph>
                     </FirtsDetails>
                     <h2>Sinopse</h2>
-                    {movie.overview? <SinopseDetail>{movie.overview}</SinopseDetail> : 
-                    <SinopseDetail>Sinopse indisponível</SinopseDetail>}
+                    {movie.overview ? <SinopseDetail>{movie.overview}</SinopseDetail> :
+                        <SinopseDetail>Sinopse indisponível</SinopseDetail>}
                     <Jobs>
-                    {validCasting && returnCast(validCasting)}
+                        {validCasting && returnCast(validCasting)}
                         {/* {validCasting} */}
                     </Jobs>
 
                 </MovieCardContent>
             </BannerSection>
             <Section>
-            <Typography
-                marginTop={15}
-                marginLeft={5}
-                fontWeight={700}
-                fontSize={28}
-                align={"left"}
-            >
-                Elenco original
-            </Typography>
-            <ShowCase>
-                {personDetails}
-            </ShowCase>
-            <div>
-               {validVideos.length > 0?
                 <Typography
-                    marginTop={5}
+                    marginTop={15}
                     marginLeft={5}
                     fontWeight={700}
                     fontSize={28}
+                    align={"left"}
                 >
-                    Trailer
-                </Typography> : <Typography
-                marginTop={5}
-                    marginLeft={5}
-                    fontWeight={700}
-                    fontSize={28}
-                >Trailer Oficial não localizado </Typography>}
-                {trailers}
-            </div>
-            <div>
-                <Typography
-                    marginTop={5}
-                    marginLeft={5}
-                    fontWeight={700}
-                    fontSize={28}
-                >
-                    Recomendações
+                    Elenco original
                 </Typography>
                 <ShowCase>
-                    {showCase}
+                    {personDetails}
                 </ShowCase>
-
-
-            </div>
+                <div>
+                    {validVideos.length > 0 ?
+                        <Typography
+                            marginTop={5}
+                            marginLeft={5}
+                            fontWeight={700}
+                            fontSize={28}
+                        >
+                            Trailer
+                        </Typography> : <Typography
+                            marginTop={5}
+                            marginLeft={5}
+                            fontWeight={700}
+                            fontSize={28}
+                        >Trailer Oficial não localizado </Typography>}
+                    {trailers}
+                </div>
+                <div>
+                    <Typography
+                        marginTop={5}
+                        marginLeft={5}
+                        fontWeight={700}
+                        fontSize={28}
+                    >
+                        Recomendações
+                    </Typography>
+                    <ShowCase>
+                        {showCase}
+                    </ShowCase>
+                </div>
             </Section>
         </Container>
-
-
-
     )
 }
 
