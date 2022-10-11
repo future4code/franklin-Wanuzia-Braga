@@ -6,7 +6,7 @@ import {
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
-import { MovieCardContainer, MovieCardContent, PosterImg, ShowcaseItem, Section, Jobs } from './styled'
+import { MovieCardContainer, MovieCardContent, PosterImg, ShowcaseItem, Title, Section, Jobs } from './styled'
 import { API_KEY, BASE_URL, BASE_URL_IMAGE, URL_LANGUAGE, URL_YOUTUBE } from "../../urls";
 import { formataData, getYear } from "../../utils/formatDate";
 import useDetailsData from "../../hooks/useDetailsData";
@@ -153,9 +153,9 @@ const DetailsPage = () => {
                     />
                 </MovieCardContainer>
                 <MovieCardContent >
-                    <h1>
+                    <Title>
                         {movie.original_title} ({year})
-                    </h1>
+                    </Title>
                     <LittleDetails>
                         <li>{date}</li>
                         <GenresMovie>

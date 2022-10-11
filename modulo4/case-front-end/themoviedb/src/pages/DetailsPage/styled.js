@@ -4,23 +4,21 @@ export const Container = styled.div`
 display: flex;
 width: 100%;
 flex-direction: column;
-align-items: center;
+/* align-items: center; */
 
 
-@media (min-width: 767px) {
-
-}
 `
 
 export const BannerSection = styled.div`
 display: flex;
 background-color: #2D0C5E;
 color: #ffffff;
-
-@media (min-width: 767px) {
 width:100%;
+@media (min-width: 767px) {
 flex-direction: row;
-min-height: 600px;
+min-height: 80vh;
+max-height: 90vh;
+margin-bottom: 1.5vh;
 
 }
 
@@ -29,42 +27,43 @@ export const PosterImg = styled.img`
 width: 186px; 
 height: 289px;
 align-self: center;
-margin: 90px 86px;
 filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 border-radius: 8px;
 
-@media (min-width: 767px) {
-  height: 574px;
-  width: 383px;
 
+@media (min-width: 1248px) {
+height: 574px;
+width: 383px;
+margin: 9vh 0vw;
+position: absolute;
 }
 `
 
 export const MovieCardContainer = styled.div`
 
-
-@media (min-width: 767px) {
 display: block;
 justify-content: space-between;
-margin-top: 72px;
+margin-top: 8vh;
 margin-left: 15vh;
 position: absolute;
 height: 100%;
-margin: 30px;
-/* padding: 10px; */
-}
+
 `
 
 export const MovieCardContent = styled.div`
-
+margin-top: 50vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+max-width: min-content;
+text-align: center;
 @media (min-width: 767px) {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  margin-top: 90px;
-  margin-left: 70vh;
-  /* position: relative; */
+margin-top: 10vh;
+margin-left: 40vw;
+align-items: flex-start;
+justify-content: flex-start;
+/* position: relative; */
 }
 `
 export const FirtsDetails = styled.div`
@@ -76,16 +75,17 @@ flex-direction: row;
 export const LittleDetails = styled.div`
 display: flex;
 flex-direction: row;
-padding: 15px;
-justify-content: flex-start;
+justify-content: center;
 font-weight: 400;
-
+margin-bottom: 1vh;
+width: min-content;
 @media (min-width: 767px) {
 width: 684px;
 height: 24px;
-font-size: 18px;
+font-size: 1.8vh;
 line-height: 24px;
 align-items: center;
+justify-content: flex-start;
 }
 
 `
@@ -102,8 +102,12 @@ margin-left: 15px;
 
 `
 export const SinopseDetail = styled.p`
+text-align: center;
+
+@media (min-width: 767px) {
 text-align: justify;
-max-width: 80vh;
+max-width: 60vw;
+}
 `
 export const Jobs = styled.div`
 max-width: 590px;
@@ -114,11 +118,14 @@ margin-left: 15px;
 `
 export const Character = styled.div`
 display: flex;
+align-content: center;
+text-align: left;
+@media (min-width: 767px) {
+margin: 10px;
 flex-direction: column;
 flex-wrap: wrap;
-margin: 10px;
 width: 150px;
-align-content: center;
+}
 
 `
 export const Name = styled.div`
@@ -138,10 +145,9 @@ display: flex;
 flex-direction: row;
 scroll-behavior: smooth;
 flex: none;
+overflow-x: auto;
 @media (min-width: 767px) {
 max-width: 84vw;
-/* align-self: center; */
-overflow-x: auto;
 margin: 0px 5vh ;
 padding: 5px;
 }
@@ -156,6 +162,7 @@ background: #FFFFFF;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 border-radius: 4px;
 margin: 1vh;
+
 `
 export const ProfileImage = styled.img`
 width: 175px;
@@ -168,12 +175,18 @@ margin-bottom: 2vh;
 object-fit: cover;
 `
 export const Trailer = styled.iframe`
+width: 324px;
+height: 182px;
+margin-left: 20px;
+@media (min-width: 767px) {
 width: 907px;
 height: 510px;
 margin-left: 5vh;
+}
 `
 
 export const PosterItem = styled.img`
+
 width: 175px;
 height: 221px;
 margin-bottom: 2vh;
@@ -181,4 +194,13 @@ object-fit: cover;
 :hover {
   cursor: pointer;
 }
+`
+
+export const Title = styled.h1`
+font-size: 2vh;
+margin-top: 5vh;
+@media (min-width: 767px) {
+font-size: 5vh;
+}
+
 `

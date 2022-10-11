@@ -67,10 +67,27 @@ components: {
         root: {
           color: colors.topColor,
           fontWeight: '700',
-        },
-        icon: {
-
+        }
       },
+    },
+    MuiToolbar: {
+      styleOverrides: {
+        // Name of the slot
+        root: {
+          paddingLeft: '0',
+          margin: 0,
+        }
+      },
+    },
+    MuiAppBar: {
+      styleOverrides: {
+        // Name of the slot
+        root: {
+          paddingLeft: 0,
+        },
+        positionStatic: {
+          padding: 0,
+        }
       },
     },
   },
