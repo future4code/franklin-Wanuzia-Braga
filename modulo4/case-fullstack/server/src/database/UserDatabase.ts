@@ -31,7 +31,7 @@ export class UserDatabase extends BaseDatabase {
         const usersList: IUserDB[] = await BaseDatabase
             .connection(UserDatabase.TABLE_USERS)
             .select('*')
-        return usersList[0]
+        return usersList
     }
     public deleteUser = async (id: string) => {
         await BaseDatabase

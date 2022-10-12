@@ -1,2 +1,32 @@
 ### Endpoint de teste
 GET http://localhost:3003/ping
+
+### Get All
+GET http://localhost:3003/users/participation
+
+### Get User By Id
+GET http://localhost:3003/users/abc-123
+
+### Delete User
+DELETE http://localhost:3003/users/abc-123
+
+### Insert User Participation
+POST http://localhost:3003/users/insert
+Content-Type: application/json
+
+{
+    "first_name": "Beltrano",
+    "last_name": "Cardoso",
+    "participation": 10
+}
+
+### Insert User Participation - força error
+
+POST http://localhost:3003/users/insert
+Content-Type: application/json
+
+{
+    "first_name": "Beltrano",
+    "last_name": "Cardoso",
+    "participation": 100
+}

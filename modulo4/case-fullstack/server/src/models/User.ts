@@ -59,3 +59,10 @@ export interface IUserDB {
     participation: number,
     role: USER_ROLES,
 }
+
+export interface IUserInsertDTO {
+
+    first_name: string,
+    last_name: string,
+    participation: number
+}
