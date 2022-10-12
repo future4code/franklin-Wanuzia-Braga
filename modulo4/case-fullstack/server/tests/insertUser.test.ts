@@ -1,6 +1,9 @@
 import { BaseDatabase } from "../src/database/BaseDatabase";
-import { User, USER_ROLES } from "../src/models/User";
+import { IUserInsertDTO, User, USER_ROLES } from "../src/models/User";
 import { UserDatabase } from "../src/database/UserDatabase";
+import { UserController } from "../src/controller/UserController";
+import { UserBusiness } from "../src/business/UserBusiness";
+import { IdGenerator } from "../src/services/IdGenerator";
 
 describe("Testing async functions", () => {
 test("should connect to MySql", async () => {
@@ -60,5 +63,20 @@ test("Should create an user", async () => {
       expect(err).not.toBe(undefined)
     }
   });
+  afterAll(async () => {
+    await new UserDatabase().deleteUser("abc-123-456")
+    await BaseDatabase.connection.destroy()
+  });
+//   test("should return error while value is bigger than avaliable", async () => {
+//         const user: IUserInsertDTO = {
+//             first_name: "José",
+//             last_name: "Maria",
+//             participation: 150
+//         }
+
+//     const result = await new UserBusiness(new UserDatabase(), new IdGenerator()).create(user)
+
+//     expect(result).toBeInstanceOf(Error)
+// });
 
 });

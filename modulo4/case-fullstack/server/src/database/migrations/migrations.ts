@@ -30,7 +30,7 @@ class Migrations extends BaseDatabase {
         CREATE TABLE IF NOT EXISTS ${UserDatabase.TABLE_USERS}(
             id VARCHAR(255) PRIMARY KEY,
             first_name VARCHAR(255) NOT NULL,
-            last_name VARCHAR(255) NOT NULL UNIQUE,
+            last_name VARCHAR(255) NOT NULL,
             participation INT(255) NOT NULL,
             role ENUM("NORMAL", "ADMIN") DEFAULT "NORMAL" NOT NULL
         );
