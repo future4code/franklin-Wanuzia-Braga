@@ -63,20 +63,6 @@ test("Should create an user", async () => {
       expect(err).not.toBe(undefined)
     }
   });
-  afterAll(async () => {
-    await new UserDatabase().deleteUser("abc-123-456")
-    await BaseDatabase.connection.destroy()
-  });
-//   test("should return error while value is bigger than avaliable", async () => {
-//         const user: IUserInsertDTO = {
-//             first_name: "José",
-//             last_name: "Maria",
-//             participation: 150
-//         }
 
-//     const result = await new UserBusiness(new UserDatabase(), new IdGenerator()).create(user)
-
-//     expect(result).toBeInstanceOf(Error)
-// });
 
 });

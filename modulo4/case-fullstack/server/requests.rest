@@ -8,16 +8,16 @@ GET http://localhost:3003/users/participation
 GET http://localhost:3003/users/abc-123
 
 ### Delete User
-DELETE http://localhost:3003/users/abc-123
+DELETE http://localhost:3003/users/abc-123-048
 
 ### Insert User Participation
 POST http://localhost:3003/users/insert
 Content-Type: application/json
 
 {
-    "first_name": "Beltrano",
-    "last_name": "Cardoso",
-    "participation": 10
+    "first_name": "Joaquina",
+    "last_name": "Assunção",
+    "participation": 20
 }
 
 ### Insert User Participation - força error
@@ -28,5 +28,5 @@ Content-Type: application/json
 {
     "first_name": "Beltrano",
     "last_name": "Cardoso",
-    "participation": 100
+    "participation": 110
 }

@@ -20,7 +20,7 @@ export class UserBusiness {
         this.totalUsers.forEach((user) => {
         total += user.getParticipation()
         })
-
+        console.log(`total:${total}`)
         return total;
 
     }
@@ -44,7 +44,7 @@ export class UserBusiness {
         const totalParticipations = 100;
         const participationsUsers = this.calculateTotalParticipations()
         const totalParticipationsAvaliables = totalParticipations - participationsUsers
-        if (typeof participation !== "number" || participation > totalParticipationsAvaliables) {
+        if (typeof participation !== "number" || participation > totalParticipationsAvaliables || participation > totalParticipations) {
             throw new Error("Total de participações atingido ou valor informado é superior ao disponível no momento.")
         }
 
