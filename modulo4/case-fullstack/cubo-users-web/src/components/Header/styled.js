@@ -3,10 +3,12 @@ import Toolbar from '@mui/material/Toolbar';
 
 export const StyledToolBar = styled(Toolbar)`
 width: 100%;
+display: flex;
+flex-direction: column;
+align-items: center;
 justify-content: center;
-padding-left: 0;
-padding-right: 0;
-@media (min-width: 767px) {
-justify-content: flex-start;
+
+@media (min-width: 600px) {
+flex-direction: row;
 }
 `

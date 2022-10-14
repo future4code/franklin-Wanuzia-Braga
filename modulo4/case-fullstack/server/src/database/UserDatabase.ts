@@ -13,7 +13,7 @@ export class UserDatabase extends BaseDatabase {
             participation: user.getParticipation(),
             role: user.getRole()
         }
-
+        console.log(userDB)
         await BaseDatabase
             .connection(UserDatabase.TABLE_USERS)
             .insert(userDB)

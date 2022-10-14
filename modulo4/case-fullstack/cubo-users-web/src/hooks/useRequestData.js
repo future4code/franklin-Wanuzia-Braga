@@ -16,4 +16,4 @@ useEffect(() => {
 }, [url])
     return(data)
 }
-export default useRequestData
+export default useRequestData;

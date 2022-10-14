@@ -18,8 +18,9 @@ const HomePage = () => {
             </Typography>
             <Typography
             align='center' 
+            fontSize={12}
             >
-                Abaixo está a relacção entre participante e seu respectivo percentual de participação
+                Abaixo está a relação entre participante e seu respectivo percentual de participação
             </Typography>
             <GraphContainer>
                 <DataTable />

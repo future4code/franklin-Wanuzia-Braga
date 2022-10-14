@@ -11,12 +11,12 @@ export class UserController {
             const input: IUserInsertDTO = {
                 first_name: req.body.first_name,
                 last_name: req.body.last_name,
-                participation: req.body.participation
+                participation: Number(req.body.participation)
             }
 
          const response = await this.userBusiness.create(input)
 
-            res.status(201).send(response)
+            res.status(201).send({message: response})
         } catch (error) {
             console.log(error)
 

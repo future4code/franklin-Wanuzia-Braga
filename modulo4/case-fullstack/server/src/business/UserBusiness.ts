@@ -60,7 +60,7 @@ export class UserBusiness {
         await this.userDatabase.createUser(user)
         this.registerUser(user)
 
-        const response:IUserInsertDTO = await this.getUserById(user.getId())
+        const response:string = "Inserido com sucesso"
 
         return response
     };

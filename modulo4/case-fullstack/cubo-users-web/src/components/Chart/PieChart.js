@@ -15,7 +15,7 @@ const mockData = [
 
   export default function PieChart() {
       return (
-          <Paper style={{width: '50%'}}>
+          <Paper style={{width: '35%', margin: '4vh' }}>
               <Chart data={mockData}>
                 <PieSeries
                 valueField="participation"

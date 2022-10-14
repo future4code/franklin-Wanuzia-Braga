@@ -3,6 +3,8 @@ import AppBar from '@mui/material/AppBar';
 import { StyledToolBar } from './styled';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../../constants/theme';
+import ParticipationForm from '../Form/ParticipationForm';
+
 
 const Header = () => {
     
@@ -11,7 +13,7 @@ const Header = () => {
         <ThemeProvider theme={theme}>
         <AppBar position="static" color='primary'>
           <StyledToolBar>
-            <button>Send</button>
+            <ParticipationForm />
           </StyledToolBar>
         </AppBar>
         </ ThemeProvider >

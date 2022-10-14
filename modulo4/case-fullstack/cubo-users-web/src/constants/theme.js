@@ -11,19 +11,30 @@ components: {
     MuiToolbar: {
         styleOverrides: {
           root: {
-            paddingLeft: '0',
-            margin: '0',
+
           },
           regular: {
-            height: "12px",
-            width: "20px",
-            minHeight: "32px",
             "@media (min-width: 600px)": {
               minHeight: "20vh",
             },
         },
       },
-}}
+},
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          minHeight: "10vh",
+          display: 'flex',
+          alignContent: 'center',
+
+         "@media (min-width: 600px)": {
+            minHeight: "20vh",
+          },
+        },
+    },
+}
+
+},
     
 })
 
