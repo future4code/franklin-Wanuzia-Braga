@@ -5,12 +5,11 @@ export const insertUserParticipation = (body, clear, setIsLoading) => {
   setIsLoading(true)
     axios.post(`${BASE_URL}insert`, body)
       .then((res) => {
-        console.log(res.message)
         clear()
         setIsLoading(false)
       })
       .catch((err) => {
-        alert(err.message)
+        alert("Insira dados válidos")
         setIsLoading(false)
       })
   }

@@ -2,27 +2,28 @@ import * as React from 'react'
 import { Paper } from "@mui/material";
 import { Chart, PieSeries, Title, Legend } from '@devexpress/dx-react-chart-material-ui';
 import { Animation } from "@devexpress/dx-react-chart";
-
-const mockData = [
-    {irstName: 'Jon', participation: '5%' },
-    {firstName: 'Cersei', participation: '14%' },
-    { firstName: 'Jaime', participation: '4%' },
-    {  firstName: 'Arya', participation: '16%' },
-     {firstName: 'Ferrara', participation: '4%' },
-    {firstName: 'Rossini', participation: '3%' },
-    { firstName: 'Harvey', participation: '6%' }
-  ];
+import { GlobalStateContext } from '../../context/global/GlobalStateContext'
 
   export default function PieChart() {
+    const {state, requests} = React.useContext(GlobalStateContext)
+    React.useEffect(() => {
+    requests.getData();
+    }, [requests])
+
+    const data = state && state.data.map((dado) => {
+        return (
+            {first_name: dado.first_name, participation: dado.participation}
+        )
+    })
       return (
           <Paper style={{width: '35%', margin: '4vh' }}>
-              <Chart data={mockData}>
+              <Chart data={data}>
                 <PieSeries
                 valueField="participation"
                 argumentField="user"
                 />
                 <Title text="Participations" />
-                <Animation />
+                {/* <Animation /> */}
                 <Legend />
               </Chart>
           </Paper>

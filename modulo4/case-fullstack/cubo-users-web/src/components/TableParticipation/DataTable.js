@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import useRequestData from '../../hooks/useRequestData';
-import { BASE_URL } from '../../constants/urls';
+import { GlobalStateContext } from '../../context/global/GlobalStateContext'
 
 const columns = [
   { field: 'id', headerName: '', width: 70 },
@@ -11,13 +10,18 @@ const columns = [
   ];
 
 export default function DataTable() {
-  const rows = useRequestData([], `${BASE_URL}participation`)
+  const {state, requests} = React.useContext(GlobalStateContext)
+    React.useEffect(() => {
+    requests.getData();
+    }, [requests])
+
   return (
     <div style={{ height: 400, width: '40vw', margin: '4vh', minHeight: 500}}>
       <DataGrid
-        rows={rows} 
+        rows={state.data} 
         columns={columns}
         pageSize={10}
+        // getRowId={data.id}
       />
     </div>
   );

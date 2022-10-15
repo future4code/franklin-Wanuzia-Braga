@@ -13,7 +13,7 @@ const Header = () => {
         <ThemeProvider theme={theme}>
         <AppBar position="static" color='primary'>
           <StyledToolBar>
-            <ParticipationForm />
+            <ParticipationForm/>
           </StyledToolBar>
         </AppBar>
         </ ThemeProvider >
