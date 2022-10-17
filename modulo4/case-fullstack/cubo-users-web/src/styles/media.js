@@ -1,4 +1,4 @@
-import style from '@/styles/style'
+import style from './style'
 
 const media = {
   phone: `(max-width: ${style.screen.xs})`,

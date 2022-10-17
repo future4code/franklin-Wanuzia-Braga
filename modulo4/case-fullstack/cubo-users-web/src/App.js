@@ -1,4 +1,4 @@
-import { GlobalState } from "./context/global/GlobalState";
+import AppProvider from "./context/AppContext";
 import Router from "./routes/Router";
 import GlobalStyle from "./styles/global";
 
@@ -6,9 +6,9 @@ function App() {
   return (
     <div> 
       <GlobalStyle />    
-      <GlobalState > 
+      <AppProvider > 
         <Router />
-     </GlobalState > 
+     </AppProvider > 
     </div>
   );
 }

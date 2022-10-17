@@ -1,28 +1,28 @@
-import React, {useEffect, useState} from "react";
-// import { InputsContainer } from "./styled";
+import React, {useState} from "react";
 import TextField from '@mui/material/TextField'
 import useForm from '../../hooks/useForm'
 import Button from "@mui/material/Button";
 import CircularProgress from '@mui/material/CircularProgress';
-// import { insertUserParticipation } from "../../services/insertUserRequest";
-import { GlobalStateContext } from '../../context/global/GlobalStateContext'
+import { useApp } from '../../context/AppContext'
 
 const ParticipationForm = () => {
     const [form, onChange, clear] = useForm({first_name:'', last_name: '', participation: ''})
     const [isLoading, setIsLoading] = useState(false)
-    const {requests} = React.useContext(GlobalStateContext)
-   
+    const {fetchData} = useApp()
+
+    const success = () => {
+    clear()
+    setIsLoading(false)
+    } 
+    const error = () => {
+        setIsLoading(false)
+       }
 
     const onSubmitForm = (e) => {
         console.log(form)
         e.preventDefault()
-         requests.insertData(form, clear, setIsLoading);
-         // insertUserParticipation(form, clear, setIsLoading)
-        
+         fetchData(form, success, error);   
     }
-    useEffect(() => {
-        requests.getData();
-        }, [requests])
 
     return(
            <div>

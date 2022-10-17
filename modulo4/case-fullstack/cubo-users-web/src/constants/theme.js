@@ -11,10 +11,10 @@ components: {
     MuiToolbar: {
         styleOverrides: {
           root: {
-
+            width: "100%",
           },
           regular: {
-            "@media (min-width: 600px)": {
+          "@media (min-width: 600px)": {
               minHeight: "20vh",
             },
         },
@@ -25,14 +25,18 @@ components: {
         root: {
           minHeight: "10vh",
           display: 'flex',
+          flexDirection: 'column',
           alignContent: 'center',
+          width: '100%',
 
          "@media (min-width: 600px)": {
             minHeight: "20vh",
+            flexDirection: 'row',
+            width:'100%'
           },
         },
     },
-}
+},
 
 },
     

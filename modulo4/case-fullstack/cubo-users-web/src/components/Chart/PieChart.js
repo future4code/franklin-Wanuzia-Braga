@@ -1,30 +1,36 @@
 import * as React from 'react'
 import { Paper } from "@mui/material";
-import { Chart, PieSeries, Title, Legend } from '@devexpress/dx-react-chart-material-ui';
-import { Animation } from "@devexpress/dx-react-chart";
-import { GlobalStateContext } from '../../context/global/GlobalStateContext'
+import { PieSeries, Title, Legend, Chart } from '@devexpress/dx-react-chart-material-ui';
+// import { Animation } from "@devexpress/dx-react-chart";
+import { isMobile } from 'react-device-detect';
 
-  export default function PieChart() {
-    const {state, requests} = React.useContext(GlobalStateContext)
-    React.useEffect(() => {
-    requests.getData();
-    }, [requests])
+  export const PieChart = ({data}) => {
 
-    const data = state && state.data.map((dado) => {
-        return (
-            {first_name: dado.first_name, participation: dado.participation}
-        )
-    })
-      return (
-          <Paper style={{width: '35%', margin: '4vh' }}>
-              <Chart data={data}>
+    if(data?.length <= 0 ){
+      return null
+    }
+    const legendRootStyle = {
+      display: 'flex',
+      margin: 'auto',
+      flexDirection: isMobile ? 'row' : 'column',
+      flexFlow: "wrap row"
+    };
+    const LegendRoot = props => (
+      <Legend.Root {...props} style={legendRootStyle} />
+    );
+    return (
+          <Paper style={{width: '100%'}}>
+             <Chart data={data}
+              key={data.id}
+             >
                 <PieSeries
                 valueField="participation"
-                argumentField="user"
+                argumentField="first_name"
+                innerRadius={0.6}
                 />
                 <Title text="Participations" />
                 {/* <Animation /> */}
-                <Legend />
+                <Legend position={ isMobile ?  "bottom" : "right" } rootComponent={ LegendRoot }/>
               </Chart>
           </Paper>
       )

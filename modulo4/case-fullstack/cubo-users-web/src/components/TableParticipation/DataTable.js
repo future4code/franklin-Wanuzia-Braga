@@ -1,28 +1,34 @@
 import * as React from 'react';
-import { DataGrid } from '@mui/x-data-grid';
-import { GlobalStateContext } from '../../context/global/GlobalStateContext'
+import {Grid, Table} from '@devexpress/dx-react-grid-material-ui';
+import {GridContainer} from './styles'
 
-const columns = [
-  { field: 'id', headerName: '', width: 70 },
-  { field: 'first_name', headerName: 'First name', width: 140 },
-  { field: 'last_name', headerName: 'Last name', width: 140 },
-  { field: 'participation', headerName: 'Participation %', type: 'string', width: 150 }
-  ];
 
-export default function DataTable() {
-  const {state, requests} = React.useContext(GlobalStateContext)
-    React.useEffect(() => {
-    requests.getData();
-    }, [requests])
+  const tableColumnExtensions = [
+  { columnName: 'index'},
+  { columnName: 'first_name'},
+  { columnName: 'last_name'},
+  { columnName: 'participation'}
+  ]
+
+export default function DataTable({data}) {
+  const columns = [
+    { name: 'index', title: ''},
+    { name: 'first_name', title: 'First name'},
+    { name: 'last_name', title: 'Last name' },
+    { name: 'participation', title: 'Participation %'}
+    ];
 
   return (
-    <div style={{ height: 400, width: '40vw', margin: '4vh', minHeight: 500}}>
-      <DataGrid
-        rows={state.data} 
+    <GridContainer style={{width: '100%'}} >
+      <Grid
+        rows={data} 
         columns={columns}
-        pageSize={10}
-        // getRowId={data.id}
+      >
+      <Table
+      style={{minWidth: '100%'}}
+      tableColumnExtensions={tableColumnExtensions}
       />
-    </div>
+      </Grid>
+    </GridContainer>
   );
 }
