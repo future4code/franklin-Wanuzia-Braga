@@ -9,15 +9,13 @@ import ParticipationForm from '../Form/ParticipationForm';
 const Header = () => {
     
       return (
-        <div>
         <ThemeProvider theme={theme}>
-        <AppBar position="static" color='primary'>
+        <AppBar position="static" color='primary' >
           <StyledToolBar>
             <ParticipationForm/>
           </StyledToolBar>
         </AppBar>
         </ ThemeProvider >
-        </div>
       )
     }
     

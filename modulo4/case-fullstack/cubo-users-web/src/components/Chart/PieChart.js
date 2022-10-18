@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Paper } from "@mui/material";
 import { PieSeries, Title, Legend, Chart } from '@devexpress/dx-react-chart-material-ui';
-// import { Animation } from "@devexpress/dx-react-chart";
+import { Animation } from "@devexpress/dx-react-chart";
 import { isMobile } from 'react-device-detect';
 
   export const PieChart = ({data}) => {
@@ -13,7 +13,7 @@ import { isMobile } from 'react-device-detect';
       display: 'flex',
       margin: 'auto',
       flexDirection: isMobile ? 'row' : 'column',
-      flexFlow: "wrap row"
+      flexFlow: "row wrap"
     };
     const LegendRoot = props => (
       <Legend.Root {...props} style={legendRootStyle} />
@@ -29,7 +29,7 @@ import { isMobile } from 'react-device-detect';
                 innerRadius={0.6}
                 />
                 <Title text="Participations" />
-                {/* <Animation /> */}
+                <Animation />
                 <Legend position={ isMobile ?  "bottom" : "right" } rootComponent={ LegendRoot }/>
               </Chart>
           </Paper>

@@ -22,8 +22,7 @@ setUsers(data)
 
       return (
           <div>
-            < Header /> 
-            <div>
+
                 <Typography 
                 align='center' 
                 fontSize={32} 
@@ -35,6 +34,7 @@ setUsers(data)
                 <Typography
                 align='center' 
                 fontSize={12}
+                marginBottom={4}
                 >
                     Abaixo está a relação entre participante e seu respectivo percentual de participação
                 </Typography>
@@ -49,7 +49,6 @@ setUsers(data)
                 }
                 </GraphContainer>
             </div>
-        </div>
       )
     }
     

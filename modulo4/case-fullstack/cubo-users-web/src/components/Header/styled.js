@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 import Toolbar from '@mui/material/Toolbar';
+import media from '../../styles/media'
 
 export const StyledToolBar = styled(Toolbar)`
-width: 100%;
 display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
 
-@media (min-width: 600px) {
+@media ${media.tablet} {
 flex-direction: row;
 }
 `
