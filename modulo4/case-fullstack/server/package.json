@@ -7,9 +7,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "test-": "jest",
     "dev": "ts-node-dev ./src/index.ts",
-    "start": "node ./build/index.js",
+    "start": "tsc && node build/src/index.js",
     "build": "tsc",
     "migrations": "tsc && node ./build/src/database/migrations/Migrations.js"
+  },
+  "engines": {
+    "node": "v16.15.0"
   },
   "keywords": [
     "fullstack",

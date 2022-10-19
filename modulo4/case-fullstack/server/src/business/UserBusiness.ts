@@ -102,7 +102,7 @@ export class UserBusiness {
         return response
     };
     public deleteUserFromList(id: string): void {
-        let registrationIndex = undefined;
+        let registrationIndex:number | undefined = undefined;
     
         for (let i = 0; i < this.totalUsers.length; i++) {
           if (this.totalUsers[i].getId() === id) {

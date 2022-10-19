@@ -11,11 +11,10 @@ import media from '../../styles/media'
 const TextField1 = styled(TextField)`
 display: flex;
 flex-direction: column;
-align-items: center;
-justify-content: center;
 
 @media ${media.tablet} {
 flex-direction: row;
+
 }
 `
 const ParticipationForm = () => {
@@ -46,7 +45,6 @@ const ParticipationForm = () => {
              onChange={onChange}
              label={'First Name'}
              variant={"outlined"}
-             margin={'normal'}
              required
              />
             <TextField1 
@@ -55,7 +53,6 @@ const ParticipationForm = () => {
              onChange={onChange}
              label={'Last Name'}
              variant={"outlined"}   
-             margin={'normal'}
              required
              />
             <TextField1 
@@ -64,7 +61,6 @@ const ParticipationForm = () => {
              onChange={onChange}
              label={'Participation'}
              variant={"outlined"}
-             margin={'normal'}
              required
              type={'number'}
              />
@@ -72,7 +68,6 @@ const ParticipationForm = () => {
              type={'submit'}
              variant={'contained'}
              color={'primary'}
-             margin={'normal'}
              >
                   {isLoading ? <CircularProgress color={"inherit"} size={24}/> : <>Send</>}</Button>
             </form>

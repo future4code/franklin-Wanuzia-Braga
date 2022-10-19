@@ -18,7 +18,6 @@ components: {
       "@media (min-width: 600px)": {
         width: "100%",
         minHeight: "20vh",
-        alignItems: 'center',
         },
     },
   },
@@ -45,9 +44,14 @@ components: {
 MuiButtonBase: {
   styleOverrides: {
     root: {
-      width:'100%',
+      width:'40vh',
+      border: '1px solid',
+      marginTop: '1vh',
       "@media (min-width: 600px)": {
-        width: '20vh'
+        width: '20vh',
+        marginTop: '2vh',
+        padding: '2vh',
+      
       },  
 
       },
@@ -56,14 +60,36 @@ MuiButtonBase: {
 MuiInputBase: {
   styleOverrides: {
     root: {
-      width: '300px',
+      width: '40vh',
+      backgroundColor: 'white',
       "@media (min-width: 600px)": {
-        width: '20vh'
+        width: '30vh',
+        margin: '15px',
       },    
     }
   }
-}
- 
+},
+MuiList: {
+  styleOverrides: {
+    root: {
+      flexFlow:'wrap' ,
+    }
+  }
+},
+ MuiInputLabel: {
+  styleOverrides: {
+        root: {
+          position: 'relative',
+          "&:active": {
+            color: 'red',
+          },
+          "@media (min-width: 600px)": {
+            position: 'absolute',
+            padding: '1vh',
+          }
+        }
+      }
+},
 
 },
     
