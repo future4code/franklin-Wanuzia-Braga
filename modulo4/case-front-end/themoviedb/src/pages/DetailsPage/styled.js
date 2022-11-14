@@ -69,6 +69,7 @@ justify-content: flex-start;
 export const FirtsDetails = styled.div`
 display: flex;
 flex-direction: row;
+align-items: center;
 /* /* max-width: 350px; */
 `
 
@@ -97,7 +98,7 @@ align-items: center;
 
 `
 
-export const DetailParagraph = styled.p`
+export const DetailParagraph = styled.strong`
 margin-left: 15px;
 
 `
