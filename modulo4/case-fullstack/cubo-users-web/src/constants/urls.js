@@ -1,0 +1,1 @@
+export const BASE_URL = 'https://cubo-challenge-wanuzia.herokuapp.com/users/'

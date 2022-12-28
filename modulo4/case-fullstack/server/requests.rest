@@ -1,0 +1,32 @@
+### Endpoint de teste
+GET http://localhost:3003/ping
+
+### Get All
+GET https://cubo-challenge-wanuzia.herokuapp.com/users/participation
+
+### Get User By Id
+GET https://cubo-challenge-wanuzia.herokuapp.com/users/abc-123
+
+### Delete User
+DELETE https://cubo-challenge-wanuzia.herokuapp.com/users/abc-123-048
+
+### Insert User Participation
+POST https://cubo-challenge-wanuzia.herokuapp.com/users/insert
+Content-Type: application/json
+
+{
+    "first_name": "Joaquina",
+    "last_name": "Assunção",
+    "participation": 20
+}
+
+### Insert User Participation - força error
+
+POST https://cubo-challenge-wanuzia.herokuapp.com/users/insert
+Content-Type: application/json
+
+{
+    "first_name": "Beltrano",
+    "last_name": "Cardoso",
+    "participation": 110
+}
